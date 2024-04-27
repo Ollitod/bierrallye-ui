@@ -22,7 +22,8 @@
         ],
         "styles": [
           "apps/bierrallye-irnfritz/src/styles.scss",
-          "material-symbols/outlined.scss"
+          "material-symbols/outlined.scss",
+          "node_modules/ngx-toastr/toastr.css"
         ],
         "scripts": []
       },

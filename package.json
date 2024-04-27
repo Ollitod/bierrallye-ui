@@ -19,6 +19,7 @@
     "@gepardec/ngx-gepardec-mat": "^17.4.0",
     "@nx/angular": "18.3.4",
     "material-symbols": "^0.17.3",
+    "ngx-toastr": "^18.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
