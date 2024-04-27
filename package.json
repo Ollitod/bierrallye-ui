@@ -15,8 +15,10 @@
     "@angular/platform-browser": "~17.3.0",
     "@angular/platform-browser-dynamic": "~17.3.0",
     "@angular/router": "~17.3.0",
+    "@fontsource/roboto": "^5.0.13",
     "@gepardec/ngx-gepardec-mat": "^17.4.0",
     "@nx/angular": "18.3.4",
+    "material-symbols": "^0.17.3",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"

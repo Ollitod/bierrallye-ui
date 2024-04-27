@@ -20,7 +20,10 @@
           "apps/bierrallye-irnfritz/src/favicon.ico",
           "apps/bierrallye-irnfritz/src/assets"
         ],
-        "styles": ["apps/bierrallye-irnfritz/src/styles.scss"],
+        "styles": [
+          "apps/bierrallye-irnfritz/src/styles.scss",
+          "material-symbols/outlined.scss"
+        ],
         "scripts": []
       },
       "configurations": {
