@@ -1,9 +1,9 @@
 /* eslint-disable */
 export default {
-  displayName: 'bierrallye-ui',
+  displayName: 'bierrallye-irnfritz',
   preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: '../../coverage/apps/bierrallye-ui',
+  coverageDirectory: '../../coverage/apps/bierrallye-irnfritz',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',

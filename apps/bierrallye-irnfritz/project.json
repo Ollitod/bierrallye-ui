@@ -1,26 +1,26 @@
 {
-  "name": "bierrallye-ui",
+  "name": "bierrallye-irnfritz",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "prefix": "app",
-  "sourceRoot": "apps/bierrallye-ui/src",
+  "sourceRoot": "apps/bierrallye-irnfritz/src",
   "tags": [],
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:application",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/bierrallye-ui",
-        "index": "apps/bierrallye-ui/src/index.html",
-        "browser": "apps/bierrallye-ui/src/main.ts",
+        "outputPath": "dist/apps/bierrallye-irnfritz",
+        "index": "apps/bierrallye-irnfritz/src/index.html",
+        "browser": "apps/bierrallye-irnfritz/src/main.ts",
         "polyfills": ["zone.js"],
-        "tsConfig": "apps/bierrallye-ui/tsconfig.app.json",
+        "tsConfig": "apps/bierrallye-irnfritz/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
-          "apps/bierrallye-ui/src/favicon.ico",
-          "apps/bierrallye-ui/src/assets"
+          "apps/bierrallye-irnfritz/src/favicon.ico",
+          "apps/bierrallye-irnfritz/src/assets"
         ],
-        "styles": ["apps/bierrallye-ui/src/styles.scss"],
+        "styles": ["apps/bierrallye-irnfritz/src/styles.scss"],
         "scripts": []
       },
       "configurations": {
@@ -51,10 +51,10 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "buildTarget": "bierrallye-ui:build:production"
+          "buildTarget": "bierrallye-irnfritz:build:production"
         },
         "development": {
-          "buildTarget": "bierrallye-ui:build:development"
+          "buildTarget": "bierrallye-irnfritz:build:development"
         }
       },
       "defaultConfiguration": "development"
@@ -62,7 +62,7 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "buildTarget": "bierrallye-ui:build"
+        "buildTarget": "bierrallye-irnfritz:build"
       }
     },
     "lint": {
@@ -72,7 +72,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "apps/bierrallye-ui/jest.config.ts"
+        "jestConfig": "apps/bierrallye-irnfritz/jest.config.ts"
       }
     }
   }
