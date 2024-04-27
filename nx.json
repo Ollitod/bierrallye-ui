@@ -52,5 +52,9 @@
       "unitTestRunner": "jest"
     }
   },
-  "nxCloudAccessToken": "MmI4M2MzMzEtMmI1Mi00N2E4LWE0MDQtZTczYmZhZDAxYTZjfHJlYWQtd3JpdGU="
+  "nxCloudAccessToken": "MmI4M2MzMzEtMmI1Mi00N2E4LWE0MDQtZTczYmZhZDAxYTZjfHJlYWQtd3JpdGU=",
+  "workspaceLayout": {
+    "appsDir": "apps",
+    "libsDir": "libs"
+  }
 }
