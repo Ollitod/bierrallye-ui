@@ -85,7 +85,7 @@ export class RegisterComponent implements OnInit {
     this.registrationService
       .register(this.registerForm.getRawValue() as IRegistration)
       .subscribe(
-        (res) => {
+        () => {
           this.registerForm.reset({
             player1: '',
             player2: '',
@@ -97,7 +97,7 @@ export class RegisterComponent implements OnInit {
           });
           this.toastr.success('Die Anmeldung war erfolgreich', 'Prost!');
         },
-        (error) => {
+        () => {
           this.toastr.error('Die Anmeldung war nicht erfolgreich', 'Fehler');
         }
       );

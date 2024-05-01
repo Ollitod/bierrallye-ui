@@ -33,6 +33,7 @@ export class DeregisterComponent {
         Validators.minLength(36),
         Validators.maxLength(36),
       ],
+      nonNullable: true,
     }),
   });
 
@@ -45,7 +46,7 @@ export class DeregisterComponent {
     this.deregisterService
       .deregister(this.deregisterForm.getRawValue())
       .subscribe(
-        (res) => {
+        () => {
           this.toastr.success(
             'Schade, dass ihr eure Teilnahme storniert habt',
             'Erfolgreich'

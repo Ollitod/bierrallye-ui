@@ -14,18 +14,3 @@ export class DrinkService {
     return this.http.get<IDrink[]>(BASE_API_URL + 'registration/drinks');
   }
 }
-
-const drinks: IDrink[] = [
-  {
-    id: 1,
-    name: 'Bier',
-  },
-  {
-    id: 2,
-    name: 'Wein',
-  },
-  {
-    id: 3,
-    name: 'Schnaps',
-  },
-];

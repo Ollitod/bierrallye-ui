@@ -6,8 +6,6 @@ import { Injectable } from '@angular/core';
 export class TokenService {
   private readonly TOKEN: string = 'JWT';
 
-  constructor() {}
-
   storeToken(token: string) {
     localStorage.setItem(this.TOKEN, token);
   }

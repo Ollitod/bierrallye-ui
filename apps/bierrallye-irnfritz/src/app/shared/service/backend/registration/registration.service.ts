@@ -10,7 +10,7 @@ import { BASE_API_URL } from '../configuration';
 export class RegistrationService {
   constructor(private http: HttpClient) {}
 
-  register(team: IRegistration): Observable<any> {
+  register(team: IRegistration): Observable<unknown> {
     return this.http.post(BASE_API_URL + 'registration', team);
   }
 

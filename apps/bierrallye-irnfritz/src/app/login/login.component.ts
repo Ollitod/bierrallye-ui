@@ -71,8 +71,8 @@ export class LoginComponent implements OnInit, OnDestroy {
           return this.userService.user;
         })
       )
-      .subscribe(
-        (user) => {
+      .subscribe({
+        next: (user) => {
           if (user?.role) {
             const routeByRole = this.getRouteByRole(user?.role);
             console.log(routeByRole);
@@ -80,10 +80,10 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.toastr.success('Login erfolgreich', 'Erfolgreich');
           }
         },
-        (error) => {
+        error: () => {
           this.toastr.error('Username/Passwort falsch', 'Fehler');
-        }
-      );
+        },
+      });
   }
 
   private getRouteByRole(role: Role): string {

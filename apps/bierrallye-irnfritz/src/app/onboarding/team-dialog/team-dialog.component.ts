@@ -16,6 +16,7 @@ import { ITeam } from '../../shared/model/team.model';
 import { TeamService } from '../../shared/service/backend/team/team.service';
 import { ToastrService } from 'ngx-toastr';
 import { IRegistration } from '../../shared/model/registration.model';
+import { IStartblock } from '../../shared/model/startblock.model';
 
 @Component({
   selector: 'app-team-dialog',
@@ -85,7 +86,7 @@ export class TeamDialogComponent implements OnInit {
           ...this.registration,
           teamFirstMember: this.registration.player1,
           teamSecondMember: this.registration.player2,
-          startblock: (this.registration.startblock as any).name,
+          startblock: (this.registration.startblock as IStartblock).name,
         });
       }
     );
@@ -100,7 +101,7 @@ export class TeamDialogComponent implements OnInit {
 
   createTeam() {
     this.teamService.create(this.teamForm.getRawValue() as ITeam).subscribe(
-      (res) => {
+      () => {
         this.toastr.success('Das Team ist startklar', 'Prost!');
         this.disableCreateTeamButton();
       },

@@ -83,7 +83,7 @@ export class PenaltyComponent implements OnInit {
         .sort((a, b) => a - b);
     });
     // validation is not performed on disabled controls, so required validator has to be set explicitly on the form itself
-    this.penaltyForm.setValidators((form) =>
+    this.penaltyForm.setValidators(() =>
       Validators.required(this.penaltyForm.controls.stationId)
     );
   }
