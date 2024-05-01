@@ -2,8 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
-import { IUser } from '../../shared/model/user.model';
-import { UserService } from '../../shared/service/backend/user/user.service';
+import { IUser, UserService } from '@bierrallye/shared/data-access';
 import { Subscription } from 'rxjs';
 
 @Component({

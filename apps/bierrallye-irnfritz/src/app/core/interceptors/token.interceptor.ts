@@ -2,7 +2,7 @@ import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import { TokenService } from '../../shared/service/frontend/token/token.service';
+import { TokenService } from '@bierrallye/shared/data-access';
 
 export const tokenInterceptor: HttpInterceptorFn = (request, next) => {
   const tokenService = inject(TokenService);

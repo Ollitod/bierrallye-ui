@@ -11,12 +11,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ToastrService } from 'ngx-toastr';
-import { AuthService } from '../../shared/service/backend/auth/auth.service';
+import {
+  AuthService,
+  IAuth,
+  Role,
+  TokenService,
+  UserService,
+} from '@bierrallye/shared/data-access';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IAuth } from '../../shared/model/auth.model';
-import { TokenService } from '../../shared/service/frontend/token/token.service';
-import { UserService } from '../../shared/service/backend/user/user.service';
-import { Role } from '../../shared/model/role';
 import { Subscription, switchMap } from 'rxjs';
 
 @Component({
@@ -89,11 +91,11 @@ export class LoginComponent implements OnInit, OnDestroy {
   private getRouteByRole(role: Role): string {
     switch (role) {
       case Role.ADMIN:
-        return '/onboarding';
+        return '/racing/onboarding';
       case Role.USER:
-        return '/race';
+        return '/racing/race';
       case Role.EMPLOYEE:
-        return '/penalty';
+        return '/racing/rpenalty';
       default:
         return '/';
     }

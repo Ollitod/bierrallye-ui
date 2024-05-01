@@ -14,7 +14,20 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@bierrallye/racing/data-access": [
+        "libs/racing/data-access/src/index.ts"
+      ],
+      "@bierrallye/racing/feature": ["libs/racing/feature/src/index.ts"],
+      "@bierrallye/registration/data-access": [
+        "libs/registration/data-access/src/index.ts"
+      ],
+      "@bierrallye/registration/feature": [
+        "libs/registration/feature/src/index.ts"
+      ],
+      "@bierrallye/registration/ui": ["libs/registration/ui/src/index.ts"],
+      "@bierrallye/shared/data-access": ["libs/shared/data-access/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
