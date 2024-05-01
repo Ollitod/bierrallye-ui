@@ -22,6 +22,7 @@
     "@nx/angular": "18.3.4",
     "@zxing/ngx-scanner": "^17.0.3",
     "material-symbols": "^0.17.3",
+    "ngx-kjua": "^17.0.0",
     "ngx-toastr": "^18.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
