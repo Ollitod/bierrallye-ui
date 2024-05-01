@@ -75,11 +75,10 @@
     "lint": {
       "executor": "@nx/eslint:lint"
     },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+    "deploy": {
+      "executor": "angular-cli-ghpages:deploy",
       "options": {
-        "jestConfig": "apps/bierrallye-irnfritz/jest.config.ts"
+        "cname": "bierrallye-irnfritz.at"
       }
     }
   }
