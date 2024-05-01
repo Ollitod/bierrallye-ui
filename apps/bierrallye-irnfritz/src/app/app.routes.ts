@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
 import { RegistrationComponent } from './registration/registration.component';
-import { authGuard } from './shared/guards/auth/auth.guard';
+import { authGuard } from './core/guards/auth/auth.guard';
 
 export const appRoutes: Route[] = [
   {
@@ -37,7 +37,7 @@ export const appRoutes: Route[] = [
   {
     path: 'login',
     loadComponent: () =>
-      import('./login/login.component').then((c) => c.LoginComponent),
+      import('./core/login/login.component').then((c) => c.LoginComponent),
   },
   {
     path: 'race',
@@ -60,6 +60,8 @@ export const appRoutes: Route[] = [
   {
     path: 'qr-login',
     loadComponent: () =>
-      import('./qr-login/qr-login.component').then((c) => c.QrLoginComponent),
+      import('./core/qr-login/qr-login.component').then(
+        (c) => c.QrLoginComponent
+      ),
   },
 ];

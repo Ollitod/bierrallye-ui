@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FooterComponent } from './layout/footer/footer.component';
+import { FooterComponent } from './core/footer/footer.component';
 import { HardfactsComponent } from './registration/hardfacts/hardfacts.component';
-import { HeaderComponent } from './layout/header/header.component';
+import { HeaderComponent } from './core/header/header.component';
 import { RouterOutlet } from '@angular/router';
 import { GeneralInfoComponent } from './registration/general-info/general-info.component';
 import { TokenService } from './shared/service/frontend/token/token.service';
