@@ -1,4 +1,4 @@
-<div *ngIf="team" class="race-container">
+<ng-container *ngIf="team">
   <h1>
     {{team.startblock}}
   </h1>
@@ -52,4 +52,4 @@
       <h1>{{team.teamEndTime}} Uhr</h1>
     </div>
   </div>
-</div>
+</ng-container>

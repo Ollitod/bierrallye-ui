@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GeneralInfoComponent } from './general-info/general-info.component';
 import { HardfactsComponent } from './hardfacts/hardfacts.component';
-import { UserInteractionComponent } from './user-interaction/user-interaction.component';
 import { APP_MODE } from '@bierrallye/shared/data-access';
 import { PreparationComponent } from './preparation/preparation.component';
 
@@ -13,7 +12,6 @@ import { PreparationComponent } from './preparation/preparation.component';
     CommonModule,
     GeneralInfoComponent,
     HardfactsComponent,
-    UserInteractionComponent,
     PreparationComponent,
   ],
   templateUrl: './info.component.html',

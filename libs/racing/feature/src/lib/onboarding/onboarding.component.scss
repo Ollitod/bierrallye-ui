@@ -4,7 +4,7 @@
   background-color: $light-brown;
 }
 
-.container {
+:host {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;

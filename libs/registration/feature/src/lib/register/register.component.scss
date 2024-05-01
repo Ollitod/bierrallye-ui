@@ -1,6 +1,6 @@
 @import "colors";
 
-.grid-container {
+:host {
   width: 100%;
   display: grid;
   grid-template-columns: 20% 80%;
@@ -30,7 +30,7 @@
 }
 
 @media only screen and (max-width: 1170px) {
-  .grid-container {
+  :host {
     height: 100%;
     display: flex;
     flex-direction: column-reverse;
