@@ -1,4 +1,52 @@
 /* You can add global styles to this file, and also import other style files */
+@import "theme";
+@import "fonts";
+@import "colors";
+
+$font-size-header-large: 84px;
+$font-size-header-small: 42px;
+
+$font-size-text-large: 28px;
+$font-size-text-small: 14px;
+
+html, body {
+  height: 100%;
+  --gpx-dynamic-table-alternate-row-color: #FDF1CD;
+  --gpx-expandable-dynamic-table-alternate-row-color: #FDF1CD;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: $brown;
+}
+
+.description {
+  font-size: $font-size-text-large;
+  line-height: normal;
+}
+
+@media only screen and (max-width: 1170px) {
+  .description {
+    font-size: $font-size-text-small;
+  }
+}
+
+.header {
+  font-family: Ultra;
+  font-size: $font-size-header-large;
+  line-height: normal;
+}
+
+@media only screen and (max-width: 1170px) {
+  .header {
+    font-size: $font-size-header-small;
+  }
+}
+
+.pt-15 {
+  padding-top: 15px;
+}
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

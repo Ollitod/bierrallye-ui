@@ -1,35 +1,58 @@
-// Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
-// Plus imports for other components in your app.
+@use '../../../../node_modules/@gepardec/ngx-gepardec-mat/styles/dynamic-table/dynamic-table-theme' as dynamic-table;
+@use '../../../../node_modules/@gepardec/ngx-gepardec-mat/styles/expandable-dynamic-table/expandable-dynamic-table-theme' as expandable-dynamic-table;
 
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
+@import 'colors';
+
 @include mat.core();
+@include mat.all-component-typographies();
 
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
-$bierrallye-irnfritz-primary: mat.define-palette(mat.$indigo-palette);
-$bierrallye-irnfritz-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+/* For use in src/lib/core/theming/_palette.scss */
+$bierrallye-palette: (
+  50 : #e5e5e5,
+  100 : #bebebe,
+  200 : #929293,
+  300 : #666668,
+  400 : #464647,
+  500 : #252527,
+  600 : #212123,
+  700 : #1b1b1d,
+  800 : #161617,
+  900 : #0d0d0e,
+  A100 : #eb6969,
+  A200 : #e53c3c,
+  A400 : #ee0000,
+  A700 : #d40000,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #ffffff,
+    400 : #ffffff,
+    500 : #ffffff,
+    600 : #ffffff,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #ffffff,
+    A400 : #ffffff,
+    A700 : #ffffff,
+  )
+);
 
-// The warn palette is optional (defaults to red).
-$bierrallye-irnfritz-warn: mat.define-palette(mat.$red-palette);
+$bierrallye-primary: mat.define-palette($bierrallye-palette);
+$bierrallye-accent: mat.define-palette($bierrallye-palette, A100);
 
-// Create the theme object. A theme consists of configurations for individual
-// theming systems such as "color" or "typography".
-$bierrallye-irnfritz-theme: mat.define-light-theme((
+$bierrallye-theme: mat.define-light-theme((
   color: (
-    primary: $bierrallye-irnfritz-primary,
-    accent: $bierrallye-irnfritz-accent,
-    warn: $bierrallye-irnfritz-warn,
+    primary: $bierrallye-primary,
+    accent: $bierrallye-accent,
   ),
-  typography: mat.define-typography-config(),
-  density: 0
+  //typography: $gepardec-typography-config,
+  //density: 0,
 ));
 
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
-@include mat.all-component-themes($bierrallye-irnfritz-theme);
+@include mat.all-component-themes($bierrallye-theme);
+@include dynamic-table.theme($bierrallye-theme);
+@include expandable-dynamic-table.theme($bierrallye-theme);

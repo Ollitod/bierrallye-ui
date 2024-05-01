@@ -1,0 +1,21 @@
+@import "colors";
+
+.black-box {
+  grid-column: 1 / 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: $black;
+  color: $light-brown;
+  padding: 15px;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  box-sizing: border-box;
+}
+
+@media only screen and (max-width: 1170px) {
+  .black-box {
+    gap: 10px;
+  }
+}
