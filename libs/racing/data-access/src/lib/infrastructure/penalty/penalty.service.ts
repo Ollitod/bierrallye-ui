@@ -1,28 +1,30 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IStation } from '../../model/station.model';
 import { ITeam } from '../../model/team.model';
 import { IPenalty } from '../../model/penalty.model';
-import { BASE_API_URL } from '@bierrallye/shared/data-access';
+import { API_URL } from '@bierrallye/shared/data-access';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PenaltyService {
-  constructor(private http: HttpClient) {}
+  readonly #apiUrl = inject(API_URL);
+
+  #http = inject(HttpClient);
 
   getStations(): Observable<IStation[]> {
-    return this.http.get<IStation[]>(BASE_API_URL + 'penalty/stations');
+    return this.#http.get<IStation[]>(this.#apiUrl + 'penalty/stations');
   }
 
   getTeams(): Observable<ITeam[]> {
-    return this.http.get<ITeam[]>(BASE_API_URL + 'penalty/teams');
+    return this.#http.get<ITeam[]>(this.#apiUrl + 'penalty/teams');
   }
 
   createPenalty(penalty: IPenalty): Observable<string> {
     console.log(penalty);
-    return this.http.post(BASE_API_URL + 'penalty', penalty, {
+    return this.#http.post(this.#apiUrl + 'penalty', penalty, {
       responseType: 'text',
     });
   }

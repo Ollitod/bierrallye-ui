@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BASE_API_URL, UserService } from '@bierrallye/shared/data-access';
+import { API_URL, UserService } from '@bierrallye/shared/data-access';
 import { Observable, throwError } from 'rxjs';
 import { ITeam } from '../../model/team.model';
 
@@ -8,21 +8,19 @@ import { ITeam } from '../../model/team.model';
   providedIn: 'root',
 })
 export class CheckOutService {
-  private readonly endpoint: string = BASE_API_URL + 'track/checkOut';
+  readonly #endpoint = inject(API_URL) + 'track/checkOut';
 
-  constructor(
-    private http: HttpClient,
-    private userService: UserService
-  ) {}
+  #http = inject(HttpClient);
+  #userService = inject(UserService);
 
   checkOut(uuid?: string): Observable<ITeam> {
-    return this.http.post<ITeam>(this.endpoint, uuid);
+    return this.#http.post<ITeam>(this.#endpoint, uuid);
   }
 
   validatedCheckOut(url: string): Observable<ITeam> {
-    if (url !== this.endpoint) {
+    if (url !== this.#endpoint) {
       return throwError(() => 'QR-Code nicht gültig!');
     }
-    return this.checkOut(this.userService.user.value?.uuid);
+    return this.checkOut(this.#userService.user.value?.uuid);
   }
 }

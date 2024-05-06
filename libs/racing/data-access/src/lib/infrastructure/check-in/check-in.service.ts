@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BASE_API_URL, UserService } from '@bierrallye/shared/data-access';
+import { API_URL, UserService } from '@bierrallye/shared/data-access';
 import { ITeam } from '../../model/team.model';
 import { Observable, throwError } from 'rxjs';
 
@@ -8,21 +8,19 @@ import { Observable, throwError } from 'rxjs';
   providedIn: 'root',
 })
 export class CheckInService {
-  private readonly endpoint: string = BASE_API_URL + 'track/checkIn';
+  readonly #endpoint: string = inject(API_URL) + 'track/checkIn';
 
-  constructor(
-    private http: HttpClient,
-    private userService: UserService
-  ) {}
+  #http = inject(HttpClient);
+  #userService = inject(UserService);
 
   checkIn(url: string): Observable<ITeam> {
-    if (url !== this.endpoint) {
+    if (url !== this.#endpoint) {
       return throwError(() => 'QR-Code nicht gültig!');
     }
-    console.log(this.userService.user.value);
-    return this.http.post<ITeam>(
-      this.endpoint,
-      this.userService.user.value?.uuid
+    console.log(this.#userService.user.value);
+    return this.#http.post<ITeam>(
+      this.#endpoint,
+      this.#userService.user.value?.uuid
     );
   }
 }

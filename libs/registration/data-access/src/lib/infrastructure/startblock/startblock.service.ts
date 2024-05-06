@@ -1,18 +1,20 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IStartblockWrapper } from '../../model/startblock-wrapper.model';
-import { BASE_API_URL } from '@bierrallye/shared/data-access';
+import { API_URL } from '@bierrallye/shared/data-access';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StartblockService {
-  constructor(private http: HttpClient) {}
+  readonly #apiUrl = inject(API_URL);
+
+  #http = inject(HttpClient);
 
   getStartblocks(): Observable<IStartblockWrapper> {
-    return this.http.get<IStartblockWrapper>(
-      BASE_API_URL + 'registration/blocks'
+    return this.#http.get<IStartblockWrapper>(
+      this.#apiUrl + 'registration/blocks'
     );
   }
 }

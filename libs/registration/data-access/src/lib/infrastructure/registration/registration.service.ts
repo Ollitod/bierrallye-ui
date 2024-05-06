@@ -1,22 +1,24 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IRegistration } from '../../model/registration.model';
 import { Observable } from 'rxjs';
-import { BASE_API_URL } from '@bierrallye/shared/data-access';
+import { API_URL } from '@bierrallye/shared/data-access';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RegistrationService {
-  constructor(private http: HttpClient) {}
+  readonly #apiUrl = inject(API_URL);
+
+  #http = inject(HttpClient);
 
   register(team: IRegistration): Observable<unknown> {
-    return this.http.post(BASE_API_URL + 'registration', team);
+    return this.#http.post(this.#apiUrl + 'registration', team);
   }
 
   getRegistrations(): Observable<IRegistration[]> {
-    return this.http.get<IRegistration[]>(
-      BASE_API_URL + 'completion/registrations'
+    return this.#http.get<IRegistration[]>(
+      this.#apiUrl + 'completion/registrations'
     );
   }
 }
