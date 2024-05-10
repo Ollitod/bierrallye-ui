@@ -1,4 +1,4 @@
-@import "colors";
+@import "../../../../libs/shared/styles/src/lib/appearance";
 
 :host {
   width: 100%;
@@ -7,14 +7,14 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  background-color: $black;
-  color: $light-brown;
+  background-color: var(--app-container);
+  color: var(--app-secondary);
   padding: 0 15px 0;
   box-sizing: border-box;
 
   a {
     text-decoration: none;
-    color: $light-brown;
+    color: var(--app-secondary);
   }
 }
 

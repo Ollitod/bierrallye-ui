@@ -26,7 +26,10 @@
         "libs/registration/feature/src/index.ts"
       ],
       "@bierrallye/registration/ui": ["libs/registration/ui/src/index.ts"],
-      "@bierrallye/shared/data-access": ["libs/shared/data-access/src/index.ts"]
+      "@bierrallye/shared/data-access": [
+        "libs/shared/data-access/src/index.ts"
+      ],
+      "@bierrallye/shared/styles": ["libs/shared/styles/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

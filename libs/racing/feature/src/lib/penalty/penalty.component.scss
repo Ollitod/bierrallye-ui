@@ -1,7 +1,7 @@
-@import "colors";
+@import "../../../../libs/shared/styles/src/lib/appearance";
 
 .station-container {
-  background-color: $light-brown;
+  background-color: var(--app-secondary);
 }
 
 .form-container {
@@ -12,7 +12,7 @@
 }
 
 .mat-mdc-card {
-  background-color: $light-brown;
+  background-color: var(--app-secondary);
 }
 
 .form-actions {

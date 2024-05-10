@@ -1,4 +1,4 @@
-@import "colors";
+@import "../../../../libs/shared/styles/src/lib/appearance";
 
 :host {
   display: flex;
@@ -6,8 +6,8 @@
   gap: 2rem;
   width: 50%;
   box-sizing: border-box;
-  background-color: $black;
-  color: $light-brown;
+  background-color: var(--app-container);
+  color: var(--app-secondary);
   align-items: center;
   padding: 2rem;
 }
@@ -21,7 +21,7 @@
 }
 
 .header {
-  color: $gold;
+  color: var(--app-emphasize);
 }
 
 .sub-header {
@@ -49,7 +49,7 @@
 
 .step-column {
   width: 15%;
-  color: $gold;
+  color: var(--app-emphasize);
   font-family: Ultra, serif;
   font-size: 6rem;
 }

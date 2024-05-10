@@ -1,7 +1,7 @@
-@import "colors";
+@import "../../../../libs/shared/styles/src/lib/appearance";
 
 :host {
-  background-color: $light-brown;
+  background-color: var(--app-secondary);
   display: flex;
   flex-direction: column;
   justify-content: center;

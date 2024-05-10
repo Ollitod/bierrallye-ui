@@ -1,6 +1,7 @@
 @use '@angular/material' as mat;
 @use '../../../../node_modules/@gepardec/ngx-gepardec-mat/styles/dynamic-table/dynamic-table-theme' as dynamic-table;
 @use '../../../../node_modules/@gepardec/ngx-gepardec-mat/styles/expandable-dynamic-table/expandable-dynamic-table-theme' as expandable-dynamic-table;
+@use '../../../../libs/shared/styles/src/lib/appearance' as appearance;
 
 @import 'colors';
 
@@ -56,3 +57,9 @@ $bierrallye-theme: mat.define-light-theme((
 @include mat.all-component-themes($bierrallye-theme);
 @include dynamic-table.theme($bierrallye-theme);
 @include expandable-dynamic-table.theme($bierrallye-theme);
+
+$configuration: appearance.configure-app-appearance($brown, $light-brown, $black, $gold);
+
+html {
+  @include appearance.app-appearance($configuration);
+}

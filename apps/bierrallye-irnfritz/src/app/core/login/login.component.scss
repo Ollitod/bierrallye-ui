@@ -1,8 +1,8 @@
-@import "colors";
+@import "../../../../libs/shared/styles/src/lib/appearance";
 
 .form-container {
   display: flex;
   flex-direction: column;
-  background-color: $light-brown;
+  background-color: var(--app-secondary);
   padding: 15px;
 }

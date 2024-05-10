@@ -1,11 +1,11 @@
-@import "colors";
+@import "../../../../../shared/styles/src/lib/appearance";
 
 :host {
   height: 100%;
   display: flex;
   flex-direction: column;
-  background-color: $black;
-  color: $light-brown;
+  background-color: var(--app-container);
+  color: var(--app-emphasize);
   padding: 15px;
   justify-content: center;
   align-items: center;
