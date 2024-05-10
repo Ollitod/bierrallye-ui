@@ -4,7 +4,7 @@
   "sourceRoot": "libs/registration/data-access/src",
   "prefix": "bierrallye-registration-data-access",
   "projectType": "library",
-  "tags": [],
+  "tags": ["scope:registration", "type:data-access"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",

@@ -4,7 +4,7 @@
   "sourceRoot": "libs/racing/feature/src",
   "prefix": "bierrallye-racing-feature",
   "projectType": "library",
-  "tags": [],
+  "tags": ["scope:racing", "type:feature"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",

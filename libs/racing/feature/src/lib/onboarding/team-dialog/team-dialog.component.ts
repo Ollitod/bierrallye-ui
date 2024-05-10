@@ -14,10 +14,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ITeam, TeamService } from '@bierrallye/racing/data-access';
 import { ToastrService } from 'ngx-toastr';
-import {
-  IRegistration,
-  IStartblock,
-} from '@bierrallye/registration/data-access';
+import { IRegistration, IStartblock } from '@bierrallye/shared/data-access';
 
 @Component({
   selector: 'bierrallye-racing-feature-team-dialog',

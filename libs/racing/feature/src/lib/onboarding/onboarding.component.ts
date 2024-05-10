@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import {
   IRegistration,
   RegistrationService,
-} from '@bierrallye/registration/data-access';
+} from '@bierrallye/shared/data-access';
 import {
   ColumnSpec,
   CustomColumnDirective,

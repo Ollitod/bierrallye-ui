@@ -1,4 +1,4 @@
-import { IStartblock } from './startblock.model';
+import { IStartblock } from '@bierrallye/shared/data-access';
 
 export interface IStartblockWrapper {
   startblocks: IStartblock[];

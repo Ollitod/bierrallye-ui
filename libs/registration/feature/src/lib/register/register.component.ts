@@ -14,13 +14,15 @@ import { MatButtonModule } from '@angular/material/button';
 import {
   DrinkService,
   IDrink,
-  IRegistration,
-  IStartblock,
-  RegistrationService,
   StartblockService,
 } from '@bierrallye/registration/data-access';
 import { ToastrService } from 'ngx-toastr';
 import { AvailableSpotsComponent } from '@bierrallye/registration/ui';
+import {
+  IRegistration,
+  IStartblock,
+  RegistrationService,
+} from '@bierrallye/shared/data-access';
 
 @Component({
   selector: 'bierrallye-registration-feature-register',

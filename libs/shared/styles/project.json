@@ -4,7 +4,7 @@
   "sourceRoot": "libs/shared/styles/src",
   "prefix": "bierrallye-shared-styles",
   "projectType": "library",
-  "tags": [],
+  "tags": ["scope:shared", "type:styles"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",

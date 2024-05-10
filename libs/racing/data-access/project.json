@@ -4,7 +4,7 @@
   "sourceRoot": "libs/racing/data-access/src",
   "prefix": "bierrallye-racing-data-access",
   "projectType": "library",
-  "tags": [],
+  "tags": ["scope:racing", "type:data-access"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
