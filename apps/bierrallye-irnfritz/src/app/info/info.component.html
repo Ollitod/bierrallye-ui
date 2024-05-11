@@ -1,5 +1,5 @@
-<app-general-info/>
-<ng-container *ngIf="APP_MODE === 'preEvent'">
-  <app-hardfacts/>
-  <app-preparation/>
-</ng-container>
+<app-general-info />
+@if (APP_MODE === 'preEvent') {
+  <app-hardfacts />
+  <app-preparation />
+}

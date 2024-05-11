@@ -3,16 +3,23 @@
     <form [formGroup]="loginForm">
       <mat-form-field>
         <mat-label>Username</mat-label>
-        <input formControlName="username" id="username" matInput>
+        <input formControlName="username" id="username" matInput />
       </mat-form-field>
       <mat-form-field>
         <mat-label>Passwort</mat-label>
-        <input type="password" formControlName="password" id="password" matInput>
+        <input
+          type="password"
+          formControlName="password"
+          id="password"
+          matInput
+        />
       </mat-form-field>
-      <button (click)="authenticate()"
-              [disabled]="!loginForm.valid"
-              mat-flat-button
-              type="submit">
+      <button
+        (click)="authenticate()"
+        [disabled]="!loginForm.valid"
+        mat-flat-button
+        type="submit"
+      >
         Login
       </button>
     </form>

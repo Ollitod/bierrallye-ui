@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-exercise-plan',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './exercise-plan.component.html',
   styleUrls: ['./exercise-plan.component.scss'],
 })

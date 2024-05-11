@@ -1,5 +1,4 @@
 import { Component, ViewChild } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import {
   IPenalty,
   IStation,
@@ -26,7 +25,6 @@ import { MatSelectModule } from '@angular/material/select';
   selector: 'bierrallye-racing-feature-penalty',
   standalone: true,
   imports: [
-    CommonModule,
     MatListModule,
     MatCardModule,
     MatButtonModule,

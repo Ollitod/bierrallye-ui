@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { EventInfoComponent } from '../event-info/event-info.component';
@@ -8,7 +7,7 @@ import { APP_MODE } from '@bierrallye/shared/data-access';
 @Component({
   selector: 'app-general-info',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, RouterLink, EventInfoComponent],
+  imports: [MatButtonModule, RouterLink, EventInfoComponent],
   templateUrl: './general-info.component.html',
   styleUrls: ['./general-info.component.scss'],
 })

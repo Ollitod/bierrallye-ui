@@ -1,9 +1,10 @@
-<div *ngIf="!user" [routerLink]="'/'" class="banner">
-  <img class="large-banner"
-       src="assets/banner/header_with_background.png">
-</div>
-
-<div *ngIf="user" class="user-info">
-  <span>Eingeloggt als {{ user.username }}</span>
-  <button (click)="logout()" mat-flat-button>Abmelden</button>
-</div>
+@if (!user) {
+  <div [routerLink]="'/'" class="banner">
+    <img class="large-banner" src="assets/banner/header_with_background.png" />
+  </div>
+} @else {
+  <div class="user-info">
+    <span>Eingeloggt als {{ user.username }}</span>
+    <button (click)="logout()" mat-flat-button>Abmelden</button>
+  </div>
+}

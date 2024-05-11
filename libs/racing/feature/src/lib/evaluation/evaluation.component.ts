@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import {
   EvaluationService,
   IEvaluation,
@@ -17,7 +16,6 @@ import { MatCardModule } from '@angular/material/card';
   selector: 'bierrallye-racing-feature-evaluation',
   standalone: true,
   imports: [
-    CommonModule,
     ExpandableDynamicTableComponent,
     MatCardModule,
     DynamicTableComponent,

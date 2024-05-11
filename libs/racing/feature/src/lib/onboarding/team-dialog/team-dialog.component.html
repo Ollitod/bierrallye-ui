@@ -4,54 +4,63 @@
     <div class="form-row">
       <mat-form-field>
         <mat-label>Spieler 1</mat-label>
-        <input formControlName="teamFirstMember" id="teamFirstMember" matInput>
+        <input
+          formControlName="teamFirstMember"
+          id="teamFirstMember"
+          matInput
+        />
       </mat-form-field>
       <mat-form-field>
         <mat-label>Spieler 2</mat-label>
-        <input formControlName="teamSecondMember" id="teamSecondMember" matInput>
+        <input
+          formControlName="teamSecondMember"
+          id="teamSecondMember"
+          matInput
+        />
       </mat-form-field>
     </div>
 
     <div class="form-row">
       <mat-form-field>
         <mat-label>Email</mat-label>
-        <input formControlName="email" id="email" matInput>
+        <input formControlName="email" id="email" matInput />
       </mat-form-field>
       <mat-form-field>
         <mat-label>Startblock</mat-label>
-        <input formControlName="startblock" id="startblock" matInput>
+        <input formControlName="startblock" id="startblock" matInput />
       </mat-form-field>
     </div>
 
     <div class="form-row">
       <mat-form-field>
         <mat-label>UUID</mat-label>
-        <input formControlName="uuid" id="uuid" matInput>
+        <input formControlName="uuid" id="uuid" matInput />
       </mat-form-field>
       <mat-form-field>
         <mat-label>Box-Nr.</mat-label>
-        <input formControlName="boxId" id="boxId" matInput>
+        <input formControlName="boxId" id="boxId" matInput />
       </mat-form-field>
     </div>
 
     <div class="button-container">
-      <button (click)="generateLoginQrCode()"
-              class="tertiary-button"
-              mat-flat-button>
+      <button
+        (click)="generateLoginQrCode()"
+        class="tertiary-button"
+        mat-flat-button
+      >
         QR-Code generieren
       </button>
-      <button (click)="createTeam()"
-              [disabled]="!teamForm.valid || createTeamDisabled"
-              mat-flat-button
-              type="submit">
+      <button
+        (click)="createTeam()"
+        [disabled]="!teamForm.valid || createTeamDisabled"
+        mat-flat-button
+        type="submit"
+      >
         Team erstellen
       </button>
     </div>
   </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-dialog-close
-          mat-button>
-    Schließen
-  </button>
+  <button mat-dialog-close mat-button>Schließen</button>
 </mat-dialog-actions>

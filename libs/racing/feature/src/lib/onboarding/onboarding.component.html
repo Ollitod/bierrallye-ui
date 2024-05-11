@@ -1,24 +1,23 @@
-<gpx-dynamic-table [columnSpecs]="columnSpecs"
-                   [columnsExcludedFromSort]="['drink1', 'drink2', 'startblock', 'apply']"
-                   [data]="registrations"
-                   [pageSizeOptions]="[15, 30, 50, 100]">
-
+<gpx-dynamic-table
+  [columnSpecs]="columnSpecs"
+  [columnsExcludedFromSort]="['drink1', 'drink2', 'startblock', 'apply']"
+  [data]="registrations"
+  [pageSizeOptions]="[15, 30, 50, 100]"
+>
   <ng-template [gpxCustomColumn]="'active'" let-registration>
-    <ng-container *ngIf="registration.active">
+    @if (registration.active) {
       <mat-icon class="green">check_circle</mat-icon>
-    </ng-container>
-    <ng-container *ngIf="!registration.active">
+    } @else {
       <mat-icon class="red">cancel</mat-icon>
-    </ng-container>
+    }
   </ng-template>
 
   <ng-template [gpxCustomColumn]="'hasTeam'" let-registration>
-    <ng-container *ngIf="registration.hasTeam">
+    @if (registration.hasTeam) {
       <mat-icon class="green">check_circle</mat-icon>
-    </ng-container>
-    <ng-container *ngIf="!registration.hasTeam">
+    } @else {
       <mat-icon class="red">cancel</mat-icon>
-    </ng-container>
+    }
   </ng-template>
 
   <ng-template [gpxCustomColumn]="'drink1'" let-registration>
@@ -35,14 +34,18 @@
 
   <ng-template [gpxCustomColumn]="'apply'" let-registration>
     <div class="action-container">
-      <button (click)="openTeamDialog(registration)"
-              [disabled]="!registration.active"
-              mat-icon-button>
+      <button
+        (click)="openTeamDialog(registration)"
+        [disabled]="!registration.active"
+        mat-icon-button
+      >
         <mat-icon>start</mat-icon>
       </button>
-      <button (click)="checkOut(registration)"
-              [disabled]="!registration.hasTeam"
-              mat-icon-button>
+      <button
+        (click)="checkOut(registration)"
+        [disabled]="!registration.hasTeam"
+        mat-icon-button
+      >
         <mat-icon>sports_score</mat-icon>
       </button>
     </div>

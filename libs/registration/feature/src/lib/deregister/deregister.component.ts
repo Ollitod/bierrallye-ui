@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import {
   FormControl,
   FormGroup,
@@ -17,7 +16,6 @@ import { MatCard, MatCardContent } from '@angular/material/card';
   selector: 'bierrallye-registration-feature-deregister',
   standalone: true,
   imports: [
-    CommonModule,
     MatFormFieldModule,
     ReactiveFormsModule,
     MatButtonModule,

@@ -1,5 +1,4 @@
 import { Component, DestroyRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import {
   FormControl,
   FormGroup,
@@ -27,7 +26,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   selector: 'app-login',
   standalone: true,
   imports: [
-    CommonModule,
     FormsModule,
     MatButtonModule,
     MatFormFieldModule,

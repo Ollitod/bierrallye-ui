@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import {
   FormControl,
   FormGroup,
@@ -29,7 +28,6 @@ import { MatCard, MatCardContent } from '@angular/material/card';
   selector: 'bierrallye-registration-feature-register',
   standalone: true,
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     MatInputModule,
     MatSelectModule,

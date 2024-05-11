@@ -6,13 +6,12 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { NgxKjuaComponent } from 'ngx-kjua';
 
 @Component({
   selector: 'app-qr-login',
   standalone: true,
-  imports: [CommonModule, NgxKjuaComponent],
+  imports: [NgxKjuaComponent],
   templateUrl: './qr-login.component.html',
   styleUrls: ['./qr-login.component.scss'],
 })

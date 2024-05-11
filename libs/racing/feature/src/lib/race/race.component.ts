@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import {
   CheckInService,
@@ -12,11 +11,12 @@ import { IUser, UserService } from '@bierrallye/shared/data-access';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { ToastrService } from 'ngx-toastr';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'bierrallye-racing-feature-race',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, ZXingScannerModule],
+  imports: [MatButtonModule, ZXingScannerModule, CommonModule],
   templateUrl: './race.component.html',
   styleUrls: ['./race.component.scss'],
 })

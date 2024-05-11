@@ -1,8 +1,14 @@
-<div *ngIf="successful && !loading">
-  <p class="header">Prost! Ihr seid startklar!</p>
-</div>
+@if (successful && !loading) {
+  <div>
+    <p class="header">Prost! Ihr seid startklar!</p>
+  </div>
+}
 
-<div *ngIf="!successful && !loading">
-  <p class="header">Ohje! Das hat nicht geklappt.</p>
-  <p class="description">Bitte wende dich an office&#64;bierrallye-irnfritz.at</p>
-</div>
+@if (!successful && !loading) {
+  <div>
+    <p class="header">Ohje! Das hat nicht geklappt.</p>
+    <p class="description">
+      Bitte wende dich an office&#64;bierrallye-irnfritz.at
+    </p>
+  </div>
+}

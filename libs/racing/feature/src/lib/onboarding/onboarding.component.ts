@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import {
   IRegistration,
   RegistrationService,
@@ -27,7 +26,6 @@ import { ToastrService } from 'ngx-toastr';
   selector: 'bierrallye-racing-feature-onboarding',
   standalone: true,
   imports: [
-    CommonModule,
     DynamicTableComponent,
     MatButtonModule,
     MatIconModule,

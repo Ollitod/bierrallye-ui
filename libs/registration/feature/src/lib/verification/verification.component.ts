@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { VerificationService } from '@bierrallye/registration/data-access';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
@@ -8,7 +7,7 @@ import { switchMap } from 'rxjs';
 @Component({
   selector: 'bierrallye-registration-feature-verification',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './verification.component.html',
   styleUrls: ['./verification.component.scss'],
 })

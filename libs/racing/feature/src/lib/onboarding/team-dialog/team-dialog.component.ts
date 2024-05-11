@@ -1,5 +1,4 @@
 import { Component, Inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import {
   FormControl,
@@ -20,7 +19,6 @@ import { IRegistration, IStartblock } from '@bierrallye/shared/data-access';
   selector: 'bierrallye-racing-feature-team-dialog',
   standalone: true,
   imports: [
-    CommonModule,
     MatDialogModule,
     FormsModule,
     MatButtonModule,

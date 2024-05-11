@@ -3,12 +3,14 @@
     <form [formGroup]="deregisterForm">
       <mat-form-field>
         <mat-label>Abmelde-Token</mat-label>
-        <input formControlName="token" id="token" matInput>
+        <input formControlName="token" id="token" matInput />
       </mat-form-field>
-      <button (click)="deregister()"
-              [disabled]="!deregisterForm.valid"
-              mat-flat-button
-              type="submit">
+      <button
+        (click)="deregister()"
+        [disabled]="!deregisterForm.valid"
+        mat-flat-button
+        type="submit"
+      >
         Abmelden
       </button>
     </form>
