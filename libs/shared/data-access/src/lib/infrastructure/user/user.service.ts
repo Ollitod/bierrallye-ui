@@ -28,7 +28,7 @@ export class UserService {
 
   public logout(): void {
     this.invalidateUser();
-    this.#router.navigate(['/login']);
+    void this.#router.navigate(['/login']);
   }
 
   invalidateUser() {

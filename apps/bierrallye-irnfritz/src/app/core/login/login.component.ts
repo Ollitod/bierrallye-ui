@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, DestroyRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormControl,
@@ -19,7 +19,9 @@ import {
   UserService,
 } from '@bierrallye/shared/data-access';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription, switchMap } from 'rxjs';
+import { switchMap } from 'rxjs';
+import { MatCard, MatCardContent } from '@angular/material/card';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-login',
@@ -31,17 +33,17 @@ import { Subscription, switchMap } from 'rxjs';
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
+    MatCard,
+    MatCardContent,
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent {
   loginForm = new FormGroup({
     username: new FormControl('', { validators: [Validators.required] }),
     password: new FormControl('', { validators: [Validators.required] }),
   });
-
-  sub: Subscription | undefined;
 
   constructor(
     private authService: AuthService,
@@ -49,24 +51,20 @@ export class LoginComponent implements OnInit, OnDestroy {
     private router: Router,
     private tokenService: TokenService,
     private userService: UserService,
-    private route: ActivatedRoute
-  ) {}
-
-  ngOnInit(): void {
+    private route: ActivatedRoute,
+    private destroyRef: DestroyRef
+  ) {
     this.route.queryParams.subscribe((params) => {
       this.loginForm.controls.username.patchValue(params['username']);
       this.loginForm.controls.password.patchValue(params['uuid']);
     });
   }
 
-  ngOnDestroy(): void {
-    this.sub?.unsubscribe();
-  }
-
   authenticate(): void {
-    this.sub = this.authService
+    this.authService
       .authenticate(this.loginForm.getRawValue() as IAuth)
       .pipe(
+        takeUntilDestroyed(this.destroyRef),
         switchMap((response) => {
           this.tokenService.storeToken(response.token);
           this.userService.loginUser();
@@ -77,8 +75,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         next: (user) => {
           if (user?.role) {
             const routeByRole = this.getRouteByRole(user?.role);
-            console.log(routeByRole);
-            this.router.navigate([routeByRole]);
+            void this.router.navigate([routeByRole]);
             this.toastr.success('Login erfolgreich', 'Erfolgreich');
           }
         },
@@ -95,7 +92,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       case Role.USER:
         return '/racing/race';
       case Role.EMPLOYEE:
-        return '/racing/rpenalty';
+        return '/racing/penalty';
       default:
         return '/';
     }

@@ -1,14 +1,10 @@
 @import "../../../../libs/shared/styles/src/lib/appearance";
 
 :host {
-  padding-top: 15px;
-  box-sizing: border-box;
+  --mdc-outlined-card-container-color: var(--app-secondary);
 }
 
-.form-container {
+form {
   display: flex;
   flex-direction: column;
-  background-color: var(--app-secondary);
-  padding: 15px;
-  box-sizing: border-box;
 }

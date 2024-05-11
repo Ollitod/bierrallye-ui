@@ -1,9 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { IUser, UserService } from '@bierrallye/shared/data-access';
-import { Subscription } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-header',
@@ -12,21 +12,13 @@ import { Subscription } from 'rxjs';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit, OnDestroy {
-  user: IUser | undefined = undefined;
+export class HeaderComponent {
+  user?: IUser;
 
-  userSub: Subscription | undefined;
-
-  constructor(private userService: UserService) {}
-
-  ngOnInit(): void {
-    this.userSub = this.userService.user.subscribe(
-      (user) => (this.user = user)
-    );
-  }
-
-  ngOnDestroy(): void {
-    this.userSub?.unsubscribe();
+  constructor(private userService: UserService) {
+    this.userService.user
+      .pipe(takeUntilDestroyed())
+      .subscribe((user) => (this.user = user));
   }
 
   logout(): void {

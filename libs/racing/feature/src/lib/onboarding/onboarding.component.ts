@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   IRegistration,
@@ -45,7 +45,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './onboarding.component.html',
   styleUrls: ['./onboarding.component.scss'],
 })
-export class OnboardingComponent implements OnInit {
+export class OnboardingComponent {
   columnSpecs: ColumnSpec<IRegistration>[] = [
     {
       displayedColumn: 'hasTeam',
@@ -95,29 +95,26 @@ export class OnboardingComponent implements OnInit {
     private checkOutService: CheckOutService,
     private dialog: MatDialog,
     private toastr: ToastrService
-  ) {}
-
-  ngOnInit(): void {
-    this.registrationService.getRegistrations().subscribe((registrations) => {
-      this.registrations = registrations;
-    });
+  ) {
+    this.registrationService
+      .getRegistrations()
+      .subscribe((registrations) => (this.registrations = registrations));
   }
 
   openTeamDialog(registration: IRegistration): void {
     this.dialog.open(TeamDialogComponent, {
       data: registration,
       minWidth: '50%',
-      minHeight: '50%',
     });
   }
 
   checkOut(registration: IRegistration) {
-    this.checkOutService.checkOut(registration.uuid).subscribe(
-      () =>
+    this.checkOutService.checkOut(registration.uuid).subscribe({
+      next: () =>
         this.toastr.success('Die Zielzeit wurde gespeichert', 'Ausgecheckt'),
-      (error) => {
+      error: (error) => {
         this.toastr.error(error, 'Fehler');
-      }
-    );
+      },
+    });
   }
 }

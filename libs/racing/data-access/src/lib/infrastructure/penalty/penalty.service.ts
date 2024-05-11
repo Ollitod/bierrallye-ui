@@ -23,7 +23,6 @@ export class PenaltyService {
   }
 
   createPenalty(penalty: IPenalty): Observable<string> {
-    console.log(penalty);
     return this.#http.post(this.#apiUrl + 'penalty', penalty, {
       responseType: 'text',
     });

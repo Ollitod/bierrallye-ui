@@ -17,7 +17,6 @@ export class CheckInService {
     if (url !== this.#endpoint) {
       return throwError(() => 'QR-Code nicht gültig!');
     }
-    console.log(this.#userService.user.value);
     return this.#http.post<ITeam>(
       this.#endpoint,
       this.#userService.user.value?.uuid

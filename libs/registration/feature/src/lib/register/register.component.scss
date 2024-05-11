@@ -6,27 +6,21 @@
   grid-template-columns: 20% 80%;
   grid-gap: 15px;
   box-sizing: border-box;
-  padding-top: 15px;
-  padding-right: 15px;
+  padding-right: 16px;
   overflow: clip;
+
+  --mdc-outlined-card-container-color: var(--app-secondary);
 }
 
-.spots-container {
+bierrallye-registration-ui-available-spots {
   grid-column: 1 / 2;
   box-sizing: border-box;
 }
 
-.form-container {
+form {
   grid-column: 2 / 3;
   display: flex;
   flex-direction: column;
-  background-color: var(--app-secondary);
-  padding: 15px;
-  box-sizing: border-box;
-}
-
-.form-container > * {
-  box-sizing: border-box;
 }
 
 @media only screen and (max-width: 1170px) {

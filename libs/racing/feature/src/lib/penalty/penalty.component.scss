@@ -1,18 +1,14 @@
 @import "../../../../libs/shared/styles/src/lib/appearance";
 
-.station-container {
-  background-color: var(--app-secondary);
+:host {
+  --mdc-outlined-card-container-color: var(--app-secondary);
 }
 
-.form-container {
+form {
   display: flex;
   flex-direction: column;
-  padding-top: 15px;
+  padding-top: 16px;
   box-sizing: border-box;
-}
-
-.mat-mdc-card {
-  background-color: var(--app-secondary);
 }
 
 .form-actions {

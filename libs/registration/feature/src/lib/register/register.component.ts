@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormControl,
@@ -23,6 +23,7 @@ import {
   IStartblock,
   RegistrationService,
 } from '@bierrallye/shared/data-access';
+import { MatCard, MatCardContent } from '@angular/material/card';
 
 @Component({
   selector: 'bierrallye-registration-feature-register',
@@ -36,11 +37,13 @@ import {
     MatFormFieldModule,
     MatButtonModule,
     AvailableSpotsComponent,
+    MatCard,
+    MatCardContent,
   ],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
   registerForm = new FormGroup({
     player1: new FormControl('', { validators: [Validators.required] }),
     player2: new FormControl('', { validators: [Validators.required] }),
@@ -72,12 +75,11 @@ export class RegisterComponent implements OnInit {
     private startblockService: StartblockService,
     private registrationService: RegistrationService,
     private toastr: ToastrService
-  ) {}
-
-  ngOnInit(): void {
+  ) {
     this.drinksService
       .getDrinks()
       .subscribe((drinks) => (this.drinks = drinks));
+
     this.startblockService.getStartblocks().subscribe((startblocks) => {
       this.startblocks = startblocks.startblocks;
       this.totalSpots = startblocks.totalSpots;
@@ -88,8 +90,8 @@ export class RegisterComponent implements OnInit {
   sendRegistration(): void {
     this.registrationService
       .register(this.registerForm.getRawValue() as IRegistration)
-      .subscribe(
-        () => {
+      .subscribe({
+        next: () => {
           this.registerForm.reset({
             player1: '',
             player2: '',
@@ -101,9 +103,9 @@ export class RegisterComponent implements OnInit {
           });
           this.toastr.success('Die Anmeldung war erfolgreich', 'Prost!');
         },
-        () => {
+        error: () => {
           this.toastr.error('Die Anmeldung war nicht erfolgreich', 'Fehler');
-        }
-      );
+        },
+      });
   }
 }

@@ -18,7 +18,7 @@ export const tokenInterceptor: HttpInterceptorFn = (request, next) => {
     // Token has expired, remove it from local storage and redirect to login page
     tokenService.removeToken();
     toastrService.warning('Token abgelaufen. Bitte erneut anmelden', 'Achtung');
-    router.navigate(['/login']);
+    void router.navigate(['/login']);
     return next(request);
   }
 

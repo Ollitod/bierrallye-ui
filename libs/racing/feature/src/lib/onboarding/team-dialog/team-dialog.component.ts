@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import {
@@ -32,7 +32,7 @@ import { IRegistration, IStartblock } from '@bierrallye/shared/data-access';
   templateUrl: './team-dialog.component.html',
   styleUrls: ['./team-dialog.component.scss'],
 })
-export class TeamDialogComponent implements OnInit {
+export class TeamDialogComponent {
   teamForm = new FormGroup({
     teamFirstMember: new FormControl(
       { value: '', disabled: true },
@@ -59,18 +59,16 @@ export class TeamDialogComponent implements OnInit {
     }),
   });
 
-  encodedURL: string | undefined;
+  encodedURL?: string;
   createTeamDisabled = false;
 
   constructor(
     private teamService: TeamService,
     private toastr: ToastrService,
     @Inject(MAT_DIALOG_DATA) public registration: IRegistration
-  ) {}
-
-  ngOnInit(): void {
-    this.teamService.get(this.registration.uuid).subscribe(
-      (team) => {
+  ) {
+    this.teamService.get(this.registration.uuid).subscribe({
+      next: (team) => {
         // since email is not a property of ITeam, it has to be patched with the value from the registration
         this.teamForm.patchValue({
           ...team,
@@ -79,15 +77,15 @@ export class TeamDialogComponent implements OnInit {
         this.teamForm.controls.boxId.disable();
         this.disableCreateTeamButton();
       },
-      () => {
+      error: () => {
         this.teamForm.patchValue({
           ...this.registration,
           teamFirstMember: this.registration.player1,
           teamSecondMember: this.registration.player2,
           startblock: (this.registration.startblock as IStartblock).name,
         });
-      }
-    );
+      },
+    });
 
     const channel = new BroadcastChannel('qr-login');
     channel.onmessage = (event) => {
@@ -98,12 +96,12 @@ export class TeamDialogComponent implements OnInit {
   }
 
   createTeam() {
-    this.teamService.create(this.teamForm.getRawValue() as ITeam).subscribe(
-      () => {
+    this.teamService.create(this.teamForm.getRawValue() as ITeam).subscribe({
+      next: () => {
         this.toastr.success('Das Team ist startklar', 'Prost!');
         this.disableCreateTeamButton();
       },
-      (error) => {
+      error: (error) => {
         if (error.error) {
           this.toastr.error(error.error, 'Fehler');
         } else {
@@ -112,8 +110,8 @@ export class TeamDialogComponent implements OnInit {
             'Fehler'
           );
         }
-      }
-    );
+      },
+    });
   }
 
   generateLoginQrCode() {

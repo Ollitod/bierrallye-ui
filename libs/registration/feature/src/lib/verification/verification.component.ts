@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VerificationService } from '@bierrallye/registration/data-access';
 import { ToastrService } from 'ngx-toastr';
@@ -12,7 +12,7 @@ import { switchMap } from 'rxjs';
   templateUrl: './verification.component.html',
   styleUrls: ['./verification.component.scss'],
 })
-export class VerificationComponent implements OnInit {
+export class VerificationComponent {
   successful = false;
   loading = true;
 
@@ -20,9 +20,7 @@ export class VerificationComponent implements OnInit {
     private route: ActivatedRoute,
     private verificationService: VerificationService,
     private toastr: ToastrService
-  ) {}
-
-  ngOnInit(): void {
+  ) {
     this.route.queryParams
       .pipe(
         switchMap((params) => {
@@ -30,13 +28,13 @@ export class VerificationComponent implements OnInit {
           return this.verificationService.verify(token);
         })
       )
-      .subscribe(
-        (res) => {
+      .subscribe({
+        next: (res) => {
           this.loading = false;
           this.successful = true;
           this.toastr.success(res, 'Erfolgreich');
         },
-        (error) => {
+        error: (error) => {
           this.loading = false;
           if (error.status === 400) {
             this.toastr.warning(error.error, 'Achtung');
@@ -46,7 +44,7 @@ export class VerificationComponent implements OnInit {
               'Fehler'
             );
           }
-        }
-      );
+        },
+      });
   }
 }

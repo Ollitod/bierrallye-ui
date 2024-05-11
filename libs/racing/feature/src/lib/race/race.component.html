@@ -1,55 +1,48 @@
 <ng-container *ngIf="team">
-  <h1>
-    {{team.startblock}}
-  </h1>
+  <h3>
+    {{ team.startblock }}
+  </h3>
 
   <div class="player-container">
     <div class="player-info">
-      {{team.teamFirstMember}}
+      {{ team.teamFirstMember }}
     </div>
     <div class="player-info">
-      {{team.teamSecondMember}}
+      {{ team.teamSecondMember }}
     </div>
   </div>
 
   <div *ngIf="scannerOpenCheckin || scannerOpenCheckout" class="scanning-container">
     <div *ngIf="scannerOpenCheckin">
-      <zxing-scanner (scanSuccess)="checkIn($event)" previewFitMode="cover"/>
+      <zxing-scanner (scanSuccess)="checkIn($event)" previewFitMode="cover" />
     </div>
     <div *ngIf="scannerOpenCheckout">
-      <zxing-scanner (scanSuccess)="checkOut($event)"/>
+      <zxing-scanner (scanSuccess)="checkOut($event)" />
     </div>
     <button (click)="cancelScanning()"
-            color="accent"
-            mat-raised-button>
+            class="tertiary-button"
+            mat-flat-button>
       Scan abbrechen
     </button>
   </div>
 
   <div *ngIf="!(scannerOpenCheckin || scannerOpenCheckout)" class="card">
-    <button (click)="openScannerCheckin()"
-            *ngIf="!team.teamStartTime"
-            color="green"
-            mat-raised-button>
-      START
-    </button>
+    <div *ngIf="!team.teamStartTime" (click)="openScannerCheckin()" class="scan-info green scan-button">
+      <h5>START</h5>
+    </div>
     <div *ngIf="team.teamStartTime" class="scan-info green">
-      <h1>Startzeit</h1>
-      <h1>{{team.teamStartTime}} Uhr</h1>
+      <h5>Startzeit</h5>
+      <h5>{{ team.teamStartTime }} Uhr</h5>
     </div>
   </div>
 
   <div *ngIf="!(scannerOpenCheckin || scannerOpenCheckout)" class="card">
-    <button (click)="openScannerCheckout()"
-            *ngIf="!team.teamEndTime"
-            [disabled]="!team.teamStartTime"
-            color="red"
-            mat-raised-button>
-      ZIEL
-    </button>
+    <div *ngIf="!team.teamEndTime" (click)="openScannerCheckout()" class="scan-info red scan-button">
+      <h5>ZIEL</h5>
+    </div>
     <div *ngIf="team.teamEndTime" class="scan-info red">
-      <h1>Zielzeit</h1>
-      <h1>{{team.teamEndTime}} Uhr</h1>
+      <h5>Zielzeit</h5>
+      <h5>{{ team.teamEndTime }} Uhr</h5>
     </div>
   </div>
 </ng-container>

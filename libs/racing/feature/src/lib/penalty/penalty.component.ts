@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   IPenalty,
@@ -39,7 +39,7 @@ import { MatSelectModule } from '@angular/material/select';
   templateUrl: './penalty.component.html',
   styleUrls: ['./penalty.component.scss'],
 })
-export class PenaltyComponent implements OnInit {
+export class PenaltyComponent {
   stations: IStation[] = [];
   teams: ITeam[] = [];
 
@@ -62,20 +62,19 @@ export class PenaltyComponent implements OnInit {
     comment: new FormControl(''),
   });
 
-  @ViewChild('formDirective') formDirective: FormGroupDirective | undefined;
+  @ViewChild('formDirective') formDirective?: FormGroupDirective;
 
-  selectedStationId: number | undefined;
+  selectedStationId?: number;
   showForm = false;
 
   constructor(
     private penaltyService: PenaltyService,
     private toastr: ToastrService
-  ) {}
-
-  ngOnInit(): void {
+  ) {
     this.penaltyService
       .getStations()
       .subscribe((stations) => (this.stations = stations));
+
     this.penaltyService.getTeams().subscribe((teams) => {
       this.teams = teams.sort((a, b) =>
         a.teamFirstMember.localeCompare(b.teamFirstMember)
@@ -84,6 +83,7 @@ export class PenaltyComponent implements OnInit {
         .map((team) => team.boxId)
         .sort((a, b) => a - b);
     });
+
     // validation is not performed on disabled controls, so required validator has to be set explicitly on the form itself
     this.penaltyForm.setValidators(() =>
       Validators.required(this.penaltyForm.controls.stationId)
@@ -97,7 +97,6 @@ export class PenaltyComponent implements OnInit {
   }
 
   teamSelectionChange(teamId: number) {
-    console.log(teamId, this.getBoxIdByTeamId(teamId));
     this.penaltyForm.controls.boxId.patchValue(
       this.getBoxIdByTeamId(teamId) || null
     );
@@ -120,8 +119,8 @@ export class PenaltyComponent implements OnInit {
   createPenalty() {
     this.penaltyService
       .createPenalty(this.penaltyForm.getRawValue() as IPenalty)
-      .subscribe(
-        (response) => {
+      .subscribe({
+        next: (response) => {
           this.formDirective?.resetForm();
           if (this.selectedStationId) {
             this.penaltyForm.controls.stationId.patchValue(
@@ -130,10 +129,10 @@ export class PenaltyComponent implements OnInit {
           }
           this.toastr.success(response, 'Erfolgreich');
         },
-        (error) => {
+        error: (error) => {
           this.toastr.error(error.error, 'Fehler');
-        }
-      );
+        },
+      });
   }
 
   back(): void {

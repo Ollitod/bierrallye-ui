@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   EvaluationService,
@@ -26,7 +26,7 @@ import { MatCardModule } from '@angular/material/card';
   templateUrl: './evaluation.component.html',
   styleUrls: ['./evaluation.component.scss'],
 })
-export class EvaluationComponent implements OnInit {
+export class EvaluationComponent {
   evaluations: IEvaluation[] = [];
 
   columnsSpecs: ColumnSpec<IEvaluation>[] = [
@@ -68,12 +68,9 @@ export class EvaluationComponent implements OnInit {
     },
   ];
 
-  constructor(private evaluationService: EvaluationService) {}
-
-  ngOnInit(): void {
-    this.evaluationService.getEvaluations().subscribe((evaluations) => {
-      this.evaluations = evaluations;
-      console.log(evaluations);
-    });
+  constructor(private evaluationService: EvaluationService) {
+    this.evaluationService
+      .getEvaluations()
+      .subscribe((evaluations) => (this.evaluations = evaluations));
   }
 }

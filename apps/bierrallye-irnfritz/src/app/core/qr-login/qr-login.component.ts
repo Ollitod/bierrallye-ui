@@ -17,11 +17,11 @@ import { NgxKjuaComponent } from 'ngx-kjua';
   styleUrls: ['./qr-login.component.scss'],
 })
 export class QrLoginComponent implements OnInit, AfterViewInit {
-  encodedURL: string | undefined;
+  encodedURL?: string;
 
-  @ViewChild('imgBuffer') imageElement: ElementRef | undefined;
+  @ViewChild('imgBuffer') imageElement?: ElementRef;
 
-  image: HTMLImageElement | undefined = undefined;
+  image?: HTMLImageElement;
 
   constructor(private cdr: ChangeDetectorRef) {}
 

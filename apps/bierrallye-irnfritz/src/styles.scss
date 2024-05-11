@@ -11,6 +11,7 @@ $font-size-text-small: 14px;
 
 html, body {
   height: 100%;
+  --mat-dialog-container-max-width: unset;
   --gpx-dynamic-table-alternate-row-color: #FDF1CD;
   --gpx-expandable-dynamic-table-alternate-row-color: #FDF1CD;
 }
@@ -42,10 +43,6 @@ body {
   .header {
     font-size: $font-size-header-small;
   }
-}
-
-.pt-15 {
-  padding-top: 15px;
 }
 
 html, body { height: 100%; }

@@ -1,18 +1,15 @@
-<div *ngIf="!showForm" class="station-container">
-  <mat-action-list>
-    <mat-list-item (click)="initPenaltyForm(station.stationId)" *ngFor="let station of stations">
-      {{station.stationName}}
-    </mat-list-item>
-  </mat-action-list>
-</div>
-
-<mat-card *ngIf="showForm">
-  <mat-card-header>
+<mat-card appearance="outlined">
+  <mat-card-header *ngIf="showForm">
     <mat-card-title>Strafminuten erfassen</mat-card-title>
   </mat-card-header>
-  <mat-card-content class="pt-15">
-    <form #formDirective="ngForm" [formGroup]="penaltyForm">
-      <div class="form-container">
+  <mat-card-content>
+    <mat-action-list *ngIf="!showForm">
+      <mat-list-item (click)="initPenaltyForm(station.stationId)" *ngFor="let station of stations">
+        {{station.stationName}}
+      </mat-list-item>
+    </mat-action-list>
+
+    <form *ngIf="showForm" #formDirective="ngForm" [formGroup]="penaltyForm">
         <mat-form-field>
           <mat-label>Station</mat-label>
           <mat-select formControlName="stationId" id="stationId">
@@ -51,19 +48,17 @@
 
         <div class="form-actions">
           <button (click)="back()"
-                  color="accent"
-                  mat-raised-button>
+                  class="tertiary-button"
+                  mat-flat-button>
             Zurück
           </button>
           <button (click)="createPenalty()"
                   [disabled]="!penaltyForm.valid"
-                  color="primary"
-                  mat-raised-button
+                  mat-flat-button
                   type="submit">
             Strafe erfassen
           </button>
         </div>
-      </div>
     </form>
   </mat-card-content>
 </mat-card>
