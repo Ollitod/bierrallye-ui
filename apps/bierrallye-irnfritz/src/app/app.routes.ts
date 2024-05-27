@@ -1,23 +1,16 @@
 import { Route } from '@angular/router';
-import { RegistrationComponent } from './registration/registration.component';
-import { authGuard } from './shared/guards/auth/auth.guard';
+import { InfoComponent } from './info/info.component';
+import { authGuard } from './core/guards/auth/auth.guard';
 
 export const appRoutes: Route[] = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'registration',
+    redirectTo: 'info',
   },
   {
-    path: 'registration',
-    component: RegistrationComponent,
-  },
-  {
-    path: 'verify',
-    loadComponent: () =>
-      import('./registration/verification/verification.component').then(
-        (c) => c.VerificationComponent
-      ),
+    path: 'info',
+    component: InfoComponent,
   },
   {
     path: 'impressum',
@@ -27,39 +20,28 @@ export const appRoutes: Route[] = [
       ),
   },
   {
-    path: 'onboarding',
-    loadComponent: () =>
-      import('./onboarding/onboarding.component').then(
-        (c) => c.OnboardingComponent
+    path: 'registration',
+    loadChildren: () =>
+      import('@bierrallye/registration/feature').then(
+        (m) => m.registrationRoutes
       ),
+  },
+  {
+    path: 'racing',
+    loadChildren: () =>
+      import('@bierrallye/racing/feature').then((m) => m.racingRoutes),
     canActivate: [authGuard],
   },
   {
     path: 'login',
     loadComponent: () =>
-      import('./login/login.component').then((c) => c.LoginComponent),
-  },
-  {
-    path: 'race',
-    loadComponent: () =>
-      import('./race/race.component').then((c) => c.RaceComponent),
-    canActivate: [authGuard],
-  },
-  {
-    path: 'evaluation',
-    loadComponent: () =>
-      import('./evaluation/evaluation.component').then(
-        (c) => c.EvaluationComponent
-      ),
-  },
-  {
-    path: 'penalty',
-    loadComponent: () =>
-      import('./penalty/penalty.component').then((c) => c.PenaltyComponent),
+      import('./core/login/login.component').then((c) => c.LoginComponent),
   },
   {
     path: 'qr-login',
     loadComponent: () =>
-      import('./qr-login/qr-login.component').then((c) => c.QrLoginComponent),
+      import('./core/qr-login/qr-login.component').then(
+        (c) => c.QrLoginComponent
+      ),
   },
 ];

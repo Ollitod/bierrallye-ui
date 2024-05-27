@@ -4,7 +4,8 @@ import { appRoutes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideToastr } from 'ngx-toastr';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { tokenInterceptor } from './shared/interceptors/token.interceptor';
+import { tokenInterceptor } from './core/interceptors/token.interceptor';
+import { API_URL } from '@bierrallye/shared/data-access';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -15,5 +16,9 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptors([tokenInterceptor])),
     provideAnimationsAsync(),
     provideToastr(),
+    {
+      provide: API_URL,
+      useValue: 'https://bierrallye.meinhard.at/',
+    },
   ],
 };

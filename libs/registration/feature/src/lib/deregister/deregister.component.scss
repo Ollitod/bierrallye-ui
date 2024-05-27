@@ -1,0 +1,10 @@
+@import "../../../../libs/shared/styles/src/lib/appearance";
+
+:host {
+  --mdc-outlined-card-container-color: var(--app-secondary);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}

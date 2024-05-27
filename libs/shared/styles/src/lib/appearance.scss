@@ -1,0 +1,17 @@
+// Function that creates a color configuration map to configure the appearance of the app
+@function configure-app-appearance($background, $background-lighter, $container, $on-container) {
+  @return (
+    background: $background,
+    background-lighter: $background-lighter,
+    container: $container,
+    on-container: $on-container
+  );
+}
+
+// Mixin that applies the color configuration map to the app
+@mixin app-appearance($configuration) {
+  --app-primary: #{map-get($configuration, background)};
+  --app-secondary: #{map-get($configuration, background-lighter)};
+  --app-container: #{map-get($configuration, container)};
+  --app-emphasize: #{map-get($configuration, on-container)};
+}

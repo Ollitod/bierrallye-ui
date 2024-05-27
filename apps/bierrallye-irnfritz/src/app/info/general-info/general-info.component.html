@@ -1,0 +1,37 @@
+<div class="header">
+  <p>Bier-Rallye Vol. 6</p>
+</div>
+<div class="grid-container">
+  <app-event-info />
+  @if (APP_MODE === 'preEvent') {
+    <div class="flex-column">
+      <div class="description">
+        <p>
+          Bereits zum 6. mal wagen wir uns gemeinsam mit euch auf die wohl
+          flüssigste Rennstrecke im Waldviertel und darüber hinaus! Wie schon
+          die Jahre zuvor werden die idyllischen Wälder rund um unsere
+          wunderschöne Heimat zu einem Schauplatz voller Action, Spaß und
+          unverantwortlichem Alkoholkonsum.
+        </p>
+      </div>
+    </div>
+  }
+  @if (APP_MODE === 'postEvent') {
+    <div class="flex-column">
+      <div class="header">
+        <p>This was Bierrallye Vol. 5</p>
+      </div>
+      <div class="description">
+        <p>
+          Wir bedanke uns für Eure Teilnahme und hoffen, ihr hattet genau so
+          viel Spaß wie wir!
+        </p>
+        <p>
+          Über den Button "zur Auswertung" könnt ihr das Endergebnis jederzeit
+          abrufen.
+        </p>
+        <p>Bis zum nächsten Jahr & stay tuned ;)</p>
+      </div>
+    </div>
+  }
+</div>

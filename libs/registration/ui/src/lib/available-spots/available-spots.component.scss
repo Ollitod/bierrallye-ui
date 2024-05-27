@@ -1,0 +1,44 @@
+@import "../../../../../shared/styles/src/lib/appearance";
+
+:host {
+  height: 100%;
+  --mdc-outlined-card-container-color: var(--app-container);
+}
+
+mat-card {
+  height: 100%;
+}
+
+mat-card-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--app-emphasize);
+}
+
+.title {
+  font-size: 48px;
+  font-weight: bold;
+  line-height: normal;
+}
+
+.info {
+  font-size: 36px;
+  line-height: normal;
+}
+
+@media only screen and (max-width: 1170px) {
+  :host {
+    gap: 5px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .info {
+    font-size: 18px;
+  }
+}
