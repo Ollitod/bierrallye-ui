@@ -1,10 +1,9 @@
 import { IStartblock } from './startblock.model';
+import { Participant } from './participant.model';
 
 export interface IRegistration {
-  player1: string;
-  player2: string;
-  drink1: number;
-  drink2: number;
+  participant1: Participant;
+  participant2: Participant;
   startblock: number | IStartblock;
   email: string;
   uuid?: string;

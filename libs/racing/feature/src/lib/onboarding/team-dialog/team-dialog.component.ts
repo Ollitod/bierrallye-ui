@@ -78,8 +78,8 @@ export class TeamDialogComponent {
       error: () => {
         this.teamForm.patchValue({
           ...this.registration,
-          teamFirstMember: this.registration.player1,
-          teamSecondMember: this.registration.player2,
+          teamFirstMember: this.registration.participant1.fullName,
+          teamSecondMember: this.registration.participant2.fullName,
           startblock: (this.registration.startblock as IStartblock).name,
         });
       },

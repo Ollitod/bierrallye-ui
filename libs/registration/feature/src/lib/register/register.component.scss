@@ -18,9 +18,16 @@ bierrallye-registration-ui-available-spots {
 }
 
 form {
-  grid-column: 2 / 3;
   display: flex;
   flex-direction: column;
+
+  .mat-mdc-form-field:first-child {
+    margin-top: 16px;
+  }
+}
+
+mat-stepper {
+  background-color: transparent;
 }
 
 @media only screen and (max-width: 1170px) {

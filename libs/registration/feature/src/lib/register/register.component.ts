@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, viewChild } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -20,9 +20,21 @@ import { AvailableSpotsComponent } from '@bierrallye/registration/ui';
 import {
   IRegistration,
   IStartblock,
+  Participant,
   RegistrationService,
 } from '@bierrallye/shared/data-access';
 import { MatCard, MatCardContent } from '@angular/material/card';
+import {
+  MatStep,
+  MatStepLabel,
+  MatStepper,
+  MatStepperIcon,
+  MatStepperNext,
+  MatStepperPrevious,
+} from '@angular/material/stepper';
+import { MatIcon } from '@angular/material/icon';
+import { KeyValue, KeyValuePipe } from '@angular/common';
+import { MatDivider } from '@angular/material/divider';
 
 @Component({
   selector: 'bierrallye-registration-feature-register',
@@ -37,36 +49,59 @@ import { MatCard, MatCardContent } from '@angular/material/card';
     AvailableSpotsComponent,
     MatCard,
     MatCardContent,
+    MatStepper,
+    MatStep,
+    MatStepLabel,
+    MatStepperIcon,
+    MatIcon,
+    MatStepperNext,
+    MatStepperPrevious,
+    KeyValuePipe,
+    MatDivider,
   ],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent {
-  registerForm = new FormGroup({
-    player1: new FormControl('', { validators: [Validators.required] }),
-    player2: new FormControl('', { validators: [Validators.required] }),
-    drink1: new FormControl(0, { validators: [Validators.required] }),
-    drink2: new FormControl(0, { validators: [Validators.required] }),
-    startblock: new FormControl(0, { validators: [Validators.required] }),
+  private stepper = viewChild(MatStepper);
+
+  participantFormGroup1 = new FormGroup({
+    sex: new FormControl<string | null>(null, {
+      validators: [Validators.required],
+    }),
+    fullName: new FormControl('', { validators: [Validators.required] }),
+    drink: new FormControl<number | null>(null, {
+      validators: [Validators.required],
+    }),
+  });
+
+  participantFormGroup2 = new FormGroup({
+    sex: new FormControl<string | null>(null, {
+      validators: [Validators.required],
+    }),
+    fullName: new FormControl('', { validators: [Validators.required] }),
+    drink: new FormControl<number | null>(null, {
+      validators: [Validators.required],
+    }),
+  });
+
+  teamFormGroup = new FormGroup({
+    startblock: new FormControl<number | null>(null, {
+      validators: [Validators.required],
+    }),
     email: new FormControl('', {
       validators: [Validators.required, Validators.email],
     }),
     dsgvoApproved: new FormControl(false, {
       validators: [Validators.required],
     }),
-    // player1: new FormControl('Oliver', {validators: [Validators.required]}),
-    // player2: new FormControl('Johannes', {validators: [Validators.required]}),
-    // drink1: new FormControl(1, {validators: [Validators.required]}),
-    // drink2: new FormControl(2, {validators: [Validators.required]}),
-    // startblock: new FormControl(3, {validators: [Validators.required]}),
-    // email: new FormControl('olivertod11@yahoo.de', {validators: [Validators.required, Validators.email]}),
-    // dsgvoApproved: new FormControl(true, {validators: [Validators.required]})
   });
 
   drinks: IDrink[] = [];
   startblocks: IStartblock[] = [];
   totalSpots = 0;
   availableSpots = 0;
+  sexes = { MALE: 'männlich', FEMALE: 'weiblich', DIVERS: 'divers' };
 
   constructor(
     private drinksService: DrinkService,
@@ -86,24 +121,35 @@ export class RegisterComponent {
   }
 
   sendRegistration(): void {
-    this.registrationService
-      .register(this.registerForm.getRawValue() as IRegistration)
-      .subscribe({
-        next: () => {
-          this.registerForm.reset({
-            player1: '',
-            player2: '',
-            drink1: 0,
-            drink2: 0,
-            startblock: 0,
-            email: '',
-            dsgvoApproved: false,
-          });
-          this.toastr.success('Die Anmeldung war erfolgreich', 'Prost!');
-        },
-        error: () => {
-          this.toastr.error('Die Anmeldung war nicht erfolgreich', 'Fehler');
-        },
-      });
+    const participant1 =
+      this.participantFormGroup1.getRawValue() as Participant;
+    const participant2 =
+      this.participantFormGroup2.getRawValue() as Participant;
+    const team = {
+      ...(this.teamFormGroup.getRawValue() as Pick<
+        IRegistration,
+        'startblock' | 'email' | 'dsgvoApproved'
+      >),
+    };
+
+    const reg: IRegistration = {
+      participant1,
+      participant2,
+      ...team,
+    };
+
+    this.registrationService.register(reg).subscribe({
+      next: () => this.stepper()?.next(),
+      error: () => {
+        this.toastr.error('Die Anmeldung war nicht erfolgreich', 'Fehler');
+      },
+    });
   }
+
+  keepOrder = (
+    a: KeyValue<string, string>,
+    b: KeyValue<string, string>
+  ): number => {
+    return 0;
+  };
 }
