@@ -13,6 +13,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {
   ITeam,
+  OnboardingStoreService,
   QrLoginService,
   TeamOnboarding,
   TeamService,
@@ -55,6 +56,7 @@ export class TeamDialogComponent {
     private teamService: TeamService,
     private toastr: ToastrService,
     private qrLoginService: QrLoginService,
+    private onboardingStoreService: OnboardingStoreService,
     @Inject(MAT_DIALOG_DATA) public registration: TeamOnboarding
   ) {
     this.teamService.get(this.registration.uuid).subscribe({
@@ -91,6 +93,7 @@ export class TeamDialogComponent {
     this.teamService.create(this.teamForm.getRawValue() as ITeam).subscribe({
       next: () => {
         this.toastr.success('Das Team ist startklar', 'Prost!');
+        this.onboardingStoreService.setHasTeam(this.registration.uuid);
         this.disableCreateTeamButton();
       },
       error: (error) => {

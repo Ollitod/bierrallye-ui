@@ -18,9 +18,12 @@ import { TeamDialogComponent } from './team-dialog/team-dialog.component';
 import {
   CheckOutService,
   OnboardingService,
+  OnboardingStoreService,
   TeamOnboarding,
 } from '@bierrallye/racing/data-access';
 import { ToastrService } from 'ngx-toastr';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
+import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
   selector: 'bierrallye-racing-feature-onboarding',
@@ -39,6 +42,8 @@ import { ToastrService } from 'ngx-toastr';
     MatCardModule,
     MatDialogModule,
     CustomColumnDirective,
+    MatSlideToggle,
+    MatTooltip,
   ],
   templateUrl: './onboarding.component.html',
   styleUrls: ['./onboarding.component.scss'],
@@ -86,17 +91,17 @@ export class OnboardingComponent {
     },
   ];
 
-  registrations: TeamOnboarding[] = [];
+  registrations = this.onboardingStoreService.filteredRegistrations;
+  filterOnboarded = this.onboardingStoreService.filterOnboarded;
 
   constructor(
     private onboardingService: OnboardingService,
+    private onboardingStoreService: OnboardingStoreService,
     private checkOutService: CheckOutService,
     private dialog: MatDialog,
     private toastr: ToastrService
   ) {
-    this.onboardingService
-      .getRegistrations()
-      .subscribe((registrations) => (this.registrations = registrations));
+    this.onboardingStoreService.loadRegistrations();
   }
 
   openTeamDialog(registration: TeamOnboarding): void {
@@ -114,5 +119,9 @@ export class OnboardingComponent {
         this.toastr.error(error, 'Fehler');
       },
     });
+  }
+
+  toggleFilterOnboarded() {
+    this.onboardingStoreService.toggleFilterOnboarded();
   }
 }

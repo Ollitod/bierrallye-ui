@@ -1,7 +1,14 @@
+<mat-slide-toggle
+  (change)="toggleFilterOnboarded()"
+  [checked]="filterOnboarded()"
+>
+  Bereits angelegte Teams ausblenden
+</mat-slide-toggle>
+
 <gpx-dynamic-table
   [columnSpecs]="columnSpecs"
   [columnsExcludedFromSort]="['drink1', 'drink2', 'startblock', 'apply']"
-  [data]="registrations"
+  [data]="registrations()"
   [pageSizeOptions]="[15, 30, 50, 100]"
 >
   <ng-template [gpxCustomColumn]="'active'" let-registration>
@@ -37,6 +44,7 @@
       <button
         (click)="openTeamDialog(registration)"
         [disabled]="!registration.active"
+        matTooltip="Team anlegen"
         mat-icon-button
       >
         <mat-icon>start</mat-icon>
@@ -44,6 +52,7 @@
       <button
         (click)="checkOut(registration)"
         [disabled]="!registration.hasTeam"
+        matTooltip="VORSICHT: Team manuell auschecken!"
         mat-icon-button
       >
         <mat-icon>sports_score</mat-icon>

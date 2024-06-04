@@ -14,3 +14,4 @@ export * from './lib/infrastructure/check-out/check-out.service';
 export * from './lib/infrastructure/onboarding/onboarding.service';
 
 export * from './lib/application/qr-login.service';
+export * from './lib/application/onboarding-store/onboarding-store.service';
