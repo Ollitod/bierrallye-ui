@@ -12,12 +12,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import {
   DrinkService,
-  IDrink,
   StartblockService,
 } from '@bierrallye/registration/data-access';
 import { ToastrService } from 'ngx-toastr';
 import { AvailableSpotsComponent } from '@bierrallye/registration/ui';
 import {
+  IDrink,
   IRegistration,
   IStartblock,
   Participant,

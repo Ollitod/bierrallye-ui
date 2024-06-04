@@ -1,4 +1,3 @@
-export * from './lib/model/drink.model';
 export * from './lib/model/startblock-wrapper.model';
 
 export * from './lib/infrastructure/drink/drink.service';

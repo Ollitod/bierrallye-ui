@@ -8,6 +8,7 @@
           formControlName="teamFirstMember"
           id="teamFirstMember"
           matInput
+          readonly
         />
       </mat-form-field>
       <mat-form-field>
@@ -16,6 +17,7 @@
           formControlName="teamSecondMember"
           id="teamSecondMember"
           matInput
+          readonly
         />
       </mat-form-field>
     </div>
@@ -23,28 +25,33 @@
     <div class="form-row">
       <mat-form-field>
         <mat-label>Email</mat-label>
-        <input formControlName="email" id="email" matInput />
+        <input formControlName="email" id="email" matInput readonly />
       </mat-form-field>
       <mat-form-field>
         <mat-label>Startblock</mat-label>
-        <input formControlName="startblock" id="startblock" matInput />
+        <input formControlName="startblock" id="startblock" matInput readonly />
       </mat-form-field>
     </div>
 
     <div class="form-row">
       <mat-form-field>
         <mat-label>UUID</mat-label>
-        <input formControlName="uuid" id="uuid" matInput />
+        <input formControlName="uuid" id="uuid" matInput readonly />
       </mat-form-field>
       <mat-form-field>
         <mat-label>Box-Nr.</mat-label>
-        <input formControlName="boxId" id="boxId" matInput />
+        <input
+          formControlName="boxId"
+          id="boxId"
+          matInput
+          [readonly]="createTeamDisabled"
+        />
       </mat-form-field>
     </div>
 
     <div class="button-container">
       <button
-        (click)="generateLoginQrCode()"
+        (click)="openQrLoginInNewTab()"
         class="tertiary-button"
         mat-flat-button
       >

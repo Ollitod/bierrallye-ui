@@ -15,10 +15,4 @@ export class RegistrationService {
   register(team: IRegistration): Observable<unknown> {
     return this.#http.post(this.#apiUrl + 'registration', team);
   }
-
-  getRegistrations(): Observable<IRegistration[]> {
-    return this.#http.get<IRegistration[]>(
-      this.#apiUrl + 'completion/registrations'
-    );
-  }
 }

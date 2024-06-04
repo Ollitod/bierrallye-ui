@@ -1,11 +1,12 @@
-@if (encodedURL && image) {
+@if (data && data.payload && image) {
   <div class="qr-code-container">
+    <h6>{{ data.payload.team | participantNames }}</h6>
     <ngx-kjua
       [crisp]="true"
       [image]="image"
       [mode]="'image'"
       [size]="450"
-      [text]="encodedURL"
+      [text]="data.payload.encodedUrl"
       [mSize]="30"
     />
   </div>

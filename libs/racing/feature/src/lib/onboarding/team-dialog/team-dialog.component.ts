@@ -11,9 +11,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { ITeam, TeamService } from '@bierrallye/racing/data-access';
+import {
+  ITeam,
+  QrLoginService,
+  TeamOnboarding,
+  TeamService,
+} from '@bierrallye/racing/data-access';
 import { ToastrService } from 'ngx-toastr';
-import { IRegistration, IStartblock } from '@bierrallye/shared/data-access';
 
 @Component({
   selector: 'bierrallye-racing-feature-team-dialog',
@@ -32,26 +36,13 @@ import { IRegistration, IStartblock } from '@bierrallye/shared/data-access';
 })
 export class TeamDialogComponent {
   teamForm = new FormGroup({
-    teamFirstMember: new FormControl(
-      { value: '', disabled: true },
-      { validators: [Validators.required] }
-    ),
-    teamSecondMember: new FormControl(
-      { value: '', disabled: true },
-      { validators: [Validators.required] }
-    ),
-    uuid: new FormControl(
-      { value: '', disabled: true },
-      { validators: [Validators.required] }
-    ),
-    startblock: new FormControl(
-      { value: '', disabled: true },
-      { validators: [Validators.required] }
-    ),
-    email: new FormControl(
-      { value: '', disabled: true },
-      { validators: [Validators.required] }
-    ),
+    teamFirstMember: new FormControl('', { validators: [Validators.required] }),
+    teamSecondMember: new FormControl('', {
+      validators: [Validators.required],
+    }),
+    uuid: new FormControl('', { validators: [Validators.required] }),
+    startblock: new FormControl('', { validators: [Validators.required] }),
+    email: new FormControl('', { validators: [Validators.required] }),
     boxId: new FormControl<number | null>(null, {
       validators: [Validators.required],
     }),
@@ -63,7 +54,8 @@ export class TeamDialogComponent {
   constructor(
     private teamService: TeamService,
     private toastr: ToastrService,
-    @Inject(MAT_DIALOG_DATA) public registration: IRegistration
+    private qrLoginService: QrLoginService,
+    @Inject(MAT_DIALOG_DATA) public registration: TeamOnboarding
   ) {
     this.teamService.get(this.registration.uuid).subscribe({
       next: (team) => {
@@ -72,25 +64,27 @@ export class TeamDialogComponent {
           ...team,
           email: this.registration.email,
         });
-        this.teamForm.controls.boxId.disable();
         this.disableCreateTeamButton();
       },
       error: () => {
         this.teamForm.patchValue({
           ...this.registration,
-          teamFirstMember: this.registration.participant1.fullName,
-          teamSecondMember: this.registration.participant2.fullName,
-          startblock: (this.registration.startblock as IStartblock).name,
+          teamFirstMember: this.registration.player1,
+          teamSecondMember: this.registration.player2,
+          startblock: this.registration.startblock.name,
         });
       },
     });
 
-    const channel = new BroadcastChannel('qr-login');
-    channel.onmessage = (event) => {
-      if (event.data === 'initialized') {
-        this.sendMessageToQrLogin();
-      }
-    };
+    qrLoginService.messagesOfType('notifyReady').subscribe(() => {
+      this.qrLoginService.publish({
+        type: 'payload',
+        payload: {
+          encodedUrl: this.encodedURL ?? '',
+          team: this.teamForm.getRawValue() as ITeam,
+        },
+      });
+    });
   }
 
   createTeam() {
@@ -112,7 +106,7 @@ export class TeamDialogComponent {
     });
   }
 
-  generateLoginQrCode() {
+  openQrLoginInNewTab() {
     const email = this.teamForm.controls.email.value;
     const uuid = this.teamForm.controls.uuid.value;
 
@@ -125,11 +119,6 @@ export class TeamDialogComponent {
       '_blank',
       'location=yes,height=570,width=520,scrollbars=yes,status=yes'
     );
-  }
-
-  sendMessageToQrLogin() {
-    const channel = new BroadcastChannel('qr-login');
-    channel.postMessage({ encodedURL: this.encodedURL });
   }
 
   disableCreateTeamButton() {

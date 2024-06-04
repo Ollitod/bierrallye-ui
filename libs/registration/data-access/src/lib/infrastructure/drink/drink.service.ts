@@ -1,8 +1,7 @@
 import { inject, Injectable } from '@angular/core';
-import { IDrink } from '../../model/drink.model';
+import { API_URL, IDrink } from '@bierrallye/shared/data-access';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { API_URL } from '@bierrallye/shared/data-access';
 
 @Injectable({
   providedIn: 'root',

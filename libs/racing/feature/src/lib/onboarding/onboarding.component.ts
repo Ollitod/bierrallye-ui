@@ -1,9 +1,5 @@
 import { Component } from '@angular/core';
 import {
-  IRegistration,
-  RegistrationService,
-} from '@bierrallye/shared/data-access';
-import {
   ColumnSpec,
   CustomColumnDirective,
   DynamicTableComponent,
@@ -19,7 +15,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { TeamDialogComponent } from './team-dialog/team-dialog.component';
-import { CheckOutService } from '@bierrallye/racing/data-access';
+import {
+  CheckOutService,
+  OnboardingService,
+  TeamOnboarding,
+} from '@bierrallye/racing/data-access';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -44,7 +44,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./onboarding.component.scss'],
 })
 export class OnboardingComponent {
-  columnSpecs: ColumnSpec<IRegistration>[] = [
+  columnSpecs: ColumnSpec<TeamOnboarding>[] = [
     {
       displayedColumn: 'hasTeam',
       header: 'Angelegt',
@@ -86,27 +86,27 @@ export class OnboardingComponent {
     },
   ];
 
-  registrations: IRegistration[] = [];
+  registrations: TeamOnboarding[] = [];
 
   constructor(
-    private registrationService: RegistrationService,
+    private onboardingService: OnboardingService,
     private checkOutService: CheckOutService,
     private dialog: MatDialog,
     private toastr: ToastrService
   ) {
-    this.registrationService
+    this.onboardingService
       .getRegistrations()
       .subscribe((registrations) => (this.registrations = registrations));
   }
 
-  openTeamDialog(registration: IRegistration): void {
+  openTeamDialog(registration: TeamOnboarding): void {
     this.dialog.open(TeamDialogComponent, {
       data: registration,
       minWidth: '50%',
     });
   }
 
-  checkOut(registration: IRegistration) {
+  checkOut(registration: TeamOnboarding) {
     this.checkOutService.checkOut(registration.uuid).subscribe({
       next: () =>
         this.toastr.success('Die Zielzeit wurde gespeichert', 'Ausgecheckt'),

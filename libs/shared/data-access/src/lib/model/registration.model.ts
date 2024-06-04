@@ -6,8 +6,5 @@ export interface IRegistration {
   participant2: Participant;
   startblock: number | IStartblock;
   email: string;
-  uuid?: string;
   dsgvoApproved: boolean;
-  active?: boolean;
-  hasTeam?: boolean;
 }
