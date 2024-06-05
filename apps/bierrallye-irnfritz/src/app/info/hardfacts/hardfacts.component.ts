@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { MatCard, MatCardContent } from '@angular/material/card';
 
 @Component({
   selector: 'app-hardfacts',
   standalone: true,
-  imports: [],
+  imports: [MatCard, MatCardContent],
   templateUrl: './hardfacts.component.html',
   styleUrls: ['./hardfacts.component.scss'],
 })
