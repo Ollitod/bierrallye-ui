@@ -35,6 +35,7 @@ import {
 import { MatIcon } from '@angular/material/icon';
 import { KeyValue, KeyValuePipe } from '@angular/common';
 import { MatDivider } from '@angular/material/divider';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'bierrallye-registration-feature-register',
@@ -58,6 +59,7 @@ import { MatDivider } from '@angular/material/divider';
     MatStepperPrevious,
     KeyValuePipe,
     MatDivider,
+    RouterLink,
   ],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
