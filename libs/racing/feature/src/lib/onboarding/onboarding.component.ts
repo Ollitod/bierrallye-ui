@@ -56,29 +56,21 @@ export class OnboardingComponent {
       width: '5%',
     },
     {
-      displayedColumn: 'player1',
-      header: 'Spieler 1',
-    },
-    {
-      displayedColumn: 'player2',
-      header: 'Spieler 2',
-    },
-    {
       displayedColumn: 'active',
-      header: 'Aktiv',
+      header: 'Verifiziert',
       width: '5%',
+    },
+    {
+      displayedColumn: 'participant1',
+      header: 'Teilnehmer 1',
+    },
+    {
+      displayedColumn: 'participant2',
+      header: 'Teilnehmer 2',
     },
     {
       displayedColumn: 'email',
       header: 'Email',
-    },
-    {
-      displayedColumn: 'drink1',
-      header: 'Getränk 1',
-    },
-    {
-      displayedColumn: 'drink2',
-      header: 'Getränk 2',
     },
     {
       displayedColumn: 'startblock',
@@ -86,7 +78,7 @@ export class OnboardingComponent {
     },
     {
       displayedColumn: 'apply',
-      header: 'Übernehmen',
+      header: 'Aktionen',
       width: '10%',
     },
   ];

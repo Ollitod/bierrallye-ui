@@ -1,10 +1,8 @@
-import { IDrink, IStartblock } from '@bierrallye/shared/data-access';
+import { IStartblock, Participant } from '@bierrallye/shared/data-access';
 
 export interface TeamOnboarding {
-  player1: string;
-  player2: string;
-  drink1: IDrink;
-  drink2: IDrink;
+  participant1: Participant;
+  participant2: Participant;
   startblock: IStartblock;
   email: string;
   uuid: string;
