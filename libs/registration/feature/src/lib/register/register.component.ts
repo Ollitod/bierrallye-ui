@@ -103,7 +103,7 @@ export class RegisterComponent {
   startblocks: IStartblock[] = [];
   totalSpots = 0;
   availableSpots = 0;
-  sexes = { MALE: 'männlich', FEMALE: 'weiblich', DIVERS: 'divers' };
+  sexes = { MALE: 'männlich', FEMALE: 'weiblich', DIVERSE: 'divers' };
 
   constructor(
     private drinksService: DrinkService,
