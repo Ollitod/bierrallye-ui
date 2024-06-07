@@ -1,0 +1,95 @@
+<table>
+  <thead>
+    <tr>
+      <th>Gestartet</th>
+      <th colspan="8">Station absolviert</th>
+      <th>Im Ziel</th>
+    </tr>
+    <tr>
+      <th>Start ({{ stats.started?.length }})</th>
+      <th>Station 1 ({{ stats.station1?.length }})</th>
+      <th>Station 2 ({{ stats.station2?.length }})</th>
+      <th>Station 3 ({{ stats.station3?.length }})</th>
+      <th>Station 4 ({{ stats.station4?.length }})</th>
+      <th>Station 5 ({{ stats.station5?.length }})</th>
+      <th>Station 6 ({{ stats.station6?.length }})</th>
+      <th>Station 7 ({{ stats.station7?.length }})</th>
+      <th>Station 8 ({{ stats.station8?.length }})</th>
+      <th>Ziel ({{ stats.finished?.length }})</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        @for (n of stats.started; track n) {
+          <mat-card appearance="outlined">
+            <mat-card-content>{{ n }}</mat-card-content>
+          </mat-card>
+        }
+      </td>
+      <td>
+        @for (n of stats.station1; track n) {
+          <mat-card appearance="outlined">
+            <mat-card-content>{{ n }}</mat-card-content>
+          </mat-card>
+        }
+      </td>
+      <td>
+        @for (n of stats.station2; track n) {
+          <mat-card appearance="outlined">
+            <mat-card-content>{{ n }}</mat-card-content>
+          </mat-card>
+        }
+      </td>
+      <td>
+        @for (n of stats.station3; track n) {
+          <mat-card appearance="outlined">
+            <mat-card-content>{{ n }}</mat-card-content>
+          </mat-card>
+        }
+      </td>
+      <td>
+        @for (n of stats.station4; track n) {
+          <mat-card appearance="outlined">
+            <mat-card-content>{{ n }}</mat-card-content>
+          </mat-card>
+        }
+      </td>
+      <td>
+        @for (n of stats.station5; track n) {
+          <mat-card appearance="outlined">
+            <mat-card-content>{{ n }}</mat-card-content>
+          </mat-card>
+        }
+      </td>
+      <td>
+        @for (n of stats.station6; track n) {
+          <mat-card appearance="outlined">
+            <mat-card-content>{{ n }}</mat-card-content>
+          </mat-card>
+        }
+      </td>
+      <td>
+        @for (n of stats.station7; track n) {
+          <mat-card appearance="outlined">
+            <mat-card-content>{{ n }}</mat-card-content>
+          </mat-card>
+        }
+      </td>
+      <td>
+        @for (n of stats.station8; track n) {
+          <mat-card appearance="outlined">
+            <mat-card-content>{{ n }}</mat-card-content>
+          </mat-card>
+        }
+      </td>
+      <td>
+        @for (n of stats.finished; track n) {
+          <mat-card appearance="outlined">
+            <mat-card-content>{{ n }}</mat-card-content>
+          </mat-card>
+        }
+      </td>
+    </tr>
+  </tbody>
+</table>

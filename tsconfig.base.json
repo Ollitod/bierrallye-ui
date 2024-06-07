@@ -19,6 +19,7 @@
         "libs/racing/data-access/src/index.ts"
       ],
       "@bierrallye/racing/feature": ["libs/racing/feature/src/index.ts"],
+      "@bierrallye/racing/ui": ["libs/racing/ui/src/index.ts"],
       "@bierrallye/registration/data-access": [
         "libs/registration/data-access/src/index.ts"
       ],
