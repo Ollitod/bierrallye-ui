@@ -1,14 +1,14 @@
 @if (team) {
   <h3>
-    {{ team.startblock }}
+    {{ team.registration.startblock }}
   </h3>
 
   <div class="player-container">
     <div class="player-info">
-      {{ team.teamFirstMember }}
+      {{ team.registration.participant1.fullName }}
     </div>
     <div class="player-info">
-      {{ team.teamSecondMember }}
+      {{ team.registration.participant2.fullName }}
     </div>
   </div>
 
@@ -40,27 +40,27 @@
 
   @if (!(scannerOpenCheckin || scannerOpenCheckout)) {
     <div class="card">
-      @if (!team.teamStartTime) {
+      @if (!team.startTime) {
         <div (click)="openScannerCheckin()" class="scan-info green scan-button">
           <h5>START</h5>
         </div>
       } @else {
         <div class="scan-info green">
           <h5>Startzeit</h5>
-          <h5>{{ team.teamStartTime }} Uhr</h5>
+          <h5>{{ team.startTime }} Uhr</h5>
         </div>
       }
     </div>
 
     <div class="card">
-      @if (!team.teamEndTime) {
+      @if (!team.endTime) {
         <div (click)="openScannerCheckout()" class="scan-info red scan-button">
           <h5>ZIEL</h5>
         </div>
       } @else {
         <div class="scan-info red">
           <h5>Zielzeit</h5>
-          <h5>{{ team.teamEndTime }} Uhr</h5>
+          <h5>{{ team.endTime }} Uhr</h5>
         </div>
       }
     </div>

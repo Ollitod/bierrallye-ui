@@ -1,11 +1,9 @@
+import { IRegistration } from '@bierrallye/shared/data-access';
+
 export interface ITeam {
-  teamId: number;
-  teamFirstMember: string;
-  teamSecondMember: string;
-  teamStartTime?: string;
-  teamEndTime?: string;
+  id: number;
   boxId: number;
-  uuid: string;
-  startblock: string;
-  email: string;
+  startTime?: string;
+  endTime?: string;
+  registration: IRegistration;
 }

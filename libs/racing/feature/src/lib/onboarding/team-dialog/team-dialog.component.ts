@@ -12,7 +12,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {
-  ITeam,
   OnboardingStoreService,
   QrLoginService,
   TeamOnboarding,
@@ -37,8 +36,10 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class TeamDialogComponent {
   teamForm = new FormGroup({
-    teamFirstMember: new FormControl('', { validators: [Validators.required] }),
-    teamSecondMember: new FormControl('', {
+    nameParticipant1: new FormControl('', {
+      validators: [Validators.required],
+    }),
+    nameParticipant2: new FormControl('', {
       validators: [Validators.required],
     }),
     uuid: new FormControl('', { validators: [Validators.required] }),
@@ -71,8 +72,8 @@ export class TeamDialogComponent {
       error: () => {
         this.teamForm.patchValue({
           ...this.registration,
-          teamFirstMember: this.registration.participant1.fullName,
-          teamSecondMember: this.registration.participant2.fullName,
+          nameParticipant1: this.registration.participant1.fullName,
+          nameParticipant2: this.registration.participant2.fullName,
           startblock: this.registration.startblock.name,
         });
       },
@@ -83,14 +84,14 @@ export class TeamDialogComponent {
         type: 'payload',
         payload: {
           encodedUrl: this.encodedURL ?? '',
-          team: this.teamForm.getRawValue() as ITeam,
+          team: this.registration,
         },
       });
     });
   }
 
   createTeam() {
-    this.teamService.create(this.teamForm.getRawValue() as ITeam).subscribe({
+    this.teamService.create(this.teamForm.controls.boxId.value).subscribe({
       next: () => {
         this.toastr.success('Das Team ist startklar', 'Prost!');
         this.onboardingStoreService.setHasTeam(this.registration.uuid);
@@ -110,8 +111,8 @@ export class TeamDialogComponent {
   }
 
   openQrLoginInNewTab() {
-    const email = this.teamForm.controls.email.value;
-    const uuid = this.teamForm.controls.uuid.value;
+    const email = this.registration.email;
+    const uuid = this.registration.uuid;
 
     this.encodedURL =
       window.location.origin + `/login/?username=${email}&uuid=${uuid}`;

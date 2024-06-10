@@ -1,4 +1,5 @@
 export interface IStation {
-  stationId: number;
-  stationName: string;
+  id: number;
+  name: string;
+  hasPositiveEffect: boolean;
 }

@@ -12,8 +12,8 @@ export class TeamService {
 
   #http = inject(HttpClient);
 
-  create(team: ITeam): Observable<string> {
-    return this.#http.post(this.#apiUrl + 'completion/team', team, {
+  create(boxId: number | null): Observable<string> {
+    return this.#http.post(this.#apiUrl + 'completion/team', boxId, {
       responseType: 'text',
     });
   }

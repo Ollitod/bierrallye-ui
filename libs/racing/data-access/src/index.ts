@@ -19,3 +19,4 @@ export * from './lib/infrastructure/live-overview/race-stats.service';
 export * from './lib/application/qr-login.service';
 export * from './lib/application/onboarding-store/onboarding-store.service';
 export * from './lib/application/live-overview-store/live-overview-store.service';
+export * from './lib/application/penalty-store/penalty-store.service';

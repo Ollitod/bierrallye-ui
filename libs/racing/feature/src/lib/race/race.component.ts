@@ -50,7 +50,7 @@ export class RaceComponent {
   }
 
   openScannerCheckout(): void {
-    if (this.team?.teamStartTime) {
+    if (this.team?.startTime) {
       this.scannerOpenCheckout = true;
     }
   }
