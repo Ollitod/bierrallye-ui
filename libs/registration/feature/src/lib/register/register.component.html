@@ -91,12 +91,13 @@
           </mat-form-field>
 
           <mat-checkbox
+            (click)="openDsgvoDialog()"
             formControlName="dsgvoApproved"
             id="dsgvoApproved"
             required
             style="padding-bottom: 22px"
           >
-            DSGVO
+            DSGVO/Teilnahmebedingungen
           </mat-checkbox>
 
           <div>

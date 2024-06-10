@@ -36,6 +36,8 @@ import { MatIcon } from '@angular/material/icon';
 import { KeyValue, KeyValuePipe } from '@angular/common';
 import { MatDivider } from '@angular/material/divider';
 import { RouterLink } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { DsgvoDialogComponent } from '@bierrallye/registration/ui';
 
 @Component({
   selector: 'bierrallye-registration-feature-register',
@@ -109,7 +111,8 @@ export class RegisterComponent {
     private drinksService: DrinkService,
     private startblockService: StartblockService,
     private registrationService: RegistrationService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private dialog: MatDialog
   ) {
     this.drinksService
       .getDrinks()
@@ -154,4 +157,16 @@ export class RegisterComponent {
   ): number => {
     return 0;
   };
+
+  openDsgvoDialog() {
+    if (this.teamFormGroup.controls.dsgvoApproved.value) {
+      this.teamFormGroup.controls.dsgvoApproved.patchValue(false);
+      const dialogRef = this.dialog.open(DsgvoDialogComponent, {
+        maxWidth: '33vw',
+      });
+      dialogRef.afterClosed().subscribe((result) => {
+        this.teamFormGroup.controls.dsgvoApproved.patchValue(result);
+      });
+    }
+  }
 }
