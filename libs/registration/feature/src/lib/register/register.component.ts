@@ -162,7 +162,9 @@ export class RegisterComponent {
     if (this.teamFormGroup.controls.dsgvoApproved.value) {
       this.teamFormGroup.controls.dsgvoApproved.patchValue(false);
       const dialogRef = this.dialog.open(DsgvoDialogComponent, {
+        minWidth: '325px',
         maxWidth: '33vw',
+        maxHeight: '80vh',
       });
       dialogRef.afterClosed().subscribe((result) => {
         this.teamFormGroup.controls.dsgvoApproved.patchValue(result);
