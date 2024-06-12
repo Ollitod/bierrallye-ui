@@ -1,8 +1,8 @@
-import { IStationEvaluation } from './station-evaluation.model';
+import { StationEvaluation } from './station-evaluation.model';
 
-export interface IEvaluation {
+export interface Evaluation {
   boxId: string;
-  stationEvaluation: IStationEvaluation[];
+  stationEvaluation: StationEvaluation[];
   startTime: string;
   endTime: string;
   penalty: string;

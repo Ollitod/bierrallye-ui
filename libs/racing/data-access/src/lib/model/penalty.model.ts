@@ -1,4 +1,4 @@
-export interface IPenalty {
+export interface Penalty {
   id: number;
   teamBoxId: number;
   nameParticipant1: string;
@@ -9,6 +9,6 @@ export interface IPenalty {
 }
 
 export type CreatePenalty = Omit<
-  IPenalty,
+  Penalty,
   'id' | 'teamBoxId' | 'nameParticipant1' | 'nameParticipant2'
 >;

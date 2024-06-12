@@ -1,4 +1,4 @@
-export interface IStation {
+export interface Station {
   id: number;
   name: string;
   hasPositiveEffect: boolean;

@@ -1,9 +1,9 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
-import { IStation } from '../../model/station.model';
-import { ITeam } from '../../model/team.model';
+import { Station } from '../../model/station.model';
+import { Team } from '../../model/team.model';
 import { PenaltyService } from '../../infrastructure/penalty/penalty.service';
 import { map } from 'rxjs';
-import { CreatePenalty, IPenalty } from '../../model/penalty.model';
+import { CreatePenalty, Penalty } from '../../model/penalty.model';
 import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
@@ -13,8 +13,8 @@ export class PenaltyStoreService {
   private penaltyService = inject(PenaltyService);
   private toastr = inject(ToastrService);
 
-  readonly stations = signal<IStation[]>([]);
-  private readonly teams = signal<ITeam[]>([]);
+  readonly stations = signal<Station[]>([]);
+  private readonly teams = signal<Team[]>([]);
   readonly filteredTeams = computed(() => {
     return this.teams().filter(
       (team) =>
@@ -28,7 +28,7 @@ export class PenaltyStoreService {
       .map((team) => team.boxId)
       .sort((a, b) => a - b)
   );
-  readonly recordedPenalties = signal<IPenalty[]>([]);
+  readonly recordedPenalties = signal<Penalty[]>([]);
   readonly showCreatePenalty = signal<boolean>(false);
 
   loadStations() {

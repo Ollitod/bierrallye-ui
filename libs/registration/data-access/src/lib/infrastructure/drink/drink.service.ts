@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { API_URL, IDrink } from '@bierrallye/shared/data-access';
+import { API_URL, Drink } from '@bierrallye/shared/data-access';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
@@ -11,7 +11,7 @@ export class DrinkService {
 
   #http = inject(HttpClient);
 
-  getDrinks(): Observable<IDrink[]> {
-    return this.#http.get<IDrink[]>(this.#apiUrl + 'registration/drinks');
+  getDrinks(): Observable<Drink[]> {
+    return this.#http.get<Drink[]>(this.#apiUrl + 'registration/drinks');
   }
 }

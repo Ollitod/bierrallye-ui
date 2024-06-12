@@ -1,7 +1,7 @@
-import { IStartblock } from '@bierrallye/shared/data-access';
+import { Startblock } from '@bierrallye/shared/data-access';
 
-export interface IStartblockWrapper {
-  startblocks: IStartblock[];
+export interface StartblockWrapper {
+  startblocks: Startblock[];
   totalSpots: number;
   availableSpots: number;
 }

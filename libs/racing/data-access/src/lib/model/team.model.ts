@@ -1,9 +1,9 @@
-import { IRegistration } from '@bierrallye/shared/data-access';
+import { Registration } from '@bierrallye/shared/data-access';
 
-export interface ITeam {
+export interface Team {
   id: number;
   boxId: number;
   startTime?: string;
   endTime?: string;
-  registration: IRegistration;
+  registration: Registration;
 }

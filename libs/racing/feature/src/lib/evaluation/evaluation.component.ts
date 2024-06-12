@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import {
+  Evaluation,
   EvaluationService,
-  IEvaluation,
-  IStationEvaluation,
+  StationEvaluation,
 } from '@bierrallye/racing/data-access';
 import {
   ColumnSpec,
@@ -25,9 +25,9 @@ import { MatCardModule } from '@angular/material/card';
   styleUrls: ['./evaluation.component.scss'],
 })
 export class EvaluationComponent {
-  evaluations: IEvaluation[] = [];
+  evaluations: Evaluation[] = [];
 
-  columnsSpecs: ColumnSpec<IEvaluation>[] = [
+  columnsSpecs: ColumnSpec<Evaluation>[] = [
     {
       displayedColumn: 'boxId',
       header: 'Box-ID',
@@ -55,7 +55,7 @@ export class EvaluationComponent {
     },
   ];
 
-  detailColumnSpecs: ColumnSpec<IStationEvaluation>[] = [
+  detailColumnSpecs: ColumnSpec<StationEvaluation>[] = [
     {
       displayedColumn: 'station',
       header: 'Station',

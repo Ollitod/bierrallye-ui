@@ -58,23 +58,23 @@ export class TeamDialogComponent {
     private toastr: ToastrService,
     private qrLoginService: QrLoginService,
     private onboardingStoreService: OnboardingStoreService,
-    @Inject(MAT_DIALOG_DATA) public registration: TeamOnboarding
+    @Inject(MAT_DIALOG_DATA) public teamOnboarding: TeamOnboarding
   ) {
-    this.teamService.get(this.registration.uuid).subscribe({
+    this.teamService.get(this.teamOnboarding.uuid).subscribe({
       next: (team) => {
         // since email is not a property of ITeam, it has to be patched with the value from the registration
         this.teamForm.patchValue({
           ...team,
-          email: this.registration.email,
+          email: this.teamOnboarding.email,
         });
         this.disableCreateTeamButton();
       },
       error: () => {
         this.teamForm.patchValue({
-          ...this.registration,
-          nameParticipant1: this.registration.participant1.fullName,
-          nameParticipant2: this.registration.participant2.fullName,
-          startblock: this.registration.startblock.name,
+          ...this.teamOnboarding,
+          nameParticipant1: this.teamOnboarding.participant1.fullName,
+          nameParticipant2: this.teamOnboarding.participant2.fullName,
+          startblock: this.teamOnboarding.startblock.name,
         });
       },
     });
@@ -84,7 +84,7 @@ export class TeamDialogComponent {
         type: 'payload',
         payload: {
           encodedUrl: this.encodedURL ?? '',
-          team: this.registration,
+          team: this.teamOnboarding,
         },
       });
     });
@@ -94,7 +94,7 @@ export class TeamDialogComponent {
     this.teamService.create(this.teamForm.controls.boxId.value).subscribe({
       next: () => {
         this.toastr.success('Das Team ist startklar', 'Prost!');
-        this.onboardingStoreService.setHasTeam(this.registration.uuid);
+        this.onboardingStoreService.setHasTeam(this.teamOnboarding.uuid);
         this.disableCreateTeamButton();
       },
       error: (error) => {
@@ -111,8 +111,8 @@ export class TeamDialogComponent {
   }
 
   openQrLoginInNewTab() {
-    const email = this.registration.email;
-    const uuid = this.registration.uuid;
+    const email = this.teamOnboarding.email;
+    const uuid = this.teamOnboarding.uuid;
 
     this.encodedURL =
       window.location.origin + `/login/?username=${email}&uuid=${uuid}`;

@@ -11,8 +11,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ToastrService } from 'ngx-toastr';
 import {
+  Auth,
   AuthService,
-  IAuth,
   Role,
   TokenService,
   UserService,
@@ -60,7 +60,7 @@ export class LoginComponent {
 
   authenticate(): void {
     this.authService
-      .authenticate(this.loginForm.getRawValue() as IAuth)
+      .authenticate(this.loginForm.getRawValue() as Auth)
       .pipe(
         takeUntilDestroyed(this.destroyRef),
         switchMap((response) => {

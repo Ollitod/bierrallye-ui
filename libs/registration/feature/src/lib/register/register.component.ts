@@ -15,13 +15,17 @@ import {
   StartblockService,
 } from '@bierrallye/registration/data-access';
 import { ToastrService } from 'ngx-toastr';
-import { AvailableSpotsComponent } from '@bierrallye/registration/ui';
 import {
-  IDrink,
-  IRegistration,
-  IStartblock,
-  Participant,
+  AvailableSpotsComponent,
+  DsgvoDialogComponent,
+} from '@bierrallye/registration/ui';
+import {
+  CreateParticipant,
+  CreateRegistration,
+  Drink,
+  RegistrationFormTeamGroup,
   RegistrationService,
+  Startblock,
 } from '@bierrallye/shared/data-access';
 import { MatCard, MatCardContent } from '@angular/material/card';
 import {
@@ -37,7 +41,6 @@ import { KeyValue, KeyValuePipe } from '@angular/common';
 import { MatDivider } from '@angular/material/divider';
 import { RouterLink } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { DsgvoDialogComponent } from '@bierrallye/registration/ui';
 
 @Component({
   selector: 'bierrallye-registration-feature-register',
@@ -101,8 +104,8 @@ export class RegisterComponent {
     }),
   });
 
-  drinks: IDrink[] = [];
-  startblocks: IStartblock[] = [];
+  drinks: Drink[] = [];
+  startblocks: Startblock[] = [];
   totalSpots = 0;
   availableSpots = 0;
   sexes = { MALE: 'männlich', FEMALE: 'weiblich' };
@@ -127,17 +130,14 @@ export class RegisterComponent {
 
   sendRegistration(): void {
     const participant1 =
-      this.participantFormGroup1.getRawValue() as Participant;
+      this.participantFormGroup1.getRawValue() as CreateParticipant;
     const participant2 =
-      this.participantFormGroup2.getRawValue() as Participant;
+      this.participantFormGroup2.getRawValue() as CreateParticipant;
     const team = {
-      ...(this.teamFormGroup.getRawValue() as Pick<
-        IRegistration,
-        'startblock' | 'email' | 'dsgvoApproved'
-      >),
+      ...(this.teamFormGroup.getRawValue() as RegistrationFormTeamGroup),
     };
 
-    const reg: IRegistration = {
+    const reg: CreateRegistration = {
       participant1,
       participant2,
       ...team,

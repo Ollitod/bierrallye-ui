@@ -96,9 +96,9 @@ export class OnboardingComponent {
     this.onboardingStoreService.loadRegistrations();
   }
 
-  openTeamDialog(registration: TeamOnboarding): void {
+  openTeamDialog(teamOnboarding: TeamOnboarding): void {
     this.dialog.open(TeamDialogComponent, {
-      data: registration,
+      data: teamOnboarding,
       minWidth: '50%',
     });
   }

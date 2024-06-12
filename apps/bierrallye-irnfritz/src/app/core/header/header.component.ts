@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
-import { IUser, UserService } from '@bierrallye/shared/data-access';
+import { User, UserService } from '@bierrallye/shared/data-access';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
@@ -12,7 +12,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  user?: IUser;
+  user?: User;
 
   constructor(private userService: UserService) {
     this.userService.user

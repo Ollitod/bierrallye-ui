@@ -3,11 +3,11 @@ import { MatButtonModule } from '@angular/material/button';
 import {
   CheckInService,
   CheckOutService,
-  ITeam,
+  Team,
   TeamService,
 } from '@bierrallye/racing/data-access';
 import { switchMap } from 'rxjs';
-import { IUser, UserService } from '@bierrallye/shared/data-access';
+import { User, UserService } from '@bierrallye/shared/data-access';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { ToastrService } from 'ngx-toastr';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -24,8 +24,8 @@ export class RaceComponent {
   scannerOpenCheckin = false;
   scannerOpenCheckout = false;
 
-  team?: ITeam;
-  user?: IUser;
+  team?: Team;
+  user?: User;
 
   constructor(
     private userService: UserService,
