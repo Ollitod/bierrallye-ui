@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Team } from '../../model/team.model';
 import { Observable } from 'rxjs';
 import { API_URL } from '@bierrallye/shared/data-access';
+import { CreateTeam } from '../../model/create-team.model';
 
 @Injectable({
   providedIn: 'root',
@@ -12,13 +13,13 @@ export class TeamService {
 
   #http = inject(HttpClient);
 
-  create(boxId: number | null): Observable<string> {
-    return this.#http.post(this.#apiUrl + 'completion/team', boxId, {
+  create(team: CreateTeam): Observable<string> {
+    return this.#http.post(this.#apiUrl + 'completion/team', team, {
       responseType: 'text',
     });
   }
 
-  get(uuid?: string): Observable<Team> {
+  get(uuid: string): Observable<Team> {
     return this.#http.get<Team>(`${this.#apiUrl}track/team/${uuid}`);
   }
 }

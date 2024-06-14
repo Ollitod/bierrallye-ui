@@ -7,6 +7,7 @@ export * from './lib/model/qr-login-data.model';
 export * from './lib/model/team-onboarding.model';
 export * from './lib/model/race-stats.model';
 export * from './lib/model/team-minimal.model';
+export * from './lib/model/create-team.model';
 
 export * from './lib/infrastructure/evaluation/evaluation.service';
 export * from './lib/infrastructure/penalty/penalty.service';

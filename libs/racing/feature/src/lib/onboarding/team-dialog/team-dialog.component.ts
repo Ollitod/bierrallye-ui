@@ -12,6 +12,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {
+  CreateTeam,
   OnboardingStoreService,
   QrLoginService,
   TeamOnboarding,
@@ -36,16 +37,25 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class TeamDialogComponent {
   teamForm = new FormGroup({
+    // only used to display information
     nameParticipant1: new FormControl('', {
       validators: [Validators.required],
     }),
+    // only used to display information
     nameParticipant2: new FormControl('', {
       validators: [Validators.required],
     }),
+    // only used to display information
     uuid: new FormControl('', { validators: [Validators.required] }),
+    // only used to display information
     startblock: new FormControl('', { validators: [Validators.required] }),
+    // only used to display information
     email: new FormControl('', { validators: [Validators.required] }),
     boxId: new FormControl<number | null>(null, {
+      validators: [Validators.required],
+    }),
+    // no corresponding mat-form-field
+    registrationId: new FormControl<number | null>(null, {
       validators: [Validators.required],
     }),
   });
@@ -62,19 +72,27 @@ export class TeamDialogComponent {
   ) {
     this.teamService.get(this.teamOnboarding.uuid).subscribe({
       next: (team) => {
-        // since email is not a property of ITeam, it has to be patched with the value from the registration
+        // Team already exists
         this.teamForm.patchValue({
-          ...team,
-          email: this.teamOnboarding.email,
+          nameParticipant1: team.registration.participant1.fullName,
+          nameParticipant2: team.registration.participant2.fullName,
+          uuid: team.registration.uuid,
+          startblock: team.registration.startblock.name,
+          email: team.registration.email,
+          registrationId: team.registration.id,
+          boxId: team.boxId,
         });
         this.disableCreateTeamButton();
       },
       error: () => {
+        // Team does not exist
         this.teamForm.patchValue({
-          ...this.teamOnboarding,
           nameParticipant1: this.teamOnboarding.participant1.fullName,
           nameParticipant2: this.teamOnboarding.participant2.fullName,
+          uuid: this.teamOnboarding.uuid,
           startblock: this.teamOnboarding.startblock.name,
+          email: this.teamOnboarding.email,
+          registrationId: this.teamOnboarding.id,
         });
       },
     });
@@ -91,23 +109,25 @@ export class TeamDialogComponent {
   }
 
   createTeam() {
-    this.teamService.create(this.teamForm.controls.boxId.value).subscribe({
-      next: () => {
-        this.toastr.success('Das Team ist startklar', 'Prost!');
-        this.onboardingStoreService.setHasTeam(this.teamOnboarding.uuid);
-        this.disableCreateTeamButton();
-      },
-      error: (error) => {
-        if (error.error) {
-          this.toastr.error(error.error, 'Fehler');
-        } else {
-          this.toastr.error(
-            'Beim anlegen des Teams ist ein unbekannter Fehler aufgetreten',
-            'Fehler'
-          );
-        }
-      },
-    });
+    this.teamService
+      .create(this.teamForm.getRawValue() as CreateTeam)
+      .subscribe({
+        next: () => {
+          this.toastr.success('Das Team ist startklar', 'Prost!');
+          this.onboardingStoreService.setHasTeam(this.teamOnboarding.uuid);
+          this.disableCreateTeamButton();
+        },
+        error: (error) => {
+          if (error.error) {
+            this.toastr.error(error.error, 'Fehler');
+          } else {
+            this.toastr.error(
+              'Beim anlegen des Teams ist ein unbekannter Fehler aufgetreten',
+              'Fehler'
+            );
+          }
+        },
+      });
   }
 
   openQrLoginInNewTab() {
