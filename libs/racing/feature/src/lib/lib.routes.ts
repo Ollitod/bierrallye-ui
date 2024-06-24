@@ -7,6 +7,7 @@ import { LiveOverviewComponent } from './live-overview/live-overview.component';
 import { CreatePenaltyComponent } from './penalty/create-penalty/create-penalty.component';
 import { Role } from '@bierrallye/shared/data-access';
 import { roleAllowedGuard } from './core/guard/role-allowed/role-allowed.guard';
+import { stationGuard } from './core/guard/station/station.guard';
 
 export const racingRoutes: Route[] = [
   {
@@ -24,7 +25,13 @@ export const racingRoutes: Route[] = [
   {
     path: 'penalty',
     component: PenaltyComponent,
-    children: [{ path: ':stationId', component: CreatePenaltyComponent }],
+    children: [
+      {
+        path: ':stationId',
+        component: CreatePenaltyComponent,
+        canActivate: [stationGuard],
+      },
+    ],
     data: { role: Role.EMPLOYEE },
     canActivate: [roleAllowedGuard],
   },

@@ -2,7 +2,7 @@ import { computed, inject, Injectable, signal } from '@angular/core';
 import { Station } from '../../model/station.model';
 import { Team } from '../../model/team.model';
 import { PenaltyService } from '../../infrastructure/penalty/penalty.service';
-import { map } from 'rxjs';
+import { lastValueFrom, map } from 'rxjs';
 import { CreatePenalty, Penalty } from '../../model/penalty.model';
 import { ToastrService } from 'ngx-toastr';
 
@@ -86,5 +86,9 @@ export class PenaltyStoreService {
         this.toastr.error(error.error, 'Fehler');
       },
     });
+  }
+
+  async hasPrivileges(stationId: number) {
+    return await lastValueFrom(this.penaltyService.hasPrivileges(stationId));
   }
 }

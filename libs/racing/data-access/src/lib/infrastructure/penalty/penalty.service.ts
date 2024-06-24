@@ -39,4 +39,10 @@ export class PenaltyService {
       responseType: 'text',
     });
   }
+
+  hasPrivileges(stationId: number) {
+    return this.#http.get<boolean>(
+      `${this.#apiUrl}penalty/${stationId}/checkPrivileges`
+    );
+  }
 }
