@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
-import { APP_MODE } from '@bierrallye/shared/data-access';
+import { APP_MODE, FeatureService } from '@bierrallye/shared/data-access';
 import { MatCard, MatCardContent } from '@angular/material/card';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-event-info',
@@ -13,4 +14,6 @@ import { MatCard, MatCardContent } from '@angular/material/card';
 })
 export class EventInfoComponent {
   protected readonly APP_MODE = APP_MODE;
+  private featureService = inject(FeatureService);
+  activeFeature = toSignal(this.featureService.getActive());
 }

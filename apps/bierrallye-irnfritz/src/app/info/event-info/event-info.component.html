@@ -3,8 +3,34 @@
     <b>SAMSTAG, 6. Juli 2024</b>
     <b>AB 13 Uhr</b>
     <b>SPORTPLATZ IRNFRITZ</b>
-    <button mat-flat-button class="secondary-button" routerLink="/registration">
-      zur Anmeldung
-    </button>
+    @switch (activeFeature()) {
+      @case ('REGISTRATION') {
+        <button
+          mat-flat-button
+          class="secondary-button"
+          routerLink="/registration"
+        >
+          zur Anmeldung
+        </button>
+      }
+      @case ('LIVE_TRACKING') {
+        <button
+          mat-flat-button
+          class="secondary-button"
+          routerLink="/racing/overview"
+        >
+          zum Live-Tracking
+        </button>
+      }
+      @case ('EVALUATION') {
+        <button
+          mat-flat-button
+          class="secondary-button"
+          routerLink="/racing/evaluation"
+        >
+          zur Auswertung
+        </button>
+      }
+    }
   </mat-card-content>
 </mat-card>
