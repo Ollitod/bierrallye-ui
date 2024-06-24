@@ -41,6 +41,8 @@ import {
   PenaltyStoreService,
 } from '@bierrallye/racing/data-access';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { RemovePenaltyDialogComponent } from '@bierrallye/racing/ui';
 
 @Component({
   selector: 'bierrallye-racing-feature-create-penalty',
@@ -74,6 +76,7 @@ import { Router } from '@angular/router';
 export class CreatePenaltyComponent implements OnInit {
   private penaltyStoreService = inject(PenaltyStoreService);
   private router = inject(Router);
+  private dialog = inject(MatDialog);
 
   stationId = input.required({ transform: numberAttribute });
   formDirective = viewChild<FormGroupDirective>('formDirective');
@@ -85,11 +88,9 @@ export class CreatePenaltyComponent implements OnInit {
   selectedStation = computed(() =>
     this.stations().find((station) => station.id === this.stationId())
   );
-
-  // FIXME: Found out why this is a huge problem.
-  //  Even though the stationId was defined as input.signal of type number, the actual type of the id is string, because of the router.
-  //  This is why the === operator did not work and the form was also not updated because of this type mismatch.
-  //  This is a huge problem and is fixed by defining a transformer, namely the numberAttribute.
+  effectLabel = computed(() =>
+    this.selectedStation()?.hasPositiveEffect ? 'Bonusminuten' : 'Strafminuten'
+  );
 
   penaltyForm = new FormGroup({
     stationId: new FormControl<number | null>(
@@ -139,14 +140,26 @@ export class CreatePenaltyComponent implements OnInit {
 
   createPenalty() {
     this.penaltyStoreService.createPenalty(
-      this.penaltyForm.getRawValue() as CreatePenalty
+      this.penaltyForm.getRawValue() as CreatePenalty,
+      this.effectLabel()
     );
     this.formDirective()?.resetForm();
     this.penaltyForm.controls.stationId.patchValue(this.stationId());
   }
 
   deletePenalty(id: number) {
-    this.penaltyStoreService.deletePenalty(this.stationId(), id);
+    const dialogRef = this.dialog.open(RemovePenaltyDialogComponent, {
+      data: { effectLabel: this.effectLabel() },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.penaltyStoreService.deletePenalty(
+          this.stationId(),
+          id,
+          this.effectLabel()
+        );
+      }
+    });
   }
 
   private getBoxIdByTeamId(teamId: number): number | undefined {

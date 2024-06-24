@@ -58,12 +58,12 @@ export class PenaltyStoreService {
       .subscribe((penalties) => this.recordedPenalties.set(penalties));
   }
 
-  createPenalty(penalty: CreatePenalty) {
+  createPenalty(penalty: CreatePenalty, effectLabel: string) {
     this.penaltyService.createPenalty(penalty).subscribe({
       next: (p) => {
         this.recordedPenalties.set([...this.recordedPenalties(), p]);
         this.toastr.success(
-          'Penalty wurde erfolgreich erfasst!',
+          `Die ${effectLabel} wurden erfolgreich erfasst!`,
           'Erfolgreich'
         );
       },
@@ -73,10 +73,13 @@ export class PenaltyStoreService {
     });
   }
 
-  deletePenalty(stationId: number, penaltyId: number) {
+  deletePenalty(stationId: number, penaltyId: number, effectLabel: string) {
     this.penaltyService.delete(penaltyId).subscribe({
-      next: (response) => {
-        this.toastr.success(response, 'Erfolgreich');
+      next: () => {
+        this.toastr.success(
+          `Die ${effectLabel} wurden erfolgreich gelöscht!`,
+          'Erfolgreich'
+        );
         this.recordedPenalties.update((penalties) =>
           penalties.filter((p) => p.id !== penaltyId)
         );
