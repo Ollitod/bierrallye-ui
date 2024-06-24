@@ -1,12 +1,14 @@
+import { TeamMinimal } from './team-minimal.model';
+
 export interface RaceStats {
-  started?: number[];
-  station1?: number[];
-  station2?: number[];
-  station3?: number[];
-  station4?: number[];
-  station5?: number[];
-  station6?: number[];
-  station7?: number[];
-  station8?: number[];
-  finished?: number[];
+  started: TeamMinimal[];
+  station1: TeamMinimal[];
+  station2: TeamMinimal[];
+  station3: TeamMinimal[];
+  station4: TeamMinimal[];
+  station5: TeamMinimal[];
+  station6: TeamMinimal[];
+  station7: TeamMinimal[];
+  station8: TeamMinimal[];
+  finished: TeamMinimal[];
 }

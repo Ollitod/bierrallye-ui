@@ -20,6 +20,7 @@ import { TeamMinimal } from '@bierrallye/racing/data-access';
   ],
   templateUrl: './team-card.component.html',
   styleUrl: './team-card.component.scss',
+  host: { style: 'display: block' },
 })
 export class TeamCardComponent {
   team = input.required<TeamMinimal>();

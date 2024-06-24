@@ -9,6 +9,6 @@ export class LiveOverviewStoreService {
   private raceStatsService = inject(RaceStatsService);
 
   refreshingRaceStats$ = timer(0, 10000).pipe(
-    switchMap(() => this.raceStatsService.getMockRaceStats())
+    switchMap(() => this.raceStatsService.getRaceStats())
   );
 }

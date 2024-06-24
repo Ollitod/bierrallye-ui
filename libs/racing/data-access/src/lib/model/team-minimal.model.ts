@@ -3,5 +3,4 @@ export interface TeamMinimal {
   nameParticipant1: string;
   nameParticipant2: string;
   startTime: string;
-  totalTime: string;
 }
