@@ -1,6 +1,5 @@
 import { Route } from '@angular/router';
 import { InfoComponent } from './info/info.component';
-import { authGuard } from './core/guards/auth/auth.guard';
 
 export const appRoutes: Route[] = [
   {
@@ -30,7 +29,6 @@ export const appRoutes: Route[] = [
     path: 'racing',
     loadChildren: () =>
       import('@bierrallye/racing/feature').then((m) => m.racingRoutes),
-    canActivate: [authGuard],
   },
   {
     path: 'login',
