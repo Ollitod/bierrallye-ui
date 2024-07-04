@@ -53,12 +53,12 @@ export class OnboardingComponent {
     {
       displayedColumn: 'hasTeam',
       header: 'Angelegt',
-      width: '5%',
+      width: '6%',
     },
     {
       displayedColumn: 'active',
       header: 'Verifiziert',
-      width: '5%',
+      width: '6%',
     },
     {
       displayedColumn: 'participant1',

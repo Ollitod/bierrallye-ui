@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import {
   Evaluation,
   EvaluationService,
@@ -11,6 +11,11 @@ import {
   ExpansionContentDirective,
 } from '@gepardec/ngx-gepardec-mat';
 import { MatCardModule } from '@angular/material/card';
+import { MatButton } from '@angular/material/button';
+import { Role, UserService } from '@bierrallye/shared/data-access';
+import { MatDialog } from '@angular/material/dialog';
+import { WinnersDialogComponent } from '@bierrallye/racing/ui';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'bierrallye-racing-feature-evaluation',
@@ -20,11 +25,15 @@ import { MatCardModule } from '@angular/material/card';
     MatCardModule,
     DynamicTableComponent,
     ExpansionContentDirective,
+    MatButton,
   ],
   templateUrl: './evaluation.component.html',
   styleUrls: ['./evaluation.component.scss'],
 })
 export class EvaluationComponent {
+  private userService = inject(UserService);
+  private dialog = inject(MatDialog);
+
   evaluations: Evaluation[] = [];
 
   columnsSpecs: ColumnSpec<Evaluation>[] = [
@@ -66,9 +75,19 @@ export class EvaluationComponent {
     },
   ];
 
+  isAdmin = computed(() => this.userService.userSignal()?.role === Role.ADMIN);
+
   constructor(private evaluationService: EvaluationService) {
     this.evaluationService
       .getEvaluations()
       .subscribe((evaluations) => (this.evaluations = evaluations));
+  }
+
+  async openWinnersDialog() {
+    const winners = await lastValueFrom(this.evaluationService.getWinners());
+    this.dialog.open(WinnersDialogComponent, {
+      data: winners,
+      minWidth: '400px',
+    });
   }
 }
