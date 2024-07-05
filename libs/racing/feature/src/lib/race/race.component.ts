@@ -12,11 +12,18 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { ToastrService } from 'ngx-toastr';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
+import { MatCard, MatCardContent } from '@angular/material/card';
 
 @Component({
   selector: 'bierrallye-racing-feature-race',
   standalone: true,
-  imports: [MatButtonModule, ZXingScannerModule, CommonModule],
+  imports: [
+    MatButtonModule,
+    ZXingScannerModule,
+    CommonModule,
+    MatCard,
+    MatCardContent,
+  ],
   templateUrl: './race.component.html',
   styleUrls: ['./race.component.scss'],
 })
