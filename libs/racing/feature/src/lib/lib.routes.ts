@@ -9,6 +9,7 @@ import { Role } from '@bierrallye/shared/data-access';
 import { roleAllowedGuard } from './core/guards/role-allowed/role-allowed.guard';
 import { stationGuard } from './core/guards/station/station.guard';
 import { authGuard } from './core/guards/auth/auth.guard';
+import { StationListComponent } from './penalty/station-list/station-list.component';
 
 export const racingRoutes: Route[] = [
   {
@@ -27,6 +28,10 @@ export const racingRoutes: Route[] = [
     path: 'penalty',
     component: PenaltyComponent,
     children: [
+      {
+        path: '',
+        component: StationListComponent,
+      },
       {
         path: ':stationId',
         component: CreatePenaltyComponent,

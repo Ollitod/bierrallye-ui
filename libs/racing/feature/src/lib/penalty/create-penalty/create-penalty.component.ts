@@ -110,7 +110,6 @@ export class CreatePenaltyComponent implements OnInit {
   });
 
   ngOnInit() {
-    this.penaltyStoreService.showCreatePenalty.set(true);
     this.penaltyStoreService.loadTeams(this.stationId());
     this.penaltyStoreService.loadPenalties(this.stationId());
 
@@ -134,7 +133,6 @@ export class CreatePenaltyComponent implements OnInit {
   }
 
   back(): void {
-    this.penaltyStoreService.showCreatePenalty.set(false);
     this.router.navigate(['racing/penalty']);
   }
 

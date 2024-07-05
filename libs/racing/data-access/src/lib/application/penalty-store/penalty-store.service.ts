@@ -5,6 +5,7 @@ import { PenaltyService } from '../../infrastructure/penalty/penalty.service';
 import { lastValueFrom, map } from 'rxjs';
 import { CreatePenalty, Penalty } from '../../model/penalty.model';
 import { ToastrService } from 'ngx-toastr';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,9 @@ export class PenaltyStoreService {
   private penaltyService = inject(PenaltyService);
   private toastr = inject(ToastrService);
 
-  readonly stations = signal<Station[]>([]);
+  readonly stations = toSignal(this.penaltyService.getStations(), {
+    initialValue: [],
+  });
   private readonly teams = signal<Team[]>([]);
   readonly filteredTeams = computed(() => {
     return this.teams().filter(
@@ -29,13 +32,6 @@ export class PenaltyStoreService {
       .sort((a, b) => a - b)
   );
   readonly recordedPenalties = signal<Penalty[]>([]);
-  readonly showCreatePenalty = signal<boolean>(false);
-
-  loadStations() {
-    this.penaltyService
-      .getStations()
-      .subscribe((stations) => this.stations.set(stations));
-  }
 
   loadTeams(stationId: number) {
     this.penaltyService

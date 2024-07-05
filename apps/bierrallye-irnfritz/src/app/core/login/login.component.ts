@@ -62,12 +62,12 @@ export class LoginComponent {
     this.authService
       .authenticate(this.loginForm.getRawValue() as Auth)
       .pipe(
-        takeUntilDestroyed(this.destroyRef),
         switchMap((response) => {
           this.tokenService.storeToken(response.token);
           this.userService.loginUser();
           return this.userService.user;
-        })
+        }),
+        takeUntilDestroyed(this.destroyRef)
       )
       .subscribe({
         next: (user) => {
