@@ -7,7 +7,7 @@
 
 <gpx-dynamic-table
   [columnSpecs]="columnSpecs"
-  [columnsExcludedFromSort]="['startblock', 'apply']"
+  [columnsExcludedFromSort]="['apply']"
   [data]="registrations()"
   [pageSizeOptions]="[15, 30, 50, 100]"
 >
@@ -35,10 +35,6 @@
   <ng-template [gpxCustomColumn]="'participant2'" let-registration>
     {{ registration.participant2.fullName }}:
     {{ registration.participant2.drink.name }}
-  </ng-template>
-
-  <ng-template [gpxCustomColumn]="'startblock'" let-registration>
-    {{ registration.startblock.name }}
   </ng-template>
 
   <ng-template [gpxCustomColumn]="'apply'" let-registration>

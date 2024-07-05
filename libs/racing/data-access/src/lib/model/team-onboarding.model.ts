@@ -1,5 +1,6 @@
 import { Registration } from '@bierrallye/shared/data-access';
 
-export interface TeamOnboarding extends Registration {
+export type TeamOnboarding = Omit<Registration, 'startblock'> & {
+  startblock: string;
   hasTeam: boolean;
-}
+};

@@ -90,7 +90,7 @@ export class TeamDialogComponent {
           nameParticipant1: this.teamOnboarding.participant1.fullName,
           nameParticipant2: this.teamOnboarding.participant2.fullName,
           uuid: this.teamOnboarding.uuid,
-          startblock: this.teamOnboarding.startblock.name,
+          startblock: this.teamOnboarding.startblock,
           email: this.teamOnboarding.email,
           registrationId: this.teamOnboarding.id,
         });

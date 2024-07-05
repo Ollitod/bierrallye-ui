@@ -1,4 +1,5 @@
 import { inject, Injectable, signal } from '@angular/core';
+import { lastValueFrom } from 'rxjs';
 import { User } from '../../model/user.model';
 import { HttpClient } from '@angular/common/http';
 import { TokenService } from '../../application/token/token.service';
@@ -21,6 +22,10 @@ export class UserService {
     this.#http
       .get<User>(this.#apiUrl + 'user')
       .subscribe((user) => this.user.set(user));
+  }
+
+  async fetchUser() {
+    return lastValueFrom(this.#http.get<User>(this.#apiUrl + 'user'));
   }
 
   public logout(): void {
