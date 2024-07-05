@@ -1,8 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
-import { User, UserService } from '@bierrallye/shared/data-access';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { UserService } from '@bierrallye/shared/data-access';
 
 @Component({
   selector: 'app-header',
@@ -12,13 +11,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  user?: User;
+  private userService = inject(UserService);
 
-  constructor(private userService: UserService) {
-    this.userService.user
-      .pipe(takeUntilDestroyed())
-      .subscribe((user) => (this.user = user));
-  }
+  user = this.userService.user.asReadonly();
 
   logout(): void {
     this.userService.logout();

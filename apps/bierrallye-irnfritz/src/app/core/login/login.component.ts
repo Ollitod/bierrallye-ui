@@ -1,4 +1,4 @@
-import { Component, DestroyRef } from '@angular/core';
+import { Component, effect } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -18,9 +18,7 @@ import {
   UserService,
 } from '@bierrallye/shared/data-access';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap } from 'rxjs';
 import { MatCard, MatCardContent } from '@angular/material/card';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-login',
@@ -49,33 +47,30 @@ export class LoginComponent {
     private router: Router,
     private tokenService: TokenService,
     private userService: UserService,
-    private route: ActivatedRoute,
-    private destroyRef: DestroyRef
+    private route: ActivatedRoute
   ) {
     this.route.queryParams.subscribe((params) => {
       this.loginForm.controls.username.patchValue(params['username']);
       this.loginForm.controls.password.patchValue(params['uuid']);
+    });
+
+    effect(() => {
+      const user = this.userService.user();
+      if (user?.role) {
+        const routeByRole = this.getRouteByRole(user.role);
+        void this.router.navigate([routeByRole]);
+        this.toastr.success('Login erfolgreich', 'Erfolgreich');
+      }
     });
   }
 
   authenticate(): void {
     this.authService
       .authenticate(this.loginForm.getRawValue() as Auth)
-      .pipe(
-        switchMap((response) => {
+      .subscribe({
+        next: (response) => {
           this.tokenService.storeToken(response.token);
           this.userService.loginUser();
-          return this.userService.user;
-        }),
-        takeUntilDestroyed(this.destroyRef)
-      )
-      .subscribe({
-        next: (user) => {
-          if (user?.role) {
-            const routeByRole = this.getRouteByRole(user?.role);
-            void this.router.navigate([routeByRole]);
-            this.toastr.success('Login erfolgreich', 'Erfolgreich');
-          }
         },
         error: () => {
           this.toastr.error('Username/Passwort falsch', 'Fehler');

@@ -25,7 +25,7 @@ import { MatIconRegistry } from '@angular/material/icon';
   ],
 })
 export class AppComponent implements OnInit {
-  isUser = computed(() => this.userService.userSignal()?.role === Role.USER);
+  isUser = computed(() => this.userService.user()?.role === Role.USER);
 
   constructor(
     private tokenService: TokenService,

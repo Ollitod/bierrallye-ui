@@ -1,11 +1,9 @@
-import { inject, Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { inject, Injectable, signal } from '@angular/core';
 import { User } from '../../model/user.model';
 import { HttpClient } from '@angular/common/http';
 import { TokenService } from '../../application/token/token.service';
 import { Router } from '@angular/router';
 import { API_URL } from '../../injection-token';
-import { toSignal } from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root',
@@ -17,14 +15,12 @@ export class UserService {
   #tokenService = inject(TokenService);
   #router = inject(Router);
 
-  user = new BehaviorSubject<User | undefined>(undefined);
-
-  userSignal = toSignal(this.user);
+  readonly user = signal<User | undefined>(undefined);
 
   public loginUser(): void {
     this.#http
       .get<User>(this.#apiUrl + 'user')
-      .subscribe((user) => this.user.next(user));
+      .subscribe((user) => this.user.set(user));
   }
 
   public logout(): void {
@@ -33,7 +29,7 @@ export class UserService {
   }
 
   invalidateUser() {
-    this.user.next(undefined);
+    this.user.set(undefined);
     this.#tokenService.removeToken();
   }
 }

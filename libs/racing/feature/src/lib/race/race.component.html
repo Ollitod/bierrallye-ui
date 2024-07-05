@@ -1,78 +1,76 @@
 <mat-card appearance="outlined">
   <mat-card-content>
-    @if (team) {
-      <h3>
-        {{ team.registration.startblock.name }}
-      </h3>
+    <h3>
+      {{ team()?.registration?.startblock?.name }}
+    </h3>
 
-      <div class="player-container">
-        <div class="player-info">
-          {{ team.registration.participant1.fullName }}
-        </div>
-        <div class="player-info">
-          {{ team.registration.participant2.fullName }}
-        </div>
+    <div class="player-container">
+      <div class="player-info">
+        {{ team()?.registration?.participant1?.fullName }}
+      </div>
+      <div class="player-info">
+        {{ team()?.registration?.participant2?.fullName }}
+      </div>
+    </div>
+
+    @if (scannerOpenCheckin || scannerOpenCheckout) {
+      <div class="scanning-container">
+        @if (scannerOpenCheckin) {
+          <div>
+            <zxing-scanner
+              (scanSuccess)="checkIn($event)"
+              previewFitMode="cover"
+            />
+          </div>
+        }
+
+        @if (scannerOpenCheckout) {
+          <div>
+            <zxing-scanner (scanSuccess)="checkOut($event)" />
+          </div>
+        }
+        <button
+          (click)="cancelScanning()"
+          class="tertiary-button"
+          mat-flat-button
+        >
+          Scan abbrechen
+        </button>
+      </div>
+    }
+
+    @if (!(scannerOpenCheckin || scannerOpenCheckout)) {
+      <div class="card">
+        @if (!team()?.startTime) {
+          <div
+            (click)="openScannerCheckin()"
+            class="scan-info green scan-button"
+          >
+            <h5>START</h5>
+          </div>
+        } @else {
+          <div class="scan-info green">
+            <h5>Startzeit</h5>
+            <h5>{{ team()?.startTime }} Uhr</h5>
+          </div>
+        }
       </div>
 
-      @if (scannerOpenCheckin || scannerOpenCheckout) {
-        <div class="scanning-container">
-          @if (scannerOpenCheckin) {
-            <div>
-              <zxing-scanner
-                (scanSuccess)="checkIn($event)"
-                previewFitMode="cover"
-              />
-            </div>
-          }
-
-          @if (scannerOpenCheckout) {
-            <div>
-              <zxing-scanner (scanSuccess)="checkOut($event)" />
-            </div>
-          }
-          <button
-            (click)="cancelScanning()"
-            class="tertiary-button"
-            mat-flat-button
+      <div class="card">
+        @if (!team()?.endTime) {
+          <div
+            (click)="openScannerCheckout()"
+            class="scan-info red scan-button"
           >
-            Scan abbrechen
-          </button>
-        </div>
-      }
-
-      @if (!(scannerOpenCheckin || scannerOpenCheckout)) {
-        <div class="card">
-          @if (!team.startTime) {
-            <div
-              (click)="openScannerCheckin()"
-              class="scan-info green scan-button"
-            >
-              <h5>START</h5>
-            </div>
-          } @else {
-            <div class="scan-info green">
-              <h5>Startzeit</h5>
-              <h5>{{ team.startTime }} Uhr</h5>
-            </div>
-          }
-        </div>
-
-        <div class="card">
-          @if (!team.endTime) {
-            <div
-              (click)="openScannerCheckout()"
-              class="scan-info red scan-button"
-            >
-              <h5>ZIEL</h5>
-            </div>
-          } @else {
-            <div class="scan-info red">
-              <h5>Zielzeit</h5>
-              <h5>{{ team.endTime }} Uhr</h5>
-            </div>
-          }
-        </div>
-      }
+            <h5>ZIEL</h5>
+          </div>
+        } @else {
+          <div class="scan-info red">
+            <h5>Zielzeit</h5>
+            <h5>{{ team()?.endTime }} Uhr</h5>
+          </div>
+        }
+      </div>
     }
   </mat-card-content>
 </mat-card>

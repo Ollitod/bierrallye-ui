@@ -19,7 +19,7 @@ export class CheckInService {
     }
     return this.#http.post<Team>(
       this.#endpoint,
-      this.#userService.user.value?.uuid
+      this.#userService.user()?.uuid
     );
   }
 }

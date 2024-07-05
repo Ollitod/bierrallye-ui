@@ -3,7 +3,7 @@
     <b>SAMSTAG, 6. Juli 2024</b>
     <b>AB 13 Uhr</b>
     <b>SPORTPLATZ IRNFRITZ</b>
-    @switch (activeFeature()) {
+    @switch (featureService.activeFeature()) {
       @case ('REGISTRATION') {
         <button
           mat-flat-button

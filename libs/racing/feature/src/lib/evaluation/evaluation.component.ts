@@ -75,7 +75,7 @@ export class EvaluationComponent {
     },
   ];
 
-  isAdmin = computed(() => this.userService.userSignal()?.role === Role.ADMIN);
+  isAdmin = computed(() => this.userService.user()?.role === Role.ADMIN);
 
   constructor(private evaluationService: EvaluationService) {
     this.evaluationService

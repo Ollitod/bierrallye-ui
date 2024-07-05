@@ -3,7 +3,7 @@
 </div>
 <div class="grid-container">
   <app-event-info />
-  @if (APP_MODE === 'preEvent') {
+  @if (featureService.isPreEvent()) {
     <div class="flex-column">
       <div class="description">
         <p>
@@ -16,10 +16,10 @@
       </div>
     </div>
   }
-  @if (APP_MODE === 'postEvent') {
+  @if (featureService.isPostEvent()) {
     <div class="flex-column">
       <div class="header">
-        <p>This was Bierrallye Vol. 5</p>
+        <p>This was Bierrallye Vol. 6</p>
       </div>
       <div class="description">
         <p>

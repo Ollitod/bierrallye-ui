@@ -13,8 +13,7 @@ export * from './lib/infrastructure/auth/auth.service';
 export * from './lib/infrastructure/registration/registration.service';
 export * from './lib/infrastructure/feature/feature.service';
 
-export * from './lib/infrastructure/configuration';
-
 export * from './lib/application/token/token.service';
+export * from './lib/application/feature-store/feature-store.service';
 
 export * from './lib/injection-token';

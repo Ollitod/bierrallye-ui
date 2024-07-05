@@ -21,6 +21,6 @@ export class CheckOutService {
     if (url !== this.#endpoint) {
       return throwError(() => 'QR-Code nicht gültig!');
     }
-    return this.checkOut(this.#userService.user.value?.uuid);
+    return this.checkOut(this.#userService.user()?.uuid);
   }
 }
