@@ -5,6 +5,14 @@
   Bereits angelegte Teams ausblenden
 </mat-slide-toggle>
 
+<mat-button-toggle-group
+  [(ngModel)]="onboardingStoreService.selectedFilter"
+  style="align-self: flex-start"
+>
+  <mat-button-toggle value="name">Name</mat-button-toggle>
+  <mat-button-toggle value="boxId">Box-Id</mat-button-toggle>
+</mat-button-toggle-group>
+
 <mat-form-field>
   <input
     matInput

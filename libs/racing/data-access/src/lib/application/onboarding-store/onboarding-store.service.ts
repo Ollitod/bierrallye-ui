@@ -1,4 +1,4 @@
-import { computed, inject, Injectable, signal } from '@angular/core';
+import { computed, inject, Injectable, model, signal } from '@angular/core';
 import { OnboardingService } from '../../infrastructure/onboarding/onboarding.service';
 import { TeamOnboarding } from '../../model/team-onboarding.model';
 
@@ -11,16 +11,19 @@ export class OnboardingStoreService {
   private readonly registrations = signal<TeamOnboarding[]>([]);
   readonly filterOnboarded = signal(false);
   readonly filteredRegistrations = computed(() => {
-    return this.filterOnboarded()
-      ? this.registrations()
-          .filter((registration) => !registration.hasTeam)
-          .filter((reg) => this.filterByName(reg, this.nameFilter()))
-      : this.registrations().filter((reg) =>
-          this.filterByName(reg, this.nameFilter())
-        );
+    if (this.filterOnboarded()) {
+      const registrations = this.registrations().filter(
+        (registration) => !registration.hasTeam
+      );
+      return this.applyFilter(registrations);
+    } else {
+      return this.applyFilter(this.registrations());
+    }
   });
 
   nameFilter = signal('');
+  selectedFilter = model<string>('name');
+
   loadRegistrations() {
     this.onboardingService.getRegistrations().subscribe((registrations) => {
       this.registrations.set(registrations);
@@ -41,6 +44,18 @@ export class OnboardingStoreService {
     this.filterOnboarded.set(!this.filterOnboarded());
   }
 
+  private applyFilter(registrations: TeamOnboarding[]) {
+    if (this.selectedFilter() === 'name') {
+      return registrations.filter((reg) =>
+        this.filterByName(reg, this.nameFilter())
+      );
+    } else if (this.selectedFilter() === 'boxId') {
+      return registrations.filter((reg) => this.filterBoxId(reg));
+    } else {
+      return registrations;
+    }
+  }
+
   private filterByName(registration: TeamOnboarding, filter: string) {
     return (
       registration.participant1.fullName
@@ -50,5 +65,17 @@ export class OnboardingStoreService {
         .toLowerCase()
         .includes(filter.toLowerCase())
     );
+  }
+
+  private filterBoxId(reg: TeamOnboarding) {
+    if (reg.boxId) {
+      if (this.nameFilter() === '') {
+        return reg;
+      } else {
+        return reg.boxId === parseInt(this.nameFilter());
+      }
+    } else {
+      return null;
+    }
   }
 }

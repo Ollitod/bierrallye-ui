@@ -17,13 +17,16 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { TeamDialogComponent } from './team-dialog/team-dialog.component';
 import {
   CheckOutService,
-  OnboardingService,
   OnboardingStoreService,
   TeamOnboarding,
 } from '@bierrallye/racing/data-access';
 import { ToastrService } from 'ngx-toastr';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { MatTooltip } from '@angular/material/tooltip';
+import {
+  MatButtonToggle,
+  MatButtonToggleGroup,
+} from '@angular/material/button-toggle';
 
 @Component({
   selector: 'bierrallye-racing-feature-onboarding',
@@ -44,6 +47,8 @@ import { MatTooltip } from '@angular/material/tooltip';
     CustomColumnDirective,
     MatSlideToggle,
     MatTooltip,
+    MatButtonToggleGroup,
+    MatButtonToggle,
   ],
   templateUrl: './onboarding.component.html',
   styleUrls: ['./onboarding.component.scss'],
@@ -58,6 +63,11 @@ export class OnboardingComponent {
     {
       displayedColumn: 'active',
       header: 'Verifiziert',
+      width: '6%',
+    },
+    {
+      displayedColumn: 'boxId',
+      header: 'Box-ID',
       width: '6%',
     },
     {
@@ -87,8 +97,7 @@ export class OnboardingComponent {
   filterOnboarded = this.onboardingStoreService.filterOnboarded;
 
   constructor(
-    private onboardingService: OnboardingService,
-    private onboardingStoreService: OnboardingStoreService,
+    public onboardingStoreService: OnboardingStoreService,
     private checkOutService: CheckOutService,
     private dialog: MatDialog,
     private toastr: ToastrService
