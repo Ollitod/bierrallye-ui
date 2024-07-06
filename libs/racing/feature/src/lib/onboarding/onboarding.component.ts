@@ -116,4 +116,9 @@ export class OnboardingComponent {
   toggleFilterOnboarded() {
     this.onboardingStoreService.toggleFilterOnboarded();
   }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.onboardingStoreService.nameFilter.set(filterValue);
+  }
 }

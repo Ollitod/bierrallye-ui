@@ -12,10 +12,15 @@ export class OnboardingStoreService {
   readonly filterOnboarded = signal(false);
   readonly filteredRegistrations = computed(() => {
     return this.filterOnboarded()
-      ? this.registrations().filter((registration) => !registration.hasTeam)
-      : this.registrations();
+      ? this.registrations()
+          .filter((registration) => !registration.hasTeam)
+          .filter((reg) => this.filterByName(reg, this.nameFilter()))
+      : this.registrations().filter((reg) =>
+          this.filterByName(reg, this.nameFilter())
+        );
   });
 
+  nameFilter = signal('');
   loadRegistrations() {
     this.onboardingService.getRegistrations().subscribe((registrations) => {
       this.registrations.set(registrations);
@@ -34,5 +39,16 @@ export class OnboardingStoreService {
 
   toggleFilterOnboarded() {
     this.filterOnboarded.set(!this.filterOnboarded());
+  }
+
+  private filterByName(registration: TeamOnboarding, filter: string) {
+    return (
+      registration.participant1.fullName
+        .toLowerCase()
+        .includes(filter.toLowerCase()) ||
+      registration.participant2.fullName
+        .toLowerCase()
+        .includes(filter.toLowerCase())
+    );
   }
 }

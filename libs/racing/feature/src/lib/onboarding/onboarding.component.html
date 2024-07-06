@@ -5,6 +5,14 @@
   Bereits angelegte Teams ausblenden
 </mat-slide-toggle>
 
+<mat-form-field>
+  <input
+    matInput
+    placeholder="Filter nach Name"
+    (keyup)="applyFilter($event)"
+  />
+</mat-form-field>
+
 <gpx-dynamic-table
   [columnSpecs]="columnSpecs"
   [columnsExcludedFromSort]="['apply']"
