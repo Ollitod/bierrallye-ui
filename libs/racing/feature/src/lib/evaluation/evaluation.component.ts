@@ -6,6 +6,7 @@ import {
 } from '@bierrallye/racing/data-access';
 import {
   ColumnSpec,
+  CustomColumnDirective,
   DynamicTableComponent,
   ExpandableDynamicTableComponent,
   ExpansionContentDirective,
@@ -26,6 +27,7 @@ import { lastValueFrom } from 'rxjs';
     DynamicTableComponent,
     ExpansionContentDirective,
     MatButton,
+    CustomColumnDirective,
   ],
   templateUrl: './evaluation.component.html',
   styleUrls: ['./evaluation.component.scss'],
@@ -37,6 +39,10 @@ export class EvaluationComponent {
   evaluations: Evaluation[] = [];
 
   columnsSpecs: ColumnSpec<Evaluation>[] = [
+    {
+      displayedColumn: 'position',
+      header: 'Rang (nach Sortierung)',
+    },
     {
       displayedColumn: 'boxId',
       header: 'Box-ID',

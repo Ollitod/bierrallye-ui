@@ -12,6 +12,7 @@
     <gpx-expandable-dynamic-table
       [columnSpecs]="columnsSpecs"
       [data]="evaluations"
+      [columnsExcludedFromSort]="['position']"
     >
       <ng-template gpxExpansionContent let-evaluation>
         <gpx-dynamic-table
@@ -19,6 +20,9 @@
           [data]="evaluation.stationEvaluation"
           [disablePaginator]="true"
         />
+      </ng-template>
+      <ng-template [gpxCustomColumn]="'position'" let-index="index">
+        {{ index + 1 }}
       </ng-template>
     </gpx-expandable-dynamic-table>
   </mat-card-content>
