@@ -1,5 +1,5 @@
 <app-general-info />
-@if (APP_MODE === 'preEvent') {
+@if (featureService.isPreEvent()) {
   <app-hardfacts />
   <app-preparation />
 }

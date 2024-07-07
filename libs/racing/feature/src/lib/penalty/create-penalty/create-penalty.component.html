@@ -1,0 +1,94 @@
+<mat-card appearance="outlined">
+  <mat-card-header>
+    <mat-card-title>{{ effectLabel() }} erfassen</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form #formDirective="ngForm" [formGroup]="penaltyForm">
+      <mat-form-field>
+        <mat-label>Station</mat-label>
+        <mat-select formControlName="stationId" id="stationId">
+          @for (station of stations(); track station) {
+            <mat-option [value]="station.id">
+              {{ station.name }}
+            </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Team</mat-label>
+        <mat-select
+          (valueChange)="teamSelectionChange($event)"
+          formControlName="teamId"
+          id="teamId"
+        >
+          @for (team of teams(); track team) {
+            <mat-option [value]="team.id">
+              {{ team.registration.participant1.fullName }} &
+              {{ team.registration.participant2.fullName }}
+            </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Box-ID</mat-label>
+        <mat-select
+          (valueChange)="boxIdSelectionChange($event)"
+          formControlName="boxId"
+          id="boxId"
+        >
+          @for (boxId of boxIds(); track boxId) {
+            <mat-option [value]="boxId">
+              {{ boxId }}
+            </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>{{ effectLabel() }}</mat-label>
+        <input formControlName="minutes" id="minutes" matInput type="number" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Kommentar</mat-label>
+        <textarea
+          formControlName="comment"
+          id="comment"
+          matInput
+          rows="5"
+        ></textarea>
+      </mat-form-field>
+      <div class="form-actions">
+        <button (click)="back()" class="tertiary-button" mat-flat-button>
+          Zurück
+        </button>
+        <button
+          (click)="createPenalty()"
+          [disabled]="!penaltyForm.valid"
+          mat-flat-button
+          type="submit"
+        >
+          Speichern
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+<mat-action-list>
+  @for (penalty of penalties(); track penalty) {
+    <mat-list-item>
+      <span matListItemLine>Box-ID: {{ penalty.teamBoxId }}</span>
+      <!-- prettier-ignore -->
+      <span matListItemTitle>{{ penalty.nameParticipant1 }} & {{ penalty.nameParticipant2 }}</span>
+      <span matListItemLine>{{ penalty.minutes }} Minuten</span>
+      <button
+        matListItemMeta
+        (click)="deletePenalty(penalty.id)"
+        mat-icon-button
+        style="align-self: center"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-list-item>
+    <mat-divider />
+  }
+</mat-action-list>

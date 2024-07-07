@@ -1,4 +1,4 @@
-export interface IStartblock {
+export interface Startblock {
   id: number;
   name: string;
   availableSpots: number;

@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { GeneralInfoComponent } from './general-info/general-info.component';
 import { HardfactsComponent } from './hardfacts/hardfacts.component';
-import { APP_MODE } from '@bierrallye/shared/data-access';
 import { PreparationComponent } from './preparation/preparation.component';
+import { FeatureStoreService } from '@bierrallye/shared/data-access';
 
 @Component({
   selector: 'app-info',
@@ -12,5 +12,5 @@ import { PreparationComponent } from './preparation/preparation.component';
   styleUrls: ['./info.component.scss'],
 })
 export class InfoComponent {
-  protected readonly APP_MODE = APP_MODE;
+  featureService = inject(FeatureStoreService);
 }

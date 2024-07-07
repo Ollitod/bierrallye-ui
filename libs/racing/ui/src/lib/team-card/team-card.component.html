@@ -1,0 +1,11 @@
+<mat-card appearance="outlined">
+  <mat-card-header>
+    <mat-card-subtitle>Box-ID: {{ team().boxId }}</mat-card-subtitle>
+    @if (team().startTime) {
+      <mat-card-subtitle>Start: {{ team().startTime }} Uhr</mat-card-subtitle>
+    }
+  </mat-card-header>
+  <mat-card-content>
+    {{ team().nameParticipant1 }} & {{ team().nameParticipant2 }}
+  </mat-card-content>
+</mat-card>

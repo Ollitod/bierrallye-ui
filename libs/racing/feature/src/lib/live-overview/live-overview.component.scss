@@ -1,0 +1,47 @@
+:host {
+  overflow: visible;
+}
+
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+
+  th:not(:last-child) {
+    border-top: 1px solid;
+  }
+
+  tr:nth-child(2) th {
+    border-bottom: 1px solid;
+  }
+}
+
+th {
+  height: 50px;
+  border-top: 1px solid;
+  border-right: 1px solid;
+}
+
+th:first-child {
+  border-left: 1px solid;
+}
+
+thead {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: var(--app-secondary);
+}
+
+th, td {
+  width: 10%;
+}
+
+td {
+  vertical-align: top;
+  padding: 0 4px;
+}
+
+bierrallye-racing-ui-team-card {
+  margin-top: 8px;
+}

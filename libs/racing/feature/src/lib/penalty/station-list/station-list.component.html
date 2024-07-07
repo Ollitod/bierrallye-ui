@@ -1,0 +1,11 @@
+<mat-card appearance="outlined">
+  <mat-card-content>
+    <mat-action-list>
+      @for (station of stations(); track station) {
+        <mat-list-item (click)="navigateCreatePenalty(station.id)">
+          {{ station.name }}
+        </mat-list-item>
+      }
+    </mat-action-list>
+  </mat-card-content>
+</mat-card>

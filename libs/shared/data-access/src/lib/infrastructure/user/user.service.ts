@@ -1,6 +1,6 @@
-import { inject, Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { IUser } from '../../model/user.model';
+import { inject, Injectable, signal } from '@angular/core';
+import { lastValueFrom } from 'rxjs';
+import { User } from '../../model/user.model';
 import { HttpClient } from '@angular/common/http';
 import { TokenService } from '../../application/token/token.service';
 import { Router } from '@angular/router';
@@ -16,14 +16,16 @@ export class UserService {
   #tokenService = inject(TokenService);
   #router = inject(Router);
 
-  user: BehaviorSubject<IUser | undefined> = new BehaviorSubject<
-    IUser | undefined
-  >(undefined);
+  readonly user = signal<User | undefined>(undefined);
 
   public loginUser(): void {
     this.#http
-      .get<IUser>(this.#apiUrl + 'user')
-      .subscribe((user) => this.user.next(user));
+      .get<User>(this.#apiUrl + 'user')
+      .subscribe((user) => this.user.set(user));
+  }
+
+  async fetchUser() {
+    return lastValueFrom(this.#http.get<User>(this.#apiUrl + 'user'));
   }
 
   public logout(): void {
@@ -32,7 +34,7 @@ export class UserService {
   }
 
   invalidateUser() {
-    this.user.next(undefined);
+    this.user.set(undefined);
     this.#tokenService.removeToken();
   }
 }

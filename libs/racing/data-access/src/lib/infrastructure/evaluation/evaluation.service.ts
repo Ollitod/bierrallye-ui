@@ -1,8 +1,9 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { IEvaluation } from '../../model/evaluation.model';
+import { Evaluation } from '../../model/evaluation.model';
 import { API_URL } from '@bierrallye/shared/data-access';
+import { Winners } from '../../model/winners.model';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,11 @@ export class EvaluationService {
 
   #http = inject(HttpClient);
 
-  getEvaluations(): Observable<IEvaluation[]> {
-    return this.#http.get<IEvaluation[]>(this.#apiUrl + 'evaluation');
+  getEvaluations(): Observable<Evaluation[]> {
+    return this.#http.get<Evaluation[]>(this.#apiUrl + 'evaluation');
+  }
+
+  getWinners(): Observable<Winners> {
+    return this.#http.get<Winners>(this.#apiUrl + 'evaluation/winners');
   }
 }

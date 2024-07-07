@@ -1,0 +1,30 @@
+<h2 mat-dialog-title>Blitzauswertung</h2>
+<mat-dialog-content>
+  <bierrallye-racing-ui-winner-entry
+    label="Platz 1"
+    [record]="getAt(data.winners, 0)"
+  />
+  <bierrallye-racing-ui-winner-entry
+    label="Platz 2"
+    [record]="getAt(data.winners, 1)"
+  />
+  <bierrallye-racing-ui-winner-entry
+    label="Platz 3"
+    [record]="getAt(data.winners, 2)"
+  />
+  <bierrallye-racing-ui-winner-entry
+    label="Bestes Frauenteam"
+    [record]="data.bestFemaleTeam"
+  />
+  <bierrallye-racing-ui-winner-entry
+    label="Betes Männerteam"
+    [record]="data.bestMaleTeam"
+  />
+  <bierrallye-racing-ui-winner-entry
+    label="Bestes Mixed-Team"
+    [record]="data.bestMixedTeam"
+  />
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Schließen</button>
+</mat-dialog-actions>

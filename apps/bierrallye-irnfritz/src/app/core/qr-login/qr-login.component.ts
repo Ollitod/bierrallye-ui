@@ -3,36 +3,38 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
-  OnInit,
+  inject,
   ViewChild,
 } from '@angular/core';
 import { NgxKjuaComponent } from 'ngx-kjua';
+import { QrLoginData, QrLoginService } from '@bierrallye/racing/data-access';
+import { ParticipantNamesPipe } from './participant-names.pipe';
 
 @Component({
   selector: 'app-qr-login',
   standalone: true,
-  imports: [NgxKjuaComponent],
+  imports: [NgxKjuaComponent, ParticipantNamesPipe],
   templateUrl: './qr-login.component.html',
   styleUrls: ['./qr-login.component.scss'],
 })
-export class QrLoginComponent implements OnInit, AfterViewInit {
+export class QrLoginComponent implements AfterViewInit {
   encodedURL?: string;
+  data?: QrLoginData;
 
   @ViewChild('imgBuffer') imageElement?: ElementRef;
 
   image?: HTMLImageElement;
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  private qrLoginService = inject(QrLoginService);
+  private cdr = inject(ChangeDetectorRef);
 
-  ngOnInit(): void {
-    const channel = new BroadcastChannel('qr-login');
-
-    channel.onmessage = (event) => {
-      this.encodedURL = event.data.encodedURL;
+  constructor() {
+    this.qrLoginService.messagesOfType('payload').subscribe((data) => {
+      this.data = data;
       this.cdr.detectChanges();
-    };
+    });
 
-    channel.postMessage('initialized');
+    this.qrLoginService.receiverInitialized();
   }
 
   ngAfterViewInit(): void {

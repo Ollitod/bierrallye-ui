@@ -1,14 +1,27 @@
-import { IStartblock } from './startblock.model';
+import { Startblock } from './startblock.model';
+import { CreateParticipant, Participant } from './participant.model';
 
-export interface IRegistration {
-  player1: string;
-  player2: string;
-  drink1: number;
-  drink2: number;
-  startblock: number | IStartblock;
+export interface Registration {
+  id: number;
+  participant1: Participant;
+  participant2: Participant;
+  startblock: Startblock;
   email: string;
-  uuid?: string;
+  uuid: string;
   dsgvoApproved: boolean;
-  active?: boolean;
-  hasTeam?: boolean;
+  active: boolean;
+  registeredAt: Date;
 }
+
+export interface CreateRegistration {
+  participant1: CreateParticipant;
+  participant2: CreateParticipant;
+  startblock: number;
+  email: string;
+  dsgvoApproved: boolean;
+}
+
+export type RegistrationFormTeamGroup = Pick<
+  CreateRegistration,
+  'startblock' | 'email' | 'dsgvoApproved'
+>;

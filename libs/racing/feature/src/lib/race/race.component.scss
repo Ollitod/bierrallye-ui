@@ -1,14 +1,14 @@
 @import "../../../../libs/shared/styles/src/lib/appearance";
 
 :host {
-  width: 100%;
-  height: 100%;
+  --mdc-outlined-card-container-color: var(--app-secondary);
+}
+
+mat-card-content {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 15px;
-  background-color: var(--app-secondary);
-  padding: 15px;
   box-sizing: border-box;
 }
 

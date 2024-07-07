@@ -11,9 +11,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { ITeam, TeamService } from '@bierrallye/racing/data-access';
+import {
+  CreateTeam,
+  OnboardingStoreService,
+  QrLoginService,
+  TeamOnboarding,
+  TeamService,
+} from '@bierrallye/racing/data-access';
 import { ToastrService } from 'ngx-toastr';
-import { IRegistration, IStartblock } from '@bierrallye/shared/data-access';
 
 @Component({
   selector: 'bierrallye-racing-feature-team-dialog',
@@ -32,27 +37,25 @@ import { IRegistration, IStartblock } from '@bierrallye/shared/data-access';
 })
 export class TeamDialogComponent {
   teamForm = new FormGroup({
-    teamFirstMember: new FormControl(
-      { value: '', disabled: true },
-      { validators: [Validators.required] }
-    ),
-    teamSecondMember: new FormControl(
-      { value: '', disabled: true },
-      { validators: [Validators.required] }
-    ),
-    uuid: new FormControl(
-      { value: '', disabled: true },
-      { validators: [Validators.required] }
-    ),
-    startblock: new FormControl(
-      { value: '', disabled: true },
-      { validators: [Validators.required] }
-    ),
-    email: new FormControl(
-      { value: '', disabled: true },
-      { validators: [Validators.required] }
-    ),
+    // only used to display information
+    nameParticipant1: new FormControl('', {
+      validators: [Validators.required],
+    }),
+    // only used to display information
+    nameParticipant2: new FormControl('', {
+      validators: [Validators.required],
+    }),
+    // only used to display information
+    uuid: new FormControl('', { validators: [Validators.required] }),
+    // only used to display information
+    startblock: new FormControl('', { validators: [Validators.required] }),
+    // only used to display information
+    email: new FormControl('', { validators: [Validators.required] }),
     boxId: new FormControl<number | null>(null, {
+      validators: [Validators.required],
+    }),
+    // no corresponding mat-form-field
+    registrationId: new FormControl<number | null>(null, {
       validators: [Validators.required],
     }),
   });
@@ -63,58 +66,73 @@ export class TeamDialogComponent {
   constructor(
     private teamService: TeamService,
     private toastr: ToastrService,
-    @Inject(MAT_DIALOG_DATA) public registration: IRegistration
+    private qrLoginService: QrLoginService,
+    private onboardingStoreService: OnboardingStoreService,
+    @Inject(MAT_DIALOG_DATA) public teamOnboarding: TeamOnboarding
   ) {
-    this.teamService.get(this.registration.uuid).subscribe({
+    this.teamService.get(this.teamOnboarding.uuid).subscribe({
       next: (team) => {
-        // since email is not a property of ITeam, it has to be patched with the value from the registration
+        // Team already exists
         this.teamForm.patchValue({
-          ...team,
-          email: this.registration.email,
+          nameParticipant1: team.registration.participant1.fullName,
+          nameParticipant2: team.registration.participant2.fullName,
+          uuid: team.registration.uuid,
+          startblock: team.registration.startblock.name,
+          email: team.registration.email,
+          registrationId: team.registration.id,
+          boxId: team.boxId,
         });
-        this.teamForm.controls.boxId.disable();
         this.disableCreateTeamButton();
       },
       error: () => {
+        // Team does not exist
         this.teamForm.patchValue({
-          ...this.registration,
-          teamFirstMember: this.registration.player1,
-          teamSecondMember: this.registration.player2,
-          startblock: (this.registration.startblock as IStartblock).name,
+          nameParticipant1: this.teamOnboarding.participant1.fullName,
+          nameParticipant2: this.teamOnboarding.participant2.fullName,
+          uuid: this.teamOnboarding.uuid,
+          startblock: this.teamOnboarding.startblock,
+          email: this.teamOnboarding.email,
+          registrationId: this.teamOnboarding.id,
         });
       },
     });
 
-    const channel = new BroadcastChannel('qr-login');
-    channel.onmessage = (event) => {
-      if (event.data === 'initialized') {
-        this.sendMessageToQrLogin();
-      }
-    };
-  }
-
-  createTeam() {
-    this.teamService.create(this.teamForm.getRawValue() as ITeam).subscribe({
-      next: () => {
-        this.toastr.success('Das Team ist startklar', 'Prost!');
-        this.disableCreateTeamButton();
-      },
-      error: (error) => {
-        if (error.error) {
-          this.toastr.error(error.error, 'Fehler');
-        } else {
-          this.toastr.error(
-            'Beim anlegen des Teams ist ein unbekannter Fehler aufgetreten',
-            'Fehler'
-          );
-        }
-      },
+    qrLoginService.messagesOfType('notifyReady').subscribe(() => {
+      this.qrLoginService.publish({
+        type: 'payload',
+        payload: {
+          encodedUrl: this.encodedURL ?? '',
+          team: this.teamOnboarding,
+        },
+      });
     });
   }
 
-  generateLoginQrCode() {
-    const email = this.teamForm.controls.email.value;
-    const uuid = this.teamForm.controls.uuid.value;
+  createTeam() {
+    this.teamService
+      .create(this.teamForm.getRawValue() as CreateTeam)
+      .subscribe({
+        next: () => {
+          this.toastr.success('Das Team ist startklar', 'Prost!');
+          this.onboardingStoreService.setHasTeam(this.teamOnboarding.uuid);
+          this.disableCreateTeamButton();
+        },
+        error: (error) => {
+          if (error.error) {
+            this.toastr.error(error.error, 'Fehler');
+          } else {
+            this.toastr.error(
+              'Beim anlegen des Teams ist ein unbekannter Fehler aufgetreten',
+              'Fehler'
+            );
+          }
+        },
+      });
+  }
+
+  openQrLoginInNewTab() {
+    const email = this.teamOnboarding.email;
+    const uuid = this.teamOnboarding.uuid;
 
     this.encodedURL =
       window.location.origin + `/login/?username=${email}&uuid=${uuid}`;
@@ -125,11 +143,6 @@ export class TeamDialogComponent {
       '_blank',
       'location=yes,height=570,width=520,scrollbars=yes,status=yes'
     );
-  }
-
-  sendMessageToQrLogin() {
-    const channel = new BroadcastChannel('qr-login');
-    channel.postMessage({ encodedURL: this.encodedURL });
   }
 
   disableCreateTeamButton() {

@@ -4,64 +4,129 @@
 />
 <mat-card appearance="outlined">
   <mat-card-content>
-    <form [formGroup]="registerForm">
-      <mat-form-field>
-        <mat-label>Spieler 1</mat-label>
-        <input formControlName="player1" id="player1" matInput />
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Spieler 2</mat-label>
-        <input formControlName="player2" id="player2" matInput />
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Getränk 1</mat-label>
-        <mat-select formControlName="drink1" id="drink1">
-          @for (drink of drinks; track drink) {
-            <mat-option [value]="drink.id">{{ drink.name }}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Getränk 2</mat-label>
-        <mat-select formControlName="drink2" id="drink2">
-          @for (drink of drinks; track drink) {
-            <mat-option [value]="drink.id">{{ drink.name }}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Startblock</mat-label>
-        <mat-select formControlName="startblock" id="startblock">
-          @for (startblock of startblocks; track startblock) {
-            <mat-option
-              [disabled]="startblock.availableSpots === 0"
-              [value]="startblock.id"
+    <mat-stepper orientation="vertical" linear>
+      <mat-step label="Teilnehmer 1" [stepControl]="participantFormGroup1">
+        <form [formGroup]="participantFormGroup1">
+          <mat-form-field>
+            <mat-label>Geschlecht</mat-label>
+            <mat-select formControlName="sex">
+              @for (sex of sexes | keyvalue: keepOrder; track sex) {
+                <mat-option [value]="sex.key">{{ sex.value }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Vollständiger Name</mat-label>
+            <input formControlName="fullName" matInput />
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Getränk</mat-label>
+            <mat-select formControlName="drink">
+              @for (drink of drinks; track drink) {
+                <mat-option [value]="drink.id">{{ drink.name }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <div>
+            <button mat-button matStepperPrevious>Zurück</button>
+            <button mat-button matStepperNext>Weiter</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step label="Teilnehmer 2" [stepControl]="participantFormGroup2">
+        <form [formGroup]="participantFormGroup2">
+          <mat-form-field>
+            <mat-label>Geschlecht</mat-label>
+            <mat-select formControlName="sex">
+              @for (sex of sexes | keyvalue: keepOrder; track sex) {
+                <mat-option [value]="sex.key">{{ sex.value }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Vollständiger Name</mat-label>
+            <input formControlName="fullName" matInput />
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Getränk</mat-label>
+            <mat-select formControlName="drink">
+              @for (drink of drinks; track drink) {
+                <mat-option [value]="drink.id">{{ drink.name }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <div>
+            <button mat-button matStepperPrevious>Zurück</button>
+            <button mat-button matStepperNext>Weiter</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step label="Team" [stepControl]="teamFormGroup">
+        <form [formGroup]="teamFormGroup">
+          <mat-form-field>
+            <mat-label>Startblock</mat-label>
+            <mat-select formControlName="startblock" id="startblock">
+              @for (startblock of startblocks; track startblock) {
+                <mat-option
+                  [disabled]="startblock.availableSpots === 0"
+                  [value]="startblock.id"
+                >
+                  {{ startblock.name }}
+                </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input formControlName="email" id="email" matInput type="email" />
+          </mat-form-field>
+
+          <mat-checkbox
+            (click)="openDsgvoDialog()"
+            formControlName="dsgvoApproved"
+            id="dsgvoApproved"
+            required
+            style="padding-bottom: 22px"
+          >
+            DSGVO/Teilnahmebedingungen
+          </mat-checkbox>
+
+          <div>
+            <button mat-button matStepperPrevious>Zurück</button>
+            <button
+              mat-button
+              [disabled]="teamFormGroup.invalid"
+              (click)="sendRegistration()"
+              type="submit"
             >
-              {{ startblock.name }}
-            </mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Email</mat-label>
-        <input formControlName="email" id="email" matInput type="email" />
-      </mat-form-field>
-      <mat-checkbox
-        formControlName="dsgvoApproved"
-        id="dsgvoApproved"
-        required
-        style="padding-bottom: 22px"
-      >
-        DSGVO
-      </mat-checkbox>
-      <button
-        (click)="sendRegistration()"
-        [disabled]="!registerForm.valid"
-        mat-flat-button
-        type="submit"
-      >
-        Abschicken
-      </button>
-    </form>
+              Abschicken
+            </button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step label="E-Mail bestätigen" [editable]="false">
+        <p>
+          <b>Fast geschafft!</b>
+          Die Anmeldung wurde erfolgreich übermittelt. Um eure Registrierung
+          abzuschließen, ist allerdings noch eine Verifikation notwendig. Dazu
+          solltet ihr eine E-Mail an die angegebene Adresse erhalten haben.
+        </p>
+      </mat-step>
+    </mat-stepper>
+
+    <p>Ihr möchtest eure Teilnahme stornieren?</p>
+    <button mat-flat-button class="secondary-button" routerLink="../deregister">
+      Hier gehts zur Abmeldung
+    </button>
   </mat-card-content>
 </mat-card>

@@ -1,11 +1,18 @@
+@if (isAdmin()) {
+  <div class="button-container tertiary-button" (click)="openWinnersDialog()">
+    <button mat-flat-button>Blitzauswertung</button>
+  </div>
+}
+
 <mat-card appearance="outlined">
   <mat-card-header>
-    <mat-card-title>Auswertung Bierrallye 2023</mat-card-title>
+    <mat-card-title>Auswertung Bierrallye 2024</mat-card-title>
   </mat-card-header>
   <mat-card-content>
     <gpx-expandable-dynamic-table
       [columnSpecs]="columnsSpecs"
       [data]="evaluations"
+      [columnsExcludedFromSort]="['position']"
     >
       <ng-template gpxExpansionContent let-evaluation>
         <gpx-dynamic-table
@@ -13,6 +20,9 @@
           [data]="evaluation.stationEvaluation"
           [disablePaginator]="true"
         />
+      </ng-template>
+      <ng-template [gpxCustomColumn]="'position'" let-index="index">
+        {{ index + 1 }}
       </ng-template>
     </gpx-expandable-dynamic-table>
   </mat-card-content>

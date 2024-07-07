@@ -11,5 +11,10 @@
   flex-direction: column;
   padding: 2rem;
   box-sizing: border-box;
-  overflow-y: auto;
+}
+
+@media only screen and (max-width: 630px) {
+  .content-container {
+    padding: 1rem;
+  }
 }

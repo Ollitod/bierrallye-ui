@@ -1,7 +1,30 @@
+<mat-slide-toggle
+  (change)="toggleFilterOnboarded()"
+  [checked]="filterOnboarded()"
+>
+  Bereits angelegte Teams ausblenden
+</mat-slide-toggle>
+
+<mat-button-toggle-group
+  [(ngModel)]="onboardingStoreService.selectedFilter"
+  style="align-self: flex-start"
+>
+  <mat-button-toggle value="name">Name</mat-button-toggle>
+  <mat-button-toggle value="boxId">Box-Id</mat-button-toggle>
+</mat-button-toggle-group>
+
+<mat-form-field>
+  <input
+    matInput
+    placeholder="Filter nach Name"
+    (keyup)="applyFilter($event)"
+  />
+</mat-form-field>
+
 <gpx-dynamic-table
   [columnSpecs]="columnSpecs"
-  [columnsExcludedFromSort]="['drink1', 'drink2', 'startblock', 'apply']"
-  [data]="registrations"
+  [columnsExcludedFromSort]="['apply']"
+  [data]="registrations()"
   [pageSizeOptions]="[15, 30, 50, 100]"
 >
   <ng-template [gpxCustomColumn]="'active'" let-registration>
@@ -20,16 +43,14 @@
     }
   </ng-template>
 
-  <ng-template [gpxCustomColumn]="'drink1'" let-registration>
-    {{ registration.drink1.name }}
+  <ng-template [gpxCustomColumn]="'participant1'" let-registration>
+    {{ registration.participant1.fullName }}:
+    {{ registration.participant1.drink.name }}
   </ng-template>
 
-  <ng-template [gpxCustomColumn]="'drink2'" let-registration>
-    {{ registration.drink2.name }}
-  </ng-template>
-
-  <ng-template [gpxCustomColumn]="'startblock'" let-registration>
-    {{ registration.startblock.name }}
+  <ng-template [gpxCustomColumn]="'participant2'" let-registration>
+    {{ registration.participant2.fullName }}:
+    {{ registration.participant2.drink.name }}
   </ng-template>
 
   <ng-template [gpxCustomColumn]="'apply'" let-registration>
@@ -37,6 +58,7 @@
       <button
         (click)="openTeamDialog(registration)"
         [disabled]="!registration.active"
+        matTooltip="Team anlegen"
         mat-icon-button
       >
         <mat-icon>start</mat-icon>
@@ -44,6 +66,7 @@
       <button
         (click)="checkOut(registration)"
         [disabled]="!registration.hasTeam"
+        matTooltip="VORSICHT: Team manuell auschecken!"
         mat-icon-button
       >
         <mat-icon>sports_score</mat-icon>

@@ -1,6 +1,6 @@
 import { Role } from './role.model';
 
-export interface IUser {
+export interface User {
   username: string;
   uuid?: string;
   role: Role;

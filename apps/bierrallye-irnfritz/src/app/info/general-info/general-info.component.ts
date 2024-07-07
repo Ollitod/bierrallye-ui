@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { EventInfoComponent } from '../event-info/event-info.component';
-import { APP_MODE } from '@bierrallye/shared/data-access';
+import { FeatureStoreService } from '@bierrallye/shared/data-access';
 
 @Component({
   selector: 'app-general-info',
@@ -12,5 +12,5 @@ import { APP_MODE } from '@bierrallye/shared/data-access';
   styleUrls: ['./general-info.component.scss'],
 })
 export class GeneralInfoComponent {
-  protected readonly APP_MODE = APP_MODE;
+  featureService = inject(FeatureStoreService);
 }
