@@ -1,5 +1,4 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
-import { Station } from '../../model/station.model';
 import { Team } from '../../model/team.model';
 import { PenaltyService } from '../../infrastructure/penalty/penalty.service';
 import { lastValueFrom, map } from 'rxjs';
