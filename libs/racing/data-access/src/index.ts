@@ -12,10 +12,8 @@ export * from './lib/model/winners.model';
 
 export * from './lib/infrastructure/evaluation/evaluation-api.service';
 export * from './lib/infrastructure/penalty/penalty-api.service';
-export * from './lib/infrastructure/team/team-api.service';
-export * from './lib/infrastructure/check-in/check-in-api.service';
-export * from './lib/infrastructure/check-out/check-out-api.service';
 export * from './lib/infrastructure/onboarding/onboarding-api.service';
+export * from './lib/infrastructure/time-tracking-api/time-tracking-api.service';
 export * from './lib/infrastructure/live-overview/race-stats-api.service';
 
 export * from './lib/application/qr-login.service';

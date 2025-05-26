@@ -1,10 +1,10 @@
-@if (successful && !loading) {
+@if (successful() && !loading()) {
   <div>
     <p class="header">Prost! Ihr seid startklar!</p>
   </div>
 }
 
-@if (!successful && !loading) {
+@if (!successful() && !loading()) {
   <div>
     <p class="header">Ohje! Das hat nicht geklappt.</p>
     <p class="description">

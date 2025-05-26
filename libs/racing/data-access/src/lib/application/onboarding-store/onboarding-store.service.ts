@@ -6,7 +6,7 @@ import { TeamOnboarding } from '../../model/team-onboarding.model';
   providedIn: 'root',
 })
 export class OnboardingStoreService {
-  private onboardingService = inject(OnboardingApiService);
+  private onboardingApiService = inject(OnboardingApiService);
 
   private readonly registrations = signal<TeamOnboarding[]>([]);
   readonly filterOnboarded = signal(false);
@@ -20,7 +20,7 @@ export class OnboardingStoreService {
   selectedFilter = model<string>('name');
 
   loadRegistrations() {
-    this.onboardingService.getRegistrations().subscribe((registrations) => {
+    this.onboardingApiService.registrations().subscribe((registrations) => {
       this.registrations.set(registrations);
     });
   }

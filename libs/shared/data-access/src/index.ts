@@ -12,7 +12,6 @@ export * from './lib/model/feature.model';
 
 export * from './lib/infrastructure/user/user.service';
 export * from './lib/infrastructure/auth/auth-api.service';
-export * from './lib/infrastructure/registration/registration-api.service';
 export * from './lib/infrastructure/feature/feature-api.service';
 
 export * from './lib/application/token/token.service';

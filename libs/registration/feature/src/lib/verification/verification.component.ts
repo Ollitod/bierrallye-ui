@@ -1,8 +1,13 @@
-import { Component } from '@angular/core';
-import { VerificationApiService } from '@bierrallye/registration/data-access';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  signal,
+} from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs';
+import { RegistrationApiService } from '@bierrallye/registration/data-access';
 
 @Component({
   selector: 'bierrallye-registration-feature-verification',
@@ -10,31 +15,32 @@ import { switchMap } from 'rxjs';
   imports: [],
   templateUrl: './verification.component.html',
   styleUrls: ['./verification.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VerificationComponent {
-  successful = false;
-  loading = true;
+  private route = inject(ActivatedRoute);
+  private registrationApiService = inject(RegistrationApiService);
+  private toastr = inject(ToastrService);
 
-  constructor(
-    private route: ActivatedRoute,
-    private verificationService: VerificationApiService,
-    private toastr: ToastrService
-  ) {
+  successful = signal(false);
+  loading = signal(true);
+
+  constructor() {
     this.route.queryParams
       .pipe(
         switchMap((params) => {
           const token = params['token'];
-          return this.verificationService.verify(token);
+          return this.registrationApiService.verify(token);
         })
       )
       .subscribe({
         next: (res) => {
-          this.loading = false;
-          this.successful = true;
+          this.loading.set(false);
+          this.successful.set(true);
           this.toastr.success(res, 'Erfolgreich');
         },
         error: (error) => {
-          this.loading = false;
+          this.loading.set(false);
           if (error.status === 400) {
             this.toastr.warning(error.error, 'Achtung');
           } else {

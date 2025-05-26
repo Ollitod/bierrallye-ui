@@ -1,4 +1,9 @@
-import { Component, viewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  viewChild,
+} from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -10,10 +15,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
-import {
-  DrinkApiService,
-  StartblockApiService,
-} from '@bierrallye/registration/data-access';
 import { ToastrService } from 'ngx-toastr';
 import {
   AvailableSpotsComponent,
@@ -22,10 +23,7 @@ import {
 import {
   CreateParticipant,
   CreateRegistration,
-  Drink,
-  RegistrationApiService,
   RegistrationFormTeamGroup,
-  Startblock,
 } from '@bierrallye/shared/data-access';
 import { MatCard, MatCardContent } from '@angular/material/card';
 import {
@@ -37,6 +35,8 @@ import {
 import { KeyValue, KeyValuePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { RegistrationApiService } from '@bierrallye/registration/data-access';
 
 @Component({
   selector: 'bierrallye-registration-feature-register',
@@ -60,8 +60,13 @@ import { MatDialog } from '@angular/material/dialog';
   ],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterComponent {
+  private registrationApiService = inject(RegistrationApiService);
+  private toastr = inject(ToastrService);
+  private dialog = inject(MatDialog);
+
   private stepper = viewChild(MatStepper);
 
   participantFormGroup1 = new FormGroup({
@@ -96,29 +101,9 @@ export class RegisterComponent {
     }),
   });
 
-  drinks: Drink[] = [];
-  startblocks: Startblock[] = [];
-  totalSpots = 0;
-  availableSpots = 0;
+  drinks = toSignal(this.registrationApiService.drinks(), { initialValue: [] });
+  startblocks = toSignal(this.registrationApiService.startblocks());
   sexes = { MALE: 'männlich', FEMALE: 'weiblich' };
-
-  constructor(
-    private drinksService: DrinkApiService,
-    private startblockService: StartblockApiService,
-    private registrationService: RegistrationApiService,
-    private toastr: ToastrService,
-    private dialog: MatDialog
-  ) {
-    this.drinksService
-      .getDrinks()
-      .subscribe((drinks) => (this.drinks = drinks));
-
-    this.startblockService.getStartblocks().subscribe((startblocks) => {
-      this.startblocks = startblocks.startblocks;
-      this.totalSpots = startblocks.totalSpots;
-      this.availableSpots = startblocks.availableSpots;
-    });
-  }
 
   sendRegistration(): void {
     const participant1 =
@@ -135,7 +120,7 @@ export class RegisterComponent {
       ...team,
     };
 
-    this.registrationService.register(reg).subscribe({
+    this.registrationApiService.register(reg).subscribe({
       next: () => this.stepper()?.next(),
       error: () => {
         this.toastr.error('Die Anmeldung war nicht erfolgreich', 'Fehler');

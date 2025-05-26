@@ -16,9 +16,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { TeamDialogComponent } from './team-dialog/team-dialog.component';
 import {
-  CheckOutApiService,
   OnboardingStoreService,
   TeamOnboarding,
+  TimeTrackingApiService,
 } from '@bierrallye/racing/data-access';
 import { ToastrService } from 'ngx-toastr';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
@@ -98,7 +98,7 @@ export class OnboardingComponent {
 
   constructor(
     public onboardingStoreService: OnboardingStoreService,
-    private checkOutService: CheckOutApiService,
+    private timeTrackingApiService: TimeTrackingApiService,
     private dialog: MatDialog,
     private toastr: ToastrService
   ) {
@@ -113,7 +113,7 @@ export class OnboardingComponent {
   }
 
   checkOut(registration: TeamOnboarding) {
-    this.checkOutService.checkOut(registration.uuid).subscribe({
+    this.timeTrackingApiService.checkOut(registration.uuid).subscribe({
       next: () =>
         this.toastr.success('Die Zielzeit wurde gespeichert', 'Ausgecheckt'),
       error: (error) => {

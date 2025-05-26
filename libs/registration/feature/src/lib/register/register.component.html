@@ -1,6 +1,6 @@
 <bierrallye-registration-ui-available-spots
-  [availableSpots]="availableSpots"
-  [totalSpots]="totalSpots"
+  [availableSpots]="startblocks()?.availableSpots ?? 0"
+  [totalSpots]="startblocks()?.totalSpots ?? 0"
 />
 <mat-card appearance="outlined">
   <mat-card-content>
@@ -24,7 +24,7 @@
           <mat-form-field>
             <mat-label>Getränk</mat-label>
             <mat-select formControlName="drink">
-              @for (drink of drinks; track drink) {
+              @for (drink of drinks(); track drink) {
                 <mat-option [value]="drink.id">{{ drink.name }}</mat-option>
               }
             </mat-select>
@@ -56,7 +56,7 @@
           <mat-form-field>
             <mat-label>Getränk</mat-label>
             <mat-select formControlName="drink">
-              @for (drink of drinks; track drink) {
+              @for (drink of drinks(); track drink) {
                 <mat-option [value]="drink.id">{{ drink.name }}</mat-option>
               }
             </mat-select>
@@ -74,7 +74,10 @@
           <mat-form-field>
             <mat-label>Startblock</mat-label>
             <mat-select formControlName="startblock" id="startblock">
-              @for (startblock of startblocks; track startblock) {
+              @for (
+                startblock of startblocks()?.startblocks;
+                track startblock
+              ) {
                 <mat-option
                   [disabled]="startblock.availableSpots === 0"
                   [value]="startblock.id"

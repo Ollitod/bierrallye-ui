@@ -13,10 +13,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {
   CreateTeam,
+  OnboardingApiService,
   OnboardingStoreService,
   QrLoginService,
-  TeamApiService,
   TeamOnboarding,
+  TimeTrackingApiService,
 } from '@bierrallye/racing/data-access';
 import { ToastrService } from 'ngx-toastr';
 
@@ -64,13 +65,14 @@ export class TeamDialogComponent {
   createTeamDisabled = false;
 
   constructor(
-    private teamService: TeamApiService,
+    private timeTrackingApiService: TimeTrackingApiService,
+    private onboardingApiService: OnboardingApiService,
     private toastr: ToastrService,
     private qrLoginService: QrLoginService,
     private onboardingStoreService: OnboardingStoreService,
     @Inject(MAT_DIALOG_DATA) public teamOnboarding: TeamOnboarding
   ) {
-    this.teamService.get(this.teamOnboarding.uuid).subscribe({
+    this.timeTrackingApiService.team(this.teamOnboarding.uuid).subscribe({
       next: (team) => {
         // Team already exists
         this.teamForm.patchValue({
@@ -109,8 +111,8 @@ export class TeamDialogComponent {
   }
 
   createTeam() {
-    this.teamService
-      .create(this.teamForm.getRawValue() as CreateTeam)
+    this.onboardingApiService
+      .createTeam(this.teamForm.getRawValue() as CreateTeam)
       .subscribe({
         next: () => {
           this.toastr.success('Das Team ist startklar', 'Prost!');
