@@ -1,4 +1,4 @@
-export const BASE_API_URL = '/api';
+export * from './environments/environment';
 
 export * from './lib/model/token.model';
 export * from './lib/model/user.model';

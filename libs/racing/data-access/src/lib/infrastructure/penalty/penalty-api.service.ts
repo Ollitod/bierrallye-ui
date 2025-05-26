@@ -4,13 +4,13 @@ import { Observable } from 'rxjs';
 import { Station } from '../../model/station.model';
 import { Team } from '../../model/team.model';
 import { CreatePenalty, Penalty } from '../../model/penalty.model';
-import { BASE_API_URL } from '@bierrallye/shared/data-access';
+import { environment } from '@bierrallye/shared/data-access';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PenaltyApiService {
-  readonly #ENDPOINT = BASE_API_URL + '/penalty';
+  readonly #ENDPOINT = environment.apiUrl + '/penalty';
   #http = inject(HttpClient);
 
   getStations(): Observable<Station[]> {
@@ -38,6 +38,8 @@ export class PenaltyApiService {
   }
 
   hasPrivileges(stationId: number) {
-    return this.#http.get<boolean>(`/penalty/${stationId}/checkPrivileges`);
+    return this.#http.get<boolean>(
+      `${this.#ENDPOINT}/${stationId}/checkPrivileges`
+    );
   }
 }

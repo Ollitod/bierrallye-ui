@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { BASE_API_URL } from '@bierrallye/shared/data-access';
+import { environment } from '@bierrallye/shared/data-access';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TeamOnboarding } from '../../model/team-onboarding.model';
@@ -9,7 +9,7 @@ import { CreateTeam } from '../../model/create-team.model';
   providedIn: 'root',
 })
 export class OnboardingApiService {
-  readonly #ENDPOINT = BASE_API_URL + '/completion';
+  readonly #ENDPOINT = environment.apiUrl + '/completion';
   #http = inject(HttpClient);
 
   registrations(): Observable<TeamOnboarding[]> {
