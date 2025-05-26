@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { FeatureService } from './feature.service';
+import { TeamApiService } from './team-api.service';
 
-describe('FeatureService', () => {
-  let service: FeatureService;
+describe('TeamApiService', () => {
+  let service: TeamApiService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(FeatureService);
+    service = TestBed.inject(TeamApiService);
   });
 
   it('should be created', () => {

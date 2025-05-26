@@ -4,14 +4,12 @@ import { User } from '../../model/user.model';
 import { HttpClient } from '@angular/common/http';
 import { TokenService } from '../../application/token/token.service';
 import { Router } from '@angular/router';
-import { API_URL } from '../../injection-token';
+import { BASE_API_URL } from '../../../index';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  readonly #apiUrl = inject(API_URL);
-
   #http = inject(HttpClient);
   #tokenService = inject(TokenService);
   #router = inject(Router);
@@ -20,12 +18,12 @@ export class UserService {
 
   public loginUser(): void {
     this.#http
-      .get<User>(this.#apiUrl + 'user')
+      .get<User>(BASE_API_URL + '/user')
       .subscribe((user) => this.user.set(user));
   }
 
   async fetchUser() {
-    return lastValueFrom(this.#http.get<User>(this.#apiUrl + 'user'));
+    return lastValueFrom(this.#http.get<User>(BASE_API_URL + '/user'));
   }
 
   public logout(): void {

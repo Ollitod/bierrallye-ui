@@ -12,7 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ToastrService } from 'ngx-toastr';
 import {
   Auth,
-  AuthService,
+  AuthApiService,
   Role,
   TokenService,
   UserService,
@@ -42,7 +42,7 @@ export class LoginComponent {
   });
 
   constructor(
-    private authService: AuthService,
+    private authService: AuthApiService,
     private toastr: ToastrService,
     private router: Router,
     private tokenService: TokenService,

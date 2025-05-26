@@ -15,8 +15,8 @@ import {
   CreateTeam,
   OnboardingStoreService,
   QrLoginService,
+  TeamApiService,
   TeamOnboarding,
-  TeamService,
 } from '@bierrallye/racing/data-access';
 import { ToastrService } from 'ngx-toastr';
 
@@ -64,7 +64,7 @@ export class TeamDialogComponent {
   createTeamDisabled = false;
 
   constructor(
-    private teamService: TeamService,
+    private teamService: TeamApiService,
     private toastr: ToastrService,
     private qrLoginService: QrLoginService,
     private onboardingStoreService: OnboardingStoreService,

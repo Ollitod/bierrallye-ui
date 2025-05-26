@@ -3,17 +3,15 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Auth } from '../../model/auth.model';
 import { Token } from '../../model/token.model';
-import { API_URL } from '../../injection-token';
+import { BASE_API_URL } from '../../../index';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
-  readonly #apiUrl = inject(API_URL);
-
+export class AuthApiService {
   #http = inject(HttpClient);
 
   authenticate(auth: Auth): Observable<Token> {
-    return this.#http.post<Token>(this.#apiUrl + 'authenticate', auth);
+    return this.#http.post<Token>(BASE_API_URL + '/authenticate', auth);
   }
 }

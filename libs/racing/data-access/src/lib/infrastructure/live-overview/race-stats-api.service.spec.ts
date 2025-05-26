@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { StartblockService } from './startblock.service';
+import { RaceStatsApiService } from './race-stats-api.service';
 
-describe('StartblockService', () => {
-  let service: StartblockService;
+describe('RaceStatsApiService', () => {
+  let service: RaceStatsApiService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(StartblockService);
+    service = TestBed.inject(RaceStatsApiService);
   });
 
   it('should be created', () => {

@@ -2,17 +2,15 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CreateRegistration } from '../../model/registration.model';
 import { Observable } from 'rxjs';
-import { API_URL } from '../../injection-token';
+import { BASE_API_URL } from '../../../index';
 
 @Injectable({
   providedIn: 'root',
 })
-export class RegistrationService {
-  readonly #apiUrl = inject(API_URL);
-
+export class RegistrationApiService {
   #http = inject(HttpClient);
 
   register(team: CreateRegistration): Observable<unknown> {
-    return this.#http.post(this.#apiUrl + 'registration', team);
+    return this.#http.post(BASE_API_URL + '/registration', team);
   }
 }

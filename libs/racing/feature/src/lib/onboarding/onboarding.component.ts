@@ -16,7 +16,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { TeamDialogComponent } from './team-dialog/team-dialog.component';
 import {
-  CheckOutService,
+  CheckOutApiService,
   OnboardingStoreService,
   TeamOnboarding,
 } from '@bierrallye/racing/data-access';
@@ -98,7 +98,7 @@ export class OnboardingComponent {
 
   constructor(
     public onboardingStoreService: OnboardingStoreService,
-    private checkOutService: CheckOutService,
+    private checkOutService: CheckOutApiService,
     private dialog: MatDialog,
     private toastr: ToastrService
   ) {

@@ -10,13 +10,13 @@ export * from './lib/model/team-minimal.model';
 export * from './lib/model/create-team.model';
 export * from './lib/model/winners.model';
 
-export * from './lib/infrastructure/evaluation/evaluation.service';
-export * from './lib/infrastructure/penalty/penalty.service';
-export * from './lib/infrastructure/team/team.service';
-export * from './lib/infrastructure/check-in/check-in.service';
-export * from './lib/infrastructure/check-out/check-out.service';
-export * from './lib/infrastructure/onboarding/onboarding.service';
-export * from './lib/infrastructure/live-overview/race-stats.service';
+export * from './lib/infrastructure/evaluation/evaluation-api.service';
+export * from './lib/infrastructure/penalty/penalty-api.service';
+export * from './lib/infrastructure/team/team-api.service';
+export * from './lib/infrastructure/check-in/check-in-api.service';
+export * from './lib/infrastructure/check-out/check-out-api.service';
+export * from './lib/infrastructure/onboarding/onboarding-api.service';
+export * from './lib/infrastructure/live-overview/race-stats-api.service';
 
 export * from './lib/application/qr-login.service';
 export * from './lib/application/onboarding-store/onboarding-store.service';

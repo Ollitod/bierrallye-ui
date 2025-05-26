@@ -1,19 +1,20 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { API_URL } from '@bierrallye/shared/data-access';
+import { BASE_API_URL } from '@bierrallye/shared/data-access';
 
 @Injectable({
   providedIn: 'root',
 })
-export class VerificationService {
-  readonly #apiUrl = inject(API_URL);
-
+export class VerificationApiService {
   #http = inject(HttpClient);
 
   verify(token: string): Observable<string> {
-    return this.#http.get(`${this.#apiUrl}registration/verify?token=${token}`, {
-      responseType: 'text',
-    });
+    return this.#http.get(
+      BASE_API_URL + `/registration/verify?token=${token}`,
+      {
+        responseType: 'text',
+      }
+    );
   }
 }

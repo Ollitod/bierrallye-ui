@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { EvaluationService } from './evaluation.service';
+import { DeregisterApiService } from './deregister-api.service';
 
-describe('EvaluationService', () => {
-  let service: EvaluationService;
+describe('DeregisterApiService', () => {
+  let service: DeregisterApiService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(EvaluationService);
+    service = TestBed.inject(DeregisterApiService);
   });
 
   it('should be created', () => {

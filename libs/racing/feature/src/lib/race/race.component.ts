@@ -1,9 +1,9 @@
 import { Component, inject, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import {
-  CheckInService,
-  CheckOutService,
-  TeamService,
+  CheckInApiService,
+  CheckOutApiService,
+  TeamApiService,
 } from '@bierrallye/racing/data-access';
 import { switchMap } from 'rxjs';
 import { UserService } from '@bierrallye/shared/data-access';
@@ -28,9 +28,9 @@ import { MatCard, MatCardContent } from '@angular/material/card';
 })
 export class RaceComponent {
   private userService = inject(UserService);
-  private teamService = inject(TeamService);
-  private checkInService = inject(CheckInService);
-  private checkOutService = inject(CheckOutService);
+  private teamService = inject(TeamApiService);
+  private checkInService = inject(CheckInApiService);
+  private checkOutService = inject(CheckOutApiService);
   private toastr = inject(ToastrService);
 
   scannerOpenCheckin = false;

@@ -1,7 +1,7 @@
 import { Component, computed, inject } from '@angular/core';
 import {
   Evaluation,
-  EvaluationService,
+  EvaluationApiService,
   StationEvaluation,
 } from '@bierrallye/racing/data-access';
 import {
@@ -83,7 +83,7 @@ export class EvaluationComponent {
 
   isAdmin = computed(() => this.userService.user()?.role === Role.ADMIN);
 
-  constructor(private evaluationService: EvaluationService) {
+  constructor(private evaluationService: EvaluationApiService) {
     this.evaluationService
       .getEvaluations()
       .subscribe((evaluations) => (this.evaluations = evaluations));

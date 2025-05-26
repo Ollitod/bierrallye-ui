@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { TeamService } from './team.service';
+import { CheckOutApiService } from './check-out-api.service';
 
-describe('TeamService', () => {
-  let service: TeamService;
+describe('CheckOutApiService', () => {
+  let service: CheckOutApiService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(TeamService);
+    service = TestBed.inject(CheckOutApiService);
   });
 
   it('should be created', () => {

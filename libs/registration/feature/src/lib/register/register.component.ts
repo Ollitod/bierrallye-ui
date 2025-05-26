@@ -11,8 +11,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import {
-  DrinkService,
-  StartblockService,
+  DrinkApiService,
+  StartblockApiService,
 } from '@bierrallye/registration/data-access';
 import { ToastrService } from 'ngx-toastr';
 import {
@@ -23,22 +23,18 @@ import {
   CreateParticipant,
   CreateRegistration,
   Drink,
+  RegistrationApiService,
   RegistrationFormTeamGroup,
-  RegistrationService,
   Startblock,
 } from '@bierrallye/shared/data-access';
 import { MatCard, MatCardContent } from '@angular/material/card';
 import {
   MatStep,
-  MatStepLabel,
   MatStepper,
-  MatStepperIcon,
   MatStepperNext,
   MatStepperPrevious,
 } from '@angular/material/stepper';
-import { MatIcon } from '@angular/material/icon';
 import { KeyValue, KeyValuePipe } from '@angular/common';
-import { MatDivider } from '@angular/material/divider';
 import { RouterLink } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -57,13 +53,9 @@ import { MatDialog } from '@angular/material/dialog';
     MatCardContent,
     MatStepper,
     MatStep,
-    MatStepLabel,
-    MatStepperIcon,
-    MatIcon,
     MatStepperNext,
     MatStepperPrevious,
     KeyValuePipe,
-    MatDivider,
     RouterLink,
   ],
   templateUrl: './register.component.html',
@@ -111,9 +103,9 @@ export class RegisterComponent {
   sexes = { MALE: 'männlich', FEMALE: 'weiblich' };
 
   constructor(
-    private drinksService: DrinkService,
-    private startblockService: StartblockService,
-    private registrationService: RegistrationService,
+    private drinksService: DrinkApiService,
+    private startblockService: StartblockApiService,
+    private registrationService: RegistrationApiService,
     private toastr: ToastrService,
     private dialog: MatDialog
   ) {

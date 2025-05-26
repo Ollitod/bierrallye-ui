@@ -5,7 +5,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { DeregisterService } from '@bierrallye/registration/data-access';
+import { DeregisterApiService } from '@bierrallye/registration/data-access';
 import { ToastrService } from 'ngx-toastr';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
@@ -39,7 +39,7 @@ export class DeregisterComponent {
   });
 
   constructor(
-    private deregisterService: DeregisterService,
+    private deregisterService: DeregisterApiService,
     private toastr: ToastrService
   ) {}
 

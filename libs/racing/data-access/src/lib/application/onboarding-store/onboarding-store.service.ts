@@ -1,12 +1,12 @@
 import { computed, inject, Injectable, model, signal } from '@angular/core';
-import { OnboardingService } from '../../infrastructure/onboarding/onboarding.service';
+import { OnboardingApiService } from '../../infrastructure/onboarding/onboarding-api.service';
 import { TeamOnboarding } from '../../model/team-onboarding.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class OnboardingStoreService {
-  private onboardingService = inject(OnboardingService);
+  private onboardingService = inject(OnboardingApiService);
 
   private readonly registrations = signal<TeamOnboarding[]>([]);
   readonly filterOnboarded = signal(false);

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { VerificationService } from '@bierrallye/registration/data-access';
+import { VerificationApiService } from '@bierrallye/registration/data-access';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs';
@@ -17,7 +17,7 @@ export class VerificationComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private verificationService: VerificationService,
+    private verificationService: VerificationApiService,
     private toastr: ToastrService
   ) {
     this.route.queryParams
