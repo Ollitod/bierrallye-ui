@@ -26,7 +26,10 @@
           "node_modules/ngx-toastr/toastr.css"
         ],
         "stylePreprocessorOptions": {
-          "includePaths": ["apps/bierrallye-irnfritz/src/styles"]
+          "includePaths": [
+            "apps/bierrallye-irnfritz/src/styles",
+            "libs/shared/styles/src/lib"
+          ]
         },
         "scripts": []
       },

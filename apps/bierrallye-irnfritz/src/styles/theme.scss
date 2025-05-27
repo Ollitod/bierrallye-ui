@@ -2,7 +2,7 @@
 @use '@angular/material-experimental' as matx;
 @use '../../../../node_modules/@gepardec/ngx-gepardec-mat/styles/dynamic-table/dynamic-table-theme' as dynamic-table;
 @use '../../../../node_modules/@gepardec/ngx-gepardec-mat/styles/expandable-dynamic-table/expandable-dynamic-table-theme' as expandable-dynamic-table;
-@use '../../../../libs/shared/styles/src/lib/appearance' as appearance;
+@use 'appearance';
 
 @import 'colors';
 
