@@ -1,5 +1,5 @@
 :host {
-  --mdc-outlined-card-container-color: var(--app-secondary);
+  --mdc-outlined-card-container-color: var(--br-background-lighter-color);
 }
 
 mat-card-content {
@@ -26,8 +26,8 @@ mat-card-content {
   text-align: center;
   padding: 15px;
   width: 125px;
-  background-color: var(--app-container);
-  color: var(--app-secondary);
+  background-color: var(--br-container-color);
+  color: var(--br-background-lighter-color);
   border-radius: 5px;
 }
 
