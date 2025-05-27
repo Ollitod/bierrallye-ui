@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
-@import 'theme';
-@import 'fonts';
-@import 'colors';
+@use 'theme' as *;
+@use 'fonts' as *;
+@use 'colors' as *;
 
 $font-size-header-large: 84px;
 $font-size-header-small: 42px;

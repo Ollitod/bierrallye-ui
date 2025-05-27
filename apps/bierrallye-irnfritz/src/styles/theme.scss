@@ -4,7 +4,7 @@
   expandable-dynamic-table;
 @use 'appearance';
 
-@import 'colors';
+@use 'colors' as *;
 
 $bierrallye-dark-theme: mat.define-theme(
   (
