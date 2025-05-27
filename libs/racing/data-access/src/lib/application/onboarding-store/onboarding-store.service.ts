@@ -17,7 +17,7 @@ export class OnboardingStoreService {
   });
 
   nameFilter = signal('');
-  selectedFilter = model<string>('name');
+  selectedFilter = signal<string>('name');
 
   loadRegistrations() {
     this.onboardingApiService.registrations().subscribe((registrations) => {
