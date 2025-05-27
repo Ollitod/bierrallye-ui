@@ -1,5 +1,4 @@
 @use '@angular/material' as mat;
-@use '@angular/material-experimental' as matx;
 @use 'dynamic-table/dynamic-table-theme' as dynamic-table;
 @use 'expandable-dynamic-table/expandable-dynamic-table-theme' as
   expandable-dynamic-table;
@@ -7,12 +6,12 @@
 
 @import 'colors';
 
-$bierrallye-dark-theme: matx.define-theme(
+$bierrallye-dark-theme: mat.define-theme(
   (
     color: (
       theme-type: light,
-      primary: matx.$m3-orange-palette,
-      tertiary: matx.$m3-azure-palette,
+      primary: mat.$orange-palette,
+      tertiary: mat.$azure-palette,
     ),
     typography: (
       plain-family: 'Roboto',

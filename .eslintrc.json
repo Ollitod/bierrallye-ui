@@ -7,7 +7,8 @@
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
-        "prettier/prettier": ["error",
+        "prettier/prettier": [
+          "error",
           {
             "endOfLine": "auto"
           }
@@ -24,7 +25,10 @@
               },
               {
                 "sourceTag": "scope:registration",
-                "onlyDependOnLibsWithTags": ["scope:shared", "scope:registration"]
+                "onlyDependOnLibsWithTags": [
+                  "scope:shared",
+                  "scope:registration"
+                ]
               },
               {
                 "sourceTag": "scope:racing",
@@ -36,11 +40,19 @@
               },
               {
                 "sourceTag": "type:feature",
-                "onlyDependOnLibsWithTags": ["type:ui", "type:data-access", "type:util"]
+                "onlyDependOnLibsWithTags": [
+                  "type:ui",
+                  "type:data-access",
+                  "type:util"
+                ]
               },
               {
                 "sourceTag": "type:ui",
-                "onlyDependOnLibsWithTags": ["type:ui", "type:data-access", "type:util"]
+                "onlyDependOnLibsWithTags": [
+                  "type:ui",
+                  "type:data-access",
+                  "type:util"
+                ]
               },
               {
                 "sourceTag": "type:data-access",
@@ -58,12 +70,18 @@
     {
       "files": ["*.ts", "*.tsx"],
       "extends": ["plugin:@nx/typescript"],
-      "rules": {}
+      "rules": {
+        "@typescript-eslint/no-extra-semi": "error",
+        "no-extra-semi": "off"
+      }
     },
     {
       "files": ["*.js", "*.jsx"],
       "extends": ["plugin:@nx/javascript"],
-      "rules": {}
+      "rules": {
+        "@typescript-eslint/no-extra-semi": "error",
+        "no-extra-semi": "off"
+      }
     },
     {
       "files": ["*.spec.ts", "*.spec.tsx", "*.spec.js", "*.spec.jsx"],
