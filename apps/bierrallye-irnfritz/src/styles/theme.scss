@@ -1,27 +1,35 @@
 @use '@angular/material' as mat;
 @use '@angular/material-experimental' as matx;
-@use '../../../../node_modules/@gepardec/ngx-gepardec-mat/styles/dynamic-table/dynamic-table-theme' as dynamic-table;
-@use '../../../../node_modules/@gepardec/ngx-gepardec-mat/styles/expandable-dynamic-table/expandable-dynamic-table-theme' as expandable-dynamic-table;
+@use 'dynamic-table/dynamic-table-theme' as dynamic-table;
+@use 'expandable-dynamic-table/expandable-dynamic-table-theme' as
+  expandable-dynamic-table;
 @use 'appearance';
 
 @import 'colors';
 
-$bierrallye-dark-theme: matx.define-theme((
-  color: (
-    theme-type: light,
-    primary: matx.$m3-orange-palette,
-    tertiary: matx.$m3-azure-palette,
-  ),
-  typography: (
-    plain-family: 'Roboto',
-    bold-weight: 900
-  ),
-  density: (
-    scale: -1
+$bierrallye-dark-theme: matx.define-theme(
+  (
+    color: (
+      theme-type: light,
+      primary: matx.$m3-orange-palette,
+      tertiary: matx.$m3-azure-palette,
+    ),
+    typography: (
+      plain-family: 'Roboto',
+      bold-weight: 900,
+    ),
+    density: (
+      scale: -1,
+    ),
   )
-));
+);
 
-$configuration: appearance.configure-app-appearance($brown, $light-brown, $black, $gold);
+$configuration: appearance.configure-app-appearance(
+  $brown,
+  $light-brown,
+  $black,
+  $gold
+);
 
 //--------------------------------------------------------------------------------------
 // MIXINS

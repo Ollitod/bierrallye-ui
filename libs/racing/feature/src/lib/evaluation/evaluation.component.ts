@@ -10,7 +10,7 @@ import {
   DynamicTableComponent,
   ExpandableDynamicTableComponent,
   ExpansionContentDirective,
-} from '@gepardec/ngx-gepardec-mat';
+} from '@bierrallye/shared/ui';
 import { MatCardModule } from '@angular/material/card';
 import { MatButton } from '@angular/material/button';
 import { Role, UserService } from '@bierrallye/shared/data-access';

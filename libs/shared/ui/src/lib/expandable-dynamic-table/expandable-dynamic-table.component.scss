@@ -1,0 +1,34 @@
+mat-table {
+  width: 100%;
+}
+
+mat-row.expandable-row {
+  min-height: 0;
+  height: unset;
+}
+
+.element-row mat-cell {
+  border-bottom-width: 0;
+}
+
+.detail-panel-container {
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
+  min-width: 100%;
+  padding: 8px;
+  margin: 8px 0;
+}
+
+// Applies this style to every 4th mat-row, starting at the 4th one
+.mat-mdc-row:nth-child(4n + 4) {
+  background-color: var(--br-expandable-dynamic-table-alternate-row-color);
+}
+
+mat-row.element-row:not(.expanded-row):hover {
+  background: var(--br-expandable-dynamic-table-hover-row-color);
+}
+
+.mat-column-expand {
+  width: auto;
+}

@@ -1,0 +1,71 @@
+<mat-table [dataSource]="dataSource" matSort>
+  @for (columnSpec of columnSpecs; track columnSpec) {
+    <ng-container [matColumnDef]="columnSpec.displayedColumn">
+      <!--HEADER-->
+      @if (!isColumnSorted(columnSpec.displayedColumn)) {
+        <mat-header-cell
+          [style.min-width]="columnSpec?.width"
+          [style.max-width]="columnSpec?.width"
+          *matHeaderCellDef
+        >
+          {{ columnSpec.header }}
+        </mat-header-cell>
+      }
+
+      @if (isColumnSorted(columnSpec.displayedColumn)) {
+        <mat-header-cell
+          [style.min-width]="columnSpec?.width"
+          [style.max-width]="columnSpec?.width"
+          [ngClass]="BR_PREFIX + columnSpec.displayedColumn"
+          *matHeaderCellDef
+          mat-sort-header
+        >
+          {{ columnSpec.header }}
+        </mat-header-cell>
+      }
+
+      <!--DATA-->
+      @if (!isInjected(columnSpec.displayedColumn)) {
+        <mat-cell
+          [style.min-width]="columnSpec?.width"
+          [style.max-width]="columnSpec?.width"
+          [ngClass]="BR_PREFIX + columnSpec.displayedColumn"
+          *matCellDef="let data"
+        >
+          {{
+            isSerializedDate(data[columnSpec.displayedColumn])
+              ? (data[columnSpec.displayedColumn] | date: _dateFormat)
+              : data[columnSpec.displayedColumn]
+          }}
+        </mat-cell>
+      }
+
+      @if (isInjected(columnSpec.displayedColumn)) {
+        <mat-cell
+          [style.min-width]="columnSpec?.width"
+          [style.max-width]="columnSpec?.width"
+          [ngClass]="BR_PREFIX + columnSpec.displayedColumn"
+          *matCellDef="let data; let dataIdx = index"
+        >
+          <ng-container
+            *ngTemplateOutlet="
+              getInjectedTemplateRef(columnSpec.displayedColumn);
+              context: getViewContext(data, dataIdx)
+            "
+          />
+        </mat-cell>
+      }
+    </ng-container>
+  }
+
+  <mat-header-row *matHeaderRowDef="getDisplayedColumns()"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: getDisplayedColumns()"></mat-row>
+</mat-table>
+@if (!disablePaginator) {
+  <mat-paginator
+    (page)="onPageChanged($event)"
+    [pageSize]="_pageSize"
+    [pageSizeOptions]="_pageSizeOptions"
+    [showFirstLastButtons]="true"
+  />
+}

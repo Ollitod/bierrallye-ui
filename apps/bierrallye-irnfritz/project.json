@@ -28,7 +28,8 @@
         "stylePreprocessorOptions": {
           "includePaths": [
             "apps/bierrallye-irnfritz/src/styles",
-            "libs/shared/styles/src/lib"
+            "libs/shared/styles/src/lib",
+            "libs/shared/ui/src/lib"
           ]
         },
         "scripts": []

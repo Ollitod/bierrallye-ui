@@ -3,7 +3,7 @@ import {
   ColumnSpec,
   CustomColumnDirective,
   DynamicTableComponent,
-} from '@gepardec/ngx-gepardec-mat';
+} from '@bierrallye/shared/ui';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';

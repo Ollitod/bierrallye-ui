@@ -19,7 +19,6 @@
     "@angular/platform-browser-dynamic": "~17.3.0",
     "@angular/router": "~17.3.0",
     "@fontsource/roboto": "^5.0.13",
-    "@gepardec/ngx-gepardec-mat": "^17.4.0",
     "@nx/angular": "18.3.4",
     "@zxing/ngx-scanner": "^17.0.3",
     "material-symbols": "^0.17.3",
