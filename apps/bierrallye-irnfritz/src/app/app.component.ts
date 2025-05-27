@@ -1,9 +1,7 @@
 import { Component, computed, OnInit } from '@angular/core';
 import { FooterComponent } from './core/footer/footer.component';
-import { HardfactsComponent } from './info/hardfacts/hardfacts.component';
 import { HeaderComponent } from './core/header/header.component';
 import { RouterOutlet } from '@angular/router';
-import { GeneralInfoComponent } from './info/general-info/general-info.component';
 import {
   Role,
   TokenService,
@@ -15,13 +13,7 @@ import { MatIconRegistry } from '@angular/material/icon';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  imports: [
-    HeaderComponent,
-    HardfactsComponent,
-    FooterComponent,
-    RouterOutlet,
-    GeneralInfoComponent,
-  ],
+  imports: [HeaderComponent, FooterComponent, RouterOutlet],
 })
 export class AppComponent implements OnInit {
   isUser = computed(() => this.userService.user()?.role === Role.USER);
