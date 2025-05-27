@@ -13,7 +13,6 @@ import { WinnerEntryComponent } from './winner-entry/winner-entry.component';
 
 @Component({
   selector: 'bierrallye-racing-ui-winners-dialog',
-  standalone: true,
   imports: [
     CommonModule,
     MatDialogTitle,

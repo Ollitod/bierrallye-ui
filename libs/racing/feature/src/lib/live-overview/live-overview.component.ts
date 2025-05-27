@@ -13,7 +13,6 @@ import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'bierrallye-racing-feature-live-overview',
-  standalone: true,
   imports: [
     CommonModule,
     MatCard,

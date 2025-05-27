@@ -16,7 +16,6 @@ import { MatCard, MatCardContent } from '@angular/material/card';
 
 @Component({
   selector: 'bierrallye-racing-feature-race',
-  standalone: true,
   imports: [
     MatButtonModule,
     ZXingScannerModule,

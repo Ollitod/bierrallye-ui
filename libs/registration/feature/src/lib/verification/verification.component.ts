@@ -11,7 +11,6 @@ import { RegistrationApiService } from '@bierrallye/registration/data-access';
 
 @Component({
   selector: 'bierrallye-registration-feature-verification',
-  standalone: true,
   imports: [],
   templateUrl: './verification.component.html',
   styleUrls: ['./verification.component.scss'],

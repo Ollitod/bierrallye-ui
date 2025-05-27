@@ -20,7 +20,6 @@ import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'bierrallye-racing-feature-evaluation',
-  standalone: true,
   imports: [
     ExpandableDynamicTableComponent,
     MatCardModule,

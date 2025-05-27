@@ -49,7 +49,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'bierrallye-racing-feature-create-penalty',
-  standalone: true,
   imports: [
     CommonModule,
     MatCard,

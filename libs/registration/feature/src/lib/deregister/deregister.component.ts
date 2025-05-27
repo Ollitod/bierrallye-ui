@@ -14,7 +14,6 @@ import { RegistrationApiService } from '@bierrallye/registration/data-access';
 
 @Component({
   selector: 'bierrallye-registration-feature-deregister',
-  standalone: true,
   imports: [
     MatFormFieldModule,
     ReactiveFormsModule,

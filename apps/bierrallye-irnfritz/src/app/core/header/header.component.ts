@@ -5,7 +5,6 @@ import { UserService } from '@bierrallye/shared/data-access';
 
 @Component({
   selector: 'app-header',
-  standalone: true,
   imports: [RouterLink, MatButtonModule],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],

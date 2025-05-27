@@ -30,7 +30,6 @@ import { MatTableModule } from '@angular/material/table';
       ]),
     ]),
   ],
-  standalone: true,
   imports: [
     MatTableModule,
     MatSortModule,

@@ -10,7 +10,6 @@ import { MatButton } from '@angular/material/button';
 
 @Component({
   selector: 'bierrallye-registration-ui-dsgvo-dialog',
-  standalone: true,
   imports: [
     CommonModule,
     MatDialogTitle,

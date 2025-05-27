@@ -10,8 +10,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "libs/racing/data-access/jest.config.ts",
-        "tsConfig": "libs/racing/data-access/tsconfig.lib.json"
+        "jestConfig": "libs/racing/data-access/jest.config.ts"
       }
     },
     "lint": {

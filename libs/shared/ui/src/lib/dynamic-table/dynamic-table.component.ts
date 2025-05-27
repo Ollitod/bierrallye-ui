@@ -45,7 +45,6 @@ export interface ViewContext<T> {
   selector: 'bierrallye-shared-ui-dynamic-table',
   templateUrl: './dynamic-table.component.html',
   styleUrls: ['./dynamic-table.component.scss'],
-  standalone: true,
   imports: [
     MatTableModule,
     MatSortModule,

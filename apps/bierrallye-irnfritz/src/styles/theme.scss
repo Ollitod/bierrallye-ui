@@ -39,7 +39,8 @@ html {
   @include appearance.app-appearance($configuration);
 }
 
-@include mat.core();
+@include mat.elevation-classes();
+@include mat.app-background();
 @include mat.typography-hierarchy($bierrallye-dark-theme);
 
 @include dynamic-table.theme($bierrallye-dark-theme);

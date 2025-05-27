@@ -30,7 +30,6 @@ import {
 
 @Component({
   selector: 'bierrallye-racing-feature-onboarding',
-  standalone: true,
   imports: [
     DynamicTableComponent,
     MatButtonModule,

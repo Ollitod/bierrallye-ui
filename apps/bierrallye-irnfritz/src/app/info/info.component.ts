@@ -6,7 +6,6 @@ import { FeatureStoreService } from '@bierrallye/shared/data-access';
 
 @Component({
   selector: 'app-info',
-  standalone: true,
   imports: [GeneralInfoComponent, HardfactsComponent, PreparationComponent],
   templateUrl: './info.component.html',
   styleUrls: ['./info.component.scss'],

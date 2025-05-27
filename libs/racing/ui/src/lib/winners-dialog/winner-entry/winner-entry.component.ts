@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'bierrallye-racing-ui-winner-entry',
-  standalone: true,
   imports: [CommonModule],
   templateUrl: './winner-entry.component.html',
   styleUrl: './winner-entry.component.scss',

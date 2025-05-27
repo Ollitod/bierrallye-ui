@@ -23,7 +23,6 @@ import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'bierrallye-racing-feature-team-dialog',
-  standalone: true,
   imports: [
     MatDialogModule,
     FormsModule,

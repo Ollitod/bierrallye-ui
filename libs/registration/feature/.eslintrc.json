@@ -24,7 +24,8 @@
             "prefix": "bierrallye-registration-feature",
             "style": "kebab-case"
           }
-        ]
+        ],
+        "@angular-eslint/prefer-standalone": "off"
       }
     },
     {
