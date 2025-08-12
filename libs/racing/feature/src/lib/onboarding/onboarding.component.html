@@ -59,6 +59,10 @@
     {{ registration.participant2.drink.name }}
   </ng-template>
 
+  <ng-template bierrallyeSharedUiCustomColumn="startblock" let-registration>
+    {{ registration.startblock.name }}
+  </ng-template>
+
   <ng-template [bierrallyeSharedUiCustomColumn]="'apply'" let-registration>
     <div class="action-container">
       <button
@@ -67,7 +71,14 @@
         matTooltip="Team anlegen"
         mat-icon-button
       >
-        <mat-icon>start</mat-icon>
+        <mat-icon>group_add</mat-icon>
+      </button>
+      <button
+        (click)="openEditDialog(registration)"
+        mat-icon-button
+        matTooltip="Registrierung bearbeiten"
+      >
+        <mat-icon>person_edit</mat-icon>
       </button>
       <button
         (click)="checkOut(registration)"

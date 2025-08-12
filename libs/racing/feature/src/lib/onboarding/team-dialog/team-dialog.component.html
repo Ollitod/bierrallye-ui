@@ -1,27 +1,21 @@
 <h1 mat-dialog-title>Team anlegen</h1>
 <mat-dialog-content>
   <form [formGroup]="teamForm">
-    <div class="form-row">
-      <mat-form-field>
-        <mat-label>Spieler 1</mat-label>
-        <input
-          formControlName="nameParticipant1"
-          id="teamFirstMember"
-          matInput
-          readonly
-        />
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Spieler 2</mat-label>
-        <input
-          formControlName="nameParticipant2"
-          id="teamSecondMember"
-          matInput
-          readonly
-        />
-      </mat-form-field>
-    </div>
+    <h6>Teilnehmer 1</h6>
+    <bierrallye-shared-ui-participant-form
+      [formGroup]="participantFormGroup1"
+      orientation="horizontal"
+    />
+    <mat-divider />
 
+    <h6>Teilnehmer 2</h6>
+    <bierrallye-shared-ui-participant-form
+      [formGroup]="participantFormGroup2"
+      orientation="horizontal"
+    />
+    <mat-divider />
+
+    <h6>Kontrollbereich</h6>
     <div class="form-row">
       <mat-form-field>
         <mat-label>Email</mat-label>

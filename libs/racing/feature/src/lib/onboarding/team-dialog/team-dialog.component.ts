@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, effect, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import {
   FormControl,
@@ -20,6 +20,9 @@ import {
   TimeTrackingApiService,
 } from '@bierrallye/racing/data-access';
 import { ToastrService } from 'ngx-toastr';
+import { MatDivider } from '@angular/material/divider';
+import { ParticipantFormComponent } from '@bierrallye/shared/ui';
+import { participantFormGroup } from '@bierrallye/shared/data-access';
 
 @Component({
   selector: 'bierrallye-racing-feature-team-dialog',
@@ -31,20 +34,17 @@ import { ToastrService } from 'ngx-toastr';
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
+    MatDivider,
+    ParticipantFormComponent,
   ],
   templateUrl: './team-dialog.component.html',
   styleUrls: ['./team-dialog.component.scss'],
 })
 export class TeamDialogComponent {
+  participantFormGroup1 = participantFormGroup();
+  participantFormGroup2 = participantFormGroup();
+
   teamForm = new FormGroup({
-    // only used to display information
-    nameParticipant1: new FormControl('', {
-      validators: [Validators.required],
-    }),
-    // only used to display information
-    nameParticipant2: new FormControl('', {
-      validators: [Validators.required],
-    }),
     // only used to display information
     uuid: new FormControl('', { validators: [Validators.required] }),
     // only used to display information
@@ -75,8 +75,6 @@ export class TeamDialogComponent {
       next: (team) => {
         // Team already exists
         this.teamForm.patchValue({
-          nameParticipant1: team.registration.participant1.fullName,
-          nameParticipant2: team.registration.participant2.fullName,
           uuid: team.registration.uuid,
           startblock: team.registration.startblock.name,
           email: team.registration.email,
@@ -88,10 +86,8 @@ export class TeamDialogComponent {
       error: () => {
         // Team does not exist
         this.teamForm.patchValue({
-          nameParticipant1: this.teamOnboarding.participant1.fullName,
-          nameParticipant2: this.teamOnboarding.participant2.fullName,
           uuid: this.teamOnboarding.uuid,
-          startblock: this.teamOnboarding.startblock,
+          startblock: this.teamOnboarding.startblock.name,
           email: this.teamOnboarding.email,
           registrationId: this.teamOnboarding.id,
         });
@@ -107,6 +103,8 @@ export class TeamDialogComponent {
         },
       });
     });
+
+    effect(() => this.patchFormValue());
   }
 
   createTeam() {
@@ -148,5 +146,18 @@ export class TeamDialogComponent {
 
   disableCreateTeamButton() {
     this.createTeamDisabled = true;
+  }
+
+  private patchFormValue() {
+    const p1 = this.teamOnboarding.participant1;
+    const p2 = this.teamOnboarding.participant2;
+    this.participantFormGroup1.patchValue({
+      ...p1,
+      drink: p1.drink.id,
+    });
+    this.participantFormGroup2.patchValue({
+      ...p2,
+      drink: p2.drink.id,
+    });
   }
 }

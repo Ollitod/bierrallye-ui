@@ -23,6 +23,7 @@ import {
 import {
   CreateParticipant,
   CreateRegistration,
+  participantFormGroup,
   RegistrationFormTeamGroup,
 } from '@bierrallye/shared/data-access';
 import { MatCard, MatCardContent } from '@angular/material/card';
@@ -32,11 +33,12 @@ import {
   MatStepperNext,
   MatStepperPrevious,
 } from '@angular/material/stepper';
-import { KeyValue, KeyValuePipe } from '@angular/common';
+import { KeyValue } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RegistrationApiService } from '@bierrallye/registration/data-access';
+import { ParticipantFormComponent } from '@bierrallye/shared/ui';
 
 @Component({
   selector: 'bierrallye-registration-feature-register',
@@ -54,8 +56,8 @@ import { RegistrationApiService } from '@bierrallye/registration/data-access';
     MatStep,
     MatStepperNext,
     MatStepperPrevious,
-    KeyValuePipe,
     RouterLink,
+    ParticipantFormComponent,
   ],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
@@ -68,25 +70,9 @@ export class RegisterComponent {
 
   private stepper = viewChild(MatStepper);
 
-  participantFormGroup1 = new FormGroup({
-    sex: new FormControl<string | null>(null, {
-      validators: [Validators.required],
-    }),
-    fullName: new FormControl('', { validators: [Validators.required] }),
-    drink: new FormControl<number | null>(null, {
-      validators: [Validators.required],
-    }),
-  });
+  participantFormGroup1 = participantFormGroup();
 
-  participantFormGroup2 = new FormGroup({
-    sex: new FormControl<string | null>(null, {
-      validators: [Validators.required],
-    }),
-    fullName: new FormControl('', { validators: [Validators.required] }),
-    drink: new FormControl<number | null>(null, {
-      validators: [Validators.required],
-    }),
-  });
+  participantFormGroup2 = participantFormGroup();
 
   teamFormGroup = new FormGroup({
     startblock: new FormControl<number | null>(null, {
@@ -100,9 +86,7 @@ export class RegisterComponent {
     }),
   });
 
-  drinks = toSignal(this.registrationApiService.drinks(), { initialValue: [] });
   startblocks = toSignal(this.registrationApiService.startblocks());
-  sexes = { MALE: 'männlich', FEMALE: 'weiblich' };
 
   sendRegistration(): void {
     const participant1 =

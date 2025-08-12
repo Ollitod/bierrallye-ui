@@ -1,0 +1,43 @@
+<form [formGroup]="formGroup()" [ngClass]="orientation()">
+  <mat-form-field>
+    <mat-label>Geschlecht</mat-label>
+
+    @if (readonly()) {
+      <input
+        formControlName="sex"
+        [value]="getSex(formGroup().get('sex')?.value)"
+        matInput
+        [readonly]="readonly()"
+      />
+    } @else {
+      <mat-select formControlName="sex">
+        @for (sex of sexes | keyvalue: null; track sex) {
+          <mat-option [value]="sex.key">{{ sex.value }}</mat-option>
+        }
+      </mat-select>
+    }
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Vollständiger Name</mat-label>
+    <input formControlName="fullName" matInput [readonly]="readonly()" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Getränk</mat-label>
+
+    @if (readonly()) {
+      <input
+        [value]="getDrinkName(formGroup().get('drink')?.value)"
+        matInput
+        [readonly]="readonly()"
+      />
+    } @else {
+      <mat-select formControlName="drink">
+        @for (drink of drinks(); track drink) {
+          <mat-option [value]="drink.id">{{ drink.name }}</mat-option>
+        }
+      </mat-select>
+    }
+  </mat-form-field>
+</form>

@@ -19,9 +19,13 @@ form {
   display: flex;
   flex-direction: column;
 
-  .mat-mdc-form-field:first-child {
+  &:first-child {
     margin-top: 16px;
   }
+}
+
+bierrallye-shared-ui-participant-form {
+  margin-top: 16px;
 }
 
 mat-stepper {

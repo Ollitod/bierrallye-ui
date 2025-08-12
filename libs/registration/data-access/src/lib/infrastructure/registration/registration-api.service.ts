@@ -4,7 +4,9 @@ import {
   CreateRegistration,
   Drink,
   environment,
+  Registration,
   Token,
+  UpdateRegistration,
 } from '@bierrallye/shared/data-access';
 import { Observable } from 'rxjs';
 import { StartblockWrapper } from '../../model/startblock-wrapper.model';
@@ -18,6 +20,10 @@ export class RegistrationApiService {
 
   register(team: CreateRegistration): Observable<unknown> {
     return this.#http.post(this.#ENDPOINT, team);
+  }
+
+  update(registration: UpdateRegistration) {
+    return this.#http.put<Registration>(this.#ENDPOINT, registration);
   }
 
   deregister(token: Token): Observable<unknown> {

@@ -1,12 +1,15 @@
-import { computed, inject, Injectable, model, signal } from '@angular/core';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import { OnboardingApiService } from '../../infrastructure/onboarding/onboarding-api.service';
 import { TeamOnboarding } from '../../model/team-onboarding.model';
+import { UpdateRegistration } from '@bierrallye/shared/data-access';
+import { RegistrationApiService } from '@bierrallye/registration/data-access';
 
 @Injectable({
   providedIn: 'root',
 })
 export class OnboardingStoreService {
   private onboardingApiService = inject(OnboardingApiService);
+  private registrationApiService = inject(RegistrationApiService);
 
   private readonly registrations = signal<TeamOnboarding[]>([]);
   readonly filterOnboarded = signal(false);
@@ -37,6 +40,12 @@ export class OnboardingStoreService {
 
   toggleFilterOnboarded() {
     this.filterOnboarded.set(!this.filterOnboarded());
+  }
+
+  updateRegistration(registration: UpdateRegistration) {
+    this.registrationApiService.update(registration).subscribe(() => {
+      this.loadRegistrations();
+    });
   }
 
   private applyFilterOnboarded(registration: TeamOnboarding) {

@@ -8,3 +8,4 @@ export * from './lib/dynamic-table/custom-column.directive';
 export * from './lib/expandable-dynamic-table/expandable-dynamic-table.component';
 export * from './lib/expandable-dynamic-table/expansion-content.directive';
 export * from './lib/expandable-dynamic-table/attach-to-expansion-content.directive';
+export * from './lib/participant-form/participant-form.component';
