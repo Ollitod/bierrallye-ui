@@ -37,5 +37,8 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-dialog-close mat-button>Schließen</button>
+  @if (!registration.active) {
+    <button mat-stroked-button (click)="onClickVerify()">Verifizieren</button>
+  }
   <button mat-flat-button (click)="onClickSave()">Speichern</button>
 </mat-dialog-actions>

@@ -30,6 +30,7 @@ import { MatSelect } from '@angular/material/select';
 import { MatOption } from '@angular/material/autocomplete';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RegistrationApiService } from '@bierrallye/registration/data-access';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'bierrallye-racing-feature-edit-registration-dialog',
@@ -55,6 +56,7 @@ import { RegistrationApiService } from '@bierrallye/registration/data-access';
 })
 export class EditRegistrationDialogComponent {
   private registrationApiService = inject(RegistrationApiService);
+  private toastService = inject(ToastrService);
   private dialogRef =
     inject<MatDialogRef<Registration, UpdateRegistration | undefined>>(
       MatDialogRef
@@ -80,14 +82,20 @@ export class EditRegistrationDialogComponent {
     const value = this.formGroup.getRawValue();
     this.dialogRef.close({
       ...this.registration,
+      ...value,
       participant1: {
         ...(this.formGroup.controls.participant1.getRawValue() as CreateParticipant),
       },
       participant2: {
         ...(this.formGroup.controls.participant2.getRawValue() as CreateParticipant),
       },
-      startblock: value.startblock,
     });
+  }
+
+  onClickVerify() {
+    this.registrationApiService
+      .verify(this.registration.uuid)
+      .subscribe((message) => this.toastService.success(message));
   }
 
   private patchFormValue() {
