@@ -14,8 +14,7 @@ export class TimeTrackingApiService {
   #userService = inject(UserService);
 
   checkIn(url: string): Observable<Team> {
-    console.log(window.location.origin);
-    if (url !== window.location.origin + this.#ENDPOINT) {
+    if (url !== this.#ENDPOINT + '/checkIn') {
       return throwError(() => 'QR-Code nicht gültig!');
     }
     return this.#http.post<Team>(
@@ -29,7 +28,7 @@ export class TimeTrackingApiService {
   }
 
   validatedCheckOut(url: string): Observable<Team> {
-    if (url !== window.location.origin + this.#ENDPOINT) {
+    if (url !== this.#ENDPOINT + '/checkOut') {
       return throwError(() => 'QR-Code nicht gültig!');
     }
     return this.checkOut(this.#userService.user()?.uuid);
