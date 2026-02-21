@@ -1,0 +1,44 @@
+<h1 mat-dialog-title>Registrierung bearbeiten</h1>
+<mat-dialog-content>
+  <form>
+    <h6>Teilnehmer 1</h6>
+    <bierrallye-shared-ui-participant-form
+      [formGroup]="formGroup.controls.participant1"
+      orientation="horizontal"
+    />
+
+    <mat-divider />
+
+    <h6>Teilnehmer 2</h6>
+    <bierrallye-shared-ui-participant-form
+      [formGroup]="formGroup.controls.participant2"
+      orientation="horizontal"
+    />
+
+    <mat-divider />
+
+    <h6>Team</h6>
+    <form [formGroup]="formGroup">
+      <mat-form-field>
+        <mat-label>Startblock</mat-label>
+        <mat-select formControlName="startblock" id="startblock">
+          @for (startblock of startblocks()?.startblocks; track startblock) {
+            <mat-option
+              [disabled]="startblock.availableSpots === 0"
+              [value]="startblock.id"
+            >
+              {{ startblock.name }}
+            </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </form>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-dialog-close mat-button>Schließen</button>
+  @if (!registration.active) {
+    <button mat-stroked-button (click)="onClickVerify()">Verifizieren</button>
+  }
+  <button mat-flat-button (click)="onClickSave()">Speichern</button>
+</mat-dialog-actions>

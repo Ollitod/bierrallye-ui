@@ -1,4 +1,6 @@
-<app-header />
+@if (showHeader()) {
+  <app-header />
+}
 <div class="content-container">
   <router-outlet />
 </div>

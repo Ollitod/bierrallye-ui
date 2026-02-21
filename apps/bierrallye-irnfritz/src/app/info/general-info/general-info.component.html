@@ -1,37 +1,38 @@
-<div class="header">
-  <span>Bier-Rallye Vol. 6</span>
-</div>
-<div class="grid-container">
-  <app-event-info />
-  @if (featureService.isPreEvent()) {
-    <div class="flex-column">
-      <div class="description">
-        <p>
-          Bereits zum 6. mal wagen wir uns gemeinsam mit euch auf die wohl
-          flüssigste Rennstrecke im Waldviertel und darüber hinaus! Wie schon
-          die Jahre zuvor werden die idyllischen Wälder rund um unsere
-          wunderschöne Heimat zu einem Schauplatz voller Action, Spaß und
-          unverantwortlichem Alkoholkonsum.
-        </p>
-      </div>
+<!-- Col. 2 -->
+<span class="header">Bier-Rallye Vol. 7</span>
+
+<!-- Col. 1-->
+<app-event-info />
+
+<!-- Col. 2 -->
+@if (featureService.isPreEvent()) {
+  <div class="flex-column">
+    <div class="description">
+      <p>
+        Bereits zum 7. mal wagen wir uns gemeinsam mit euch auf die wohl
+        flüssigste Rennstrecke im Waldviertel und darüber hinaus! Wie schon die
+        Jahre zuvor werden die idyllischen Wälder rund um unsere wunderschöne
+        Heimat zu einem Schauplatz voller Action, Spaß und unverantwortlichem
+        Alkoholkonsum.
+      </p>
     </div>
-  }
-  @if (featureService.isPostEvent()) {
-    <div class="flex-column">
-      <div class="header">
-        <p>This was Bierrallye Vol. 6</p>
-      </div>
-      <div class="description">
-        <p>
-          Wir bedanke uns für Eure Teilnahme und hoffen, ihr hattet genau so
-          viel Spaß wie wir!
-        </p>
-        <p>
-          Über den Button "zur Auswertung" könnt ihr das Endergebnis jederzeit
-          abrufen.
-        </p>
-        <p>Bis zum nächsten Jahr & stay tuned ;)</p>
-      </div>
+  </div>
+}
+@if (featureService.isPostEvent()) {
+  <div class="flex-column">
+    <div class="header">
+      <p>This was Bierrallye Vol. 7</p>
     </div>
-  }
-</div>
+    <div class="description">
+      <p>
+        Wir bedanke uns für Eure Teilnahme und hoffen, ihr hattet genau so viel
+        Spaß wie wir!
+      </p>
+      <p>
+        Über den Button "zur Auswertung" könnt ihr das Endergebnis jederzeit
+        abrufen.
+      </p>
+      <p>Bis zum nächsten Jahr & stay tuned ;)</p>
+    </div>
+  </div>
+}

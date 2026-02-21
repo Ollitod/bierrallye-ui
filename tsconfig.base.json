@@ -30,7 +30,8 @@
       "@bierrallye/shared/data-access": [
         "libs/shared/data-access/src/index.ts"
       ],
-      "@bierrallye/shared/styles": ["libs/shared/styles/src/index.ts"]
+      "@bierrallye/shared/styles": ["libs/shared/styles/src/index.ts"],
+      "@bierrallye/shared/ui": ["libs/shared/ui/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

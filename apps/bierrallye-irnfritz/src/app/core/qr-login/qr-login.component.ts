@@ -12,7 +12,6 @@ import { ParticipantNamesPipe } from './participant-names.pipe';
 
 @Component({
   selector: 'app-qr-login',
-  standalone: true,
   imports: [NgxKjuaComponent, ParticipantNamesPipe],
   templateUrl: './qr-login.component.html',
   styleUrls: ['./qr-login.component.scss'],

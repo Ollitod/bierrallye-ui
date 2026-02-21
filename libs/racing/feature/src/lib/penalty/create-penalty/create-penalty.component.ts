@@ -1,6 +1,7 @@
 import {
   Component,
   computed,
+  DestroyRef,
   inject,
   input,
   numberAttribute,
@@ -43,10 +44,11 @@ import {
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { RemovePenaltyDialogComponent } from '@bierrallye/racing/ui';
+import { timer } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'bierrallye-racing-feature-create-penalty',
-  standalone: true,
   imports: [
     CommonModule,
     MatCard,
@@ -77,6 +79,7 @@ export class CreatePenaltyComponent implements OnInit {
   private penaltyStoreService = inject(PenaltyStoreService);
   private router = inject(Router);
   private dialog = inject(MatDialog);
+  private destroyRef = inject(DestroyRef);
 
   stationId = input.required({ transform: numberAttribute });
   formDirective = viewChild<FormGroupDirective>('formDirective');
@@ -110,7 +113,9 @@ export class CreatePenaltyComponent implements OnInit {
   });
 
   ngOnInit() {
-    this.penaltyStoreService.loadTeams(this.stationId());
+    timer(0, 1000 * 60)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => this.penaltyStoreService.loadTeams(this.stationId()));
     this.penaltyStoreService.loadPenalties(this.stationId());
 
     this.penaltyForm.controls.stationId.patchValue(this.stationId());

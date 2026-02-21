@@ -1,11 +1,12 @@
-import { Component, inject, signal } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
 import {
-  CheckInService,
-  CheckOutService,
-  TeamService,
-} from '@bierrallye/racing/data-access';
-import { switchMap } from 'rxjs';
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  signal,
+} from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { Team, TimeTrackingApiService } from '@bierrallye/racing/data-access';
+import { BehaviorSubject, switchMap } from 'rxjs';
 import { UserService } from '@bierrallye/shared/data-access';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { ToastrService } from 'ngx-toastr';
@@ -15,7 +16,6 @@ import { MatCard, MatCardContent } from '@angular/material/card';
 
 @Component({
   selector: 'bierrallye-racing-feature-race',
-  standalone: true,
   imports: [
     MatButtonModule,
     ZXingScannerModule,
@@ -25,39 +25,42 @@ import { MatCard, MatCardContent } from '@angular/material/card';
   ],
   templateUrl: './race.component.html',
   styleUrls: ['./race.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RaceComponent {
   private userService = inject(UserService);
-  private teamService = inject(TeamService);
-  private checkInService = inject(CheckInService);
-  private checkOutService = inject(CheckOutService);
+  private timeTrackingApiService = inject(TimeTrackingApiService);
   private toastr = inject(ToastrService);
 
-  scannerOpenCheckin = false;
-  scannerOpenCheckout = false;
+  private team$ = new BehaviorSubject<Team | undefined>(undefined);
 
-  user = this.userService.user.asReadonly();
-  team = toSignal(
-    toObservable(this.user).pipe(
-      switchMap((user) => this.teamService.get(user?.uuid || ''))
-    )
-  );
+  scannerOpenCheckin = signal(false);
+  scannerOpenCheckout = signal(false);
+  team = toSignal(this.team$);
+
+  constructor() {
+    toObservable(this.userService.user)
+      .pipe(
+        switchMap((user) => this.timeTrackingApiService.team(user?.uuid || ''))
+      )
+      .subscribe((team) => this.team$.next(team));
+  }
 
   openScannerCheckin(): void {
-    this.scannerOpenCheckin = true;
+    this.scannerOpenCheckin.set(true);
   }
 
   openScannerCheckout(): void {
     if (this.team()?.startTime) {
-      this.scannerOpenCheckout = true;
+      this.scannerOpenCheckout.set(true);
     }
   }
 
   checkIn(url: string) {
-    this.scannerOpenCheckin = false;
-    this.checkInService.checkIn(url).subscribe({
+    this.scannerOpenCheckin.set(false);
+    this.timeTrackingApiService.checkIn(url).subscribe({
       next: (team) => {
-        this.team = signal(team).asReadonly();
+        this.team$.next(team);
         this.toastr.success('Lauf! Es geht um Leben und Tod', 'Eingecheckt');
       },
       error: (error) => {
@@ -67,10 +70,10 @@ export class RaceComponent {
   }
 
   checkOut(url: string) {
-    this.scannerOpenCheckout = false;
-    this.checkOutService.validatedCheckOut(url).subscribe({
+    this.scannerOpenCheckout.set(false);
+    this.timeTrackingApiService.validatedCheckOut(url).subscribe({
       next: (team) => {
-        this.team = signal(team).asReadonly();
+        this.team$.next(team);
         this.toastr.success('Glückwunsch! Ihr seid angekommen', 'Ausgecheckt');
       },
       error: (error) => {
@@ -80,7 +83,7 @@ export class RaceComponent {
   }
 
   cancelScanning(): void {
-    this.scannerOpenCheckin = false;
-    this.scannerOpenCheckout = false;
+    this.scannerOpenCheckin.set(false);
+    this.scannerOpenCheckout.set(false);
   }
 }

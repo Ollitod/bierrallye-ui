@@ -1,20 +1,19 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { DeregisterService } from '@bierrallye/registration/data-access';
 import { ToastrService } from 'ngx-toastr';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatCard, MatCardContent } from '@angular/material/card';
+import { RegistrationApiService } from '@bierrallye/registration/data-access';
 
 @Component({
   selector: 'bierrallye-registration-feature-deregister',
-  standalone: true,
   imports: [
     MatFormFieldModule,
     ReactiveFormsModule,
@@ -25,8 +24,12 @@ import { MatCard, MatCardContent } from '@angular/material/card';
   ],
   templateUrl: './deregister.component.html',
   styleUrls: ['./deregister.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DeregisterComponent {
+  private registrationApiService = inject(RegistrationApiService);
+  private toastr = inject(ToastrService);
+
   deregisterForm = new FormGroup({
     token: new FormControl('', {
       validators: [
@@ -38,13 +41,8 @@ export class DeregisterComponent {
     }),
   });
 
-  constructor(
-    private deregisterService: DeregisterService,
-    private toastr: ToastrService
-  ) {}
-
   deregister(): void {
-    this.deregisterService
+    this.registrationApiService
       .deregister(this.deregisterForm.getRawValue())
       .subscribe({
         next: () => {

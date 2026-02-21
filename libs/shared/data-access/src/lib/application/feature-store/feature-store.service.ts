@@ -1,12 +1,12 @@
 import { computed, inject, Injectable } from '@angular/core';
-import { FeatureService } from '../../infrastructure/feature/feature.service';
+import { FeatureApiService } from '../../infrastructure/feature/feature-api.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FeatureStoreService {
-  private featureService = inject(FeatureService);
+  private featureService = inject(FeatureApiService);
 
   readonly activeFeature = toSignal(this.featureService.getActive());
   readonly isPreEvent = computed(

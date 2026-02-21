@@ -1,7 +1,6 @@
 import { Registration } from '@bierrallye/shared/data-access';
 
-export type TeamOnboarding = Omit<Registration, 'startblock'> & {
-  startblock: string;
+export type TeamOnboarding = Registration & {
   hasTeam: boolean;
   boxId?: number;
 };

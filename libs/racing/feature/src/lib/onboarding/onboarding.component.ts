@@ -3,7 +3,7 @@ import {
   ColumnSpec,
   CustomColumnDirective,
   DynamicTableComponent,
-} from '@gepardec/ngx-gepardec-mat';
+} from '@bierrallye/shared/ui';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -16,9 +16,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { TeamDialogComponent } from './team-dialog/team-dialog.component';
 import {
-  CheckOutService,
   OnboardingStoreService,
   TeamOnboarding,
+  TimeTrackingApiService,
 } from '@bierrallye/racing/data-access';
 import { ToastrService } from 'ngx-toastr';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
@@ -27,10 +27,14 @@ import {
   MatButtonToggle,
   MatButtonToggleGroup,
 } from '@angular/material/button-toggle';
+import { EditRegistrationDialogComponent } from './edit-registration-dialog/edit-registration-dialog.component';
+import {
+  Registration,
+  UpdateRegistration,
+} from '@bierrallye/shared/data-access';
 
 @Component({
   selector: 'bierrallye-racing-feature-onboarding',
-  standalone: true,
   imports: [
     DynamicTableComponent,
     MatButtonModule,
@@ -98,7 +102,7 @@ export class OnboardingComponent {
 
   constructor(
     public onboardingStoreService: OnboardingStoreService,
-    private checkOutService: CheckOutService,
+    private timeTrackingApiService: TimeTrackingApiService,
     private dialog: MatDialog,
     private toastr: ToastrService
   ) {
@@ -108,12 +112,32 @@ export class OnboardingComponent {
   openTeamDialog(teamOnboarding: TeamOnboarding): void {
     this.dialog.open(TeamDialogComponent, {
       data: teamOnboarding,
-      minWidth: '50%',
+      width: '50%',
+      maxWidth: 'calc(100vw - 30%)',
     });
   }
 
+  openEditDialog(teamOnboarding: TeamOnboarding) {
+    this.dialog
+      .open<
+        EditRegistrationDialogComponent,
+        Registration,
+        UpdateRegistration | undefined
+      >(EditRegistrationDialogComponent, {
+        data: teamOnboarding,
+        width: '50%',
+        maxWidth: 'calc(100vw - 30%)',
+      })
+      .afterClosed()
+      .subscribe((registration) => {
+        if (registration) {
+          this.onboardingStoreService.updateRegistration(registration);
+        }
+      });
+  }
+
   checkOut(registration: TeamOnboarding) {
-    this.checkOutService.checkOut(registration.uuid).subscribe({
+    this.timeTrackingApiService.checkOut(registration.uuid).subscribe({
       next: () =>
         this.toastr.success('Die Zielzeit wurde gespeichert', 'Ausgecheckt'),
       error: (error) => {

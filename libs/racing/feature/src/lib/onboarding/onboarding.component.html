@@ -21,13 +21,13 @@
   />
 </mat-form-field>
 
-<gpx-dynamic-table
+<bierrallye-shared-ui-dynamic-table
   [columnSpecs]="columnSpecs"
   [columnsExcludedFromSort]="['apply']"
   [data]="registrations()"
   [pageSizeOptions]="[15, 30, 50, 100]"
 >
-  <ng-template [gpxCustomColumn]="'active'" let-registration>
+  <ng-template [bierrallyeSharedUiCustomColumn]="'active'" let-registration>
     @if (registration.active) {
       <mat-icon class="green">check_circle</mat-icon>
     } @else {
@@ -35,7 +35,7 @@
     }
   </ng-template>
 
-  <ng-template [gpxCustomColumn]="'hasTeam'" let-registration>
+  <ng-template [bierrallyeSharedUiCustomColumn]="'hasTeam'" let-registration>
     @if (registration.hasTeam) {
       <mat-icon class="green">check_circle</mat-icon>
     } @else {
@@ -43,17 +43,27 @@
     }
   </ng-template>
 
-  <ng-template [gpxCustomColumn]="'participant1'" let-registration>
+  <ng-template
+    [bierrallyeSharedUiCustomColumn]="'participant1'"
+    let-registration
+  >
     {{ registration.participant1.fullName }}:
     {{ registration.participant1.drink.name }}
   </ng-template>
 
-  <ng-template [gpxCustomColumn]="'participant2'" let-registration>
+  <ng-template
+    [bierrallyeSharedUiCustomColumn]="'participant2'"
+    let-registration
+  >
     {{ registration.participant2.fullName }}:
     {{ registration.participant2.drink.name }}
   </ng-template>
 
-  <ng-template [gpxCustomColumn]="'apply'" let-registration>
+  <ng-template bierrallyeSharedUiCustomColumn="startblock" let-registration>
+    {{ registration.startblock.name }}
+  </ng-template>
+
+  <ng-template [bierrallyeSharedUiCustomColumn]="'apply'" let-registration>
     <div class="action-container">
       <button
         (click)="openTeamDialog(registration)"
@@ -61,7 +71,14 @@
         matTooltip="Team anlegen"
         mat-icon-button
       >
-        <mat-icon>start</mat-icon>
+        <mat-icon>group_add</mat-icon>
+      </button>
+      <button
+        (click)="openEditDialog(registration)"
+        mat-icon-button
+        matTooltip="Registrierung bearbeiten"
+      >
+        <mat-icon>person_edit</mat-icon>
       </button>
       <button
         (click)="checkOut(registration)"
@@ -73,4 +90,4 @@
       </button>
     </div>
   </ng-template>
-</gpx-dynamic-table>
+</bierrallye-shared-ui-dynamic-table>

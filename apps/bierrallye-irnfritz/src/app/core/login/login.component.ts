@@ -12,7 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ToastrService } from 'ngx-toastr';
 import {
   Auth,
-  AuthService,
+  AuthApiService,
   Role,
   TokenService,
   UserService,
@@ -22,7 +22,6 @@ import { MatCard, MatCardContent } from '@angular/material/card';
 
 @Component({
   selector: 'app-login',
-  standalone: true,
   imports: [
     FormsModule,
     MatButtonModule,
@@ -42,7 +41,7 @@ export class LoginComponent {
   });
 
   constructor(
-    private authService: AuthService,
+    private authService: AuthApiService,
     private toastr: ToastrService,
     private router: Router,
     private tokenService: TokenService,

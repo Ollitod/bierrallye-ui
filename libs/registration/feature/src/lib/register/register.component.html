@@ -1,72 +1,28 @@
 <bierrallye-registration-ui-available-spots
-  [availableSpots]="availableSpots"
-  [totalSpots]="totalSpots"
+  [availableSpots]="startblocks()?.availableSpots ?? 0"
+  [totalSpots]="startblocks()?.totalSpots ?? 0"
 />
 <mat-card appearance="outlined">
   <mat-card-content>
     <mat-stepper orientation="vertical" linear>
       <mat-step label="Teilnehmer 1" [stepControl]="participantFormGroup1">
-        <form [formGroup]="participantFormGroup1">
-          <mat-form-field>
-            <mat-label>Geschlecht</mat-label>
-            <mat-select formControlName="sex">
-              @for (sex of sexes | keyvalue: keepOrder; track sex) {
-                <mat-option [value]="sex.key">{{ sex.value }}</mat-option>
-              }
-            </mat-select>
-          </mat-form-field>
-
-          <mat-form-field>
-            <mat-label>Vollständiger Name</mat-label>
-            <input formControlName="fullName" matInput />
-          </mat-form-field>
-
-          <mat-form-field>
-            <mat-label>Getränk</mat-label>
-            <mat-select formControlName="drink">
-              @for (drink of drinks; track drink) {
-                <mat-option [value]="drink.id">{{ drink.name }}</mat-option>
-              }
-            </mat-select>
-          </mat-form-field>
-
-          <div>
-            <button mat-button matStepperPrevious>Zurück</button>
-            <button mat-button matStepperNext>Weiter</button>
-          </div>
-        </form>
+        <bierrallye-shared-ui-participant-form
+          [formGroup]="participantFormGroup1"
+        />
+        <div>
+          <button mat-button matStepperPrevious>Zurück</button>
+          <button mat-button matStepperNext>Weiter</button>
+        </div>
       </mat-step>
 
       <mat-step label="Teilnehmer 2" [stepControl]="participantFormGroup2">
-        <form [formGroup]="participantFormGroup2">
-          <mat-form-field>
-            <mat-label>Geschlecht</mat-label>
-            <mat-select formControlName="sex">
-              @for (sex of sexes | keyvalue: keepOrder; track sex) {
-                <mat-option [value]="sex.key">{{ sex.value }}</mat-option>
-              }
-            </mat-select>
-          </mat-form-field>
-
-          <mat-form-field>
-            <mat-label>Vollständiger Name</mat-label>
-            <input formControlName="fullName" matInput />
-          </mat-form-field>
-
-          <mat-form-field>
-            <mat-label>Getränk</mat-label>
-            <mat-select formControlName="drink">
-              @for (drink of drinks; track drink) {
-                <mat-option [value]="drink.id">{{ drink.name }}</mat-option>
-              }
-            </mat-select>
-          </mat-form-field>
-
-          <div>
-            <button mat-button matStepperPrevious>Zurück</button>
-            <button mat-button matStepperNext>Weiter</button>
-          </div>
-        </form>
+        <bierrallye-shared-ui-participant-form
+          [formGroup]="participantFormGroup2"
+        />
+        <div>
+          <button mat-button matStepperPrevious>Zurück</button>
+          <button mat-button matStepperNext>Weiter</button>
+        </div>
       </mat-step>
 
       <mat-step label="Team" [stepControl]="teamFormGroup">
@@ -74,7 +30,10 @@
           <mat-form-field>
             <mat-label>Startblock</mat-label>
             <mat-select formControlName="startblock" id="startblock">
-              @for (startblock of startblocks; track startblock) {
+              @for (
+                startblock of startblocks()?.startblocks;
+                track startblock
+              ) {
                 <mat-option
                   [disabled]="startblock.availableSpots === 0"
                   [value]="startblock.id"
@@ -124,7 +83,7 @@
       </mat-step>
     </mat-stepper>
 
-    <p>Ihr möchtest eure Teilnahme stornieren?</p>
+    <p>Ihr möchtet eure Teilnahme stornieren?</p>
     <button mat-flat-button class="secondary-button" routerLink="../deregister">
       Hier gehts zur Abmeldung
     </button>

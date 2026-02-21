@@ -1,7 +1,5 @@
-@import "../../../../libs/shared/styles/src/lib/appearance";
-
 :host {
-  --mdc-outlined-card-container-color: var(--app-container);
+  --mdc-outlined-card-container-color: var(--br-container-color);
 }
 
 mat-card-content {
@@ -11,7 +9,7 @@ mat-card-content {
   justify-content: center;
   align-items: center;
   gap: 1.5rem;
-  color: var(--app-secondary);
+  color: var(--br-background-lighter-color);
 }
 
 @media only screen and (max-width: 1170px) {

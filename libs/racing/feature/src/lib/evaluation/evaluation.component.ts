@@ -1,7 +1,7 @@
 import { Component, computed, inject } from '@angular/core';
 import {
   Evaluation,
-  EvaluationService,
+  EvaluationApiService,
   StationEvaluation,
 } from '@bierrallye/racing/data-access';
 import {
@@ -10,7 +10,7 @@ import {
   DynamicTableComponent,
   ExpandableDynamicTableComponent,
   ExpansionContentDirective,
-} from '@gepardec/ngx-gepardec-mat';
+} from '@bierrallye/shared/ui';
 import { MatCardModule } from '@angular/material/card';
 import { MatButton } from '@angular/material/button';
 import { Role, UserService } from '@bierrallye/shared/data-access';
@@ -20,7 +20,6 @@ import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'bierrallye-racing-feature-evaluation',
-  standalone: true,
   imports: [
     ExpandableDynamicTableComponent,
     MatCardModule,
@@ -83,7 +82,7 @@ export class EvaluationComponent {
 
   isAdmin = computed(() => this.userService.user()?.role === Role.ADMIN);
 
-  constructor(private evaluationService: EvaluationService) {
+  constructor(private evaluationService: EvaluationApiService) {
     this.evaluationService
       .getEvaluations()
       .subscribe((evaluations) => (this.evaluations = evaluations));

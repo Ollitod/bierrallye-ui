@@ -1,5 +1,3 @@
-@import "../../../../libs/shared/styles/src/lib/appearance";
-
 :host {
   width: 100%;
   display: grid;
@@ -9,7 +7,7 @@
   padding-right: 16px;
   overflow: clip;
 
-  --mdc-outlined-card-container-color: var(--app-secondary);
+  --mdc-outlined-card-container-color: var(--br-background-lighter-color);
 }
 
 bierrallye-registration-ui-available-spots {
@@ -21,9 +19,13 @@ form {
   display: flex;
   flex-direction: column;
 
-  .mat-mdc-form-field:first-child {
+  &:first-child {
     margin-top: 16px;
   }
+}
+
+bierrallye-shared-ui-participant-form {
+  margin-top: 16px;
 }
 
 mat-stepper {

@@ -6,7 +6,6 @@ import { MatCard, MatCardContent } from '@angular/material/card';
 
 @Component({
   selector: 'app-event-info',
-  standalone: true,
   imports: [RouterLink, MatButtonModule, MatCard, MatCardContent],
   templateUrl: './event-info.component.html',
   styleUrls: ['./event-info.component.scss'],

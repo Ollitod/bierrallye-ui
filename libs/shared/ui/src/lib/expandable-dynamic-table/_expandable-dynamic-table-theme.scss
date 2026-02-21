@@ -1,0 +1,12 @@
+@use '@angular/material' as mat;
+
+@mixin theme($theme) {
+  $is-dark: mat.get-theme-type($theme) == dark;
+  $alternate-row-color: if($is-dark, #6a6a6a, #dedede);
+  $hover-row-color: if($is-dark, #525252, whitesmoke);
+
+  html {
+    --br-expandable-dynamic-table-alternate-row-color: #{$alternate-row-color};
+    --br-expandable-dynamic-table-hover-row-color: #{$hover-row-color};
+  }
+}

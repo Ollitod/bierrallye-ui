@@ -11,7 +11,6 @@ import { MatButton } from '@angular/material/button';
 
 @Component({
   selector: 'bierrallye-racing-ui-remove-penalty-dialog',
-  standalone: true,
   imports: [
     CommonModule,
     MatDialogTitle,

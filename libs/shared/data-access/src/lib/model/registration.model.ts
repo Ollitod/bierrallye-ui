@@ -21,6 +21,15 @@ export interface CreateRegistration {
   dsgvoApproved: boolean;
 }
 
+export type UpdateRegistration = Omit<
+  Registration,
+  'participant1' | 'participant2' | 'startblock'
+> & {
+  participant1: CreateParticipant;
+  participant2: CreateParticipant;
+  startblock: number | null;
+};
+
 export type RegistrationFormTeamGroup = Pick<
   CreateRegistration,
   'startblock' | 'email' | 'dsgvoApproved'

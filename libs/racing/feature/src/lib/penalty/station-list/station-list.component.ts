@@ -7,7 +7,6 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'bierrallye-racing-feature-station-list',
-  standalone: true,
   imports: [CommonModule, MatActionList, MatCard, MatCardContent, MatListItem],
   templateUrl: './station-list.component.html',
   styleUrl: './station-list.component.scss',

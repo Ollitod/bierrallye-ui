@@ -1,7 +1,6 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
-import { Station } from '../../model/station.model';
 import { Team } from '../../model/team.model';
-import { PenaltyService } from '../../infrastructure/penalty/penalty.service';
+import { PenaltyApiService } from '../../infrastructure/penalty/penalty-api.service';
 import { lastValueFrom, map } from 'rxjs';
 import { CreatePenalty, Penalty } from '../../model/penalty.model';
 import { ToastrService } from 'ngx-toastr';
@@ -11,7 +10,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
   providedIn: 'root',
 })
 export class PenaltyStoreService {
-  private penaltyService = inject(PenaltyService);
+  private penaltyService = inject(PenaltyApiService);
   private toastr = inject(ToastrService);
 
   readonly stations = toSignal(this.penaltyService.getStations(), {

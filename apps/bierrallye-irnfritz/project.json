@@ -22,11 +22,14 @@
         ],
         "styles": [
           "apps/bierrallye-irnfritz/src/styles.scss",
-          "material-symbols/outlined.scss",
           "node_modules/ngx-toastr/toastr.css"
         ],
         "stylePreprocessorOptions": {
-          "includePaths": ["apps/bierrallye-irnfritz/src/styles"]
+          "includePaths": [
+            "apps/bierrallye-irnfritz/src/styles",
+            "libs/shared/styles/src/lib",
+            "libs/shared/ui/src/lib"
+          ]
         },
         "scripts": []
       },
@@ -49,13 +52,22 @@
         "development": {
           "optimization": false,
           "extractLicenses": false,
-          "sourceMap": true
+          "sourceMap": true,
+          "fileReplacements": [
+            {
+              "replace": "libs/shared/data-access/src/environments/environment.ts",
+              "with": "libs/shared/data-access/src/environments/environment.development.ts"
+            }
+          ]
         }
       },
       "defaultConfiguration": "production"
     },
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "proxyConfig": "apps/bierrallye-irnfritz/proxy.conf.json"
+      },
       "configurations": {
         "production": {
           "buildTarget": "bierrallye-irnfritz:build:production"
@@ -64,7 +76,8 @@
           "buildTarget": "bierrallye-irnfritz:build:development"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "continuous": true
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",

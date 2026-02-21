@@ -10,7 +10,6 @@ import { TeamMinimal } from '@bierrallye/racing/data-access';
 
 @Component({
   selector: 'bierrallye-racing-ui-team-card',
-  standalone: true,
   imports: [
     CommonModule,
     MatCard,
